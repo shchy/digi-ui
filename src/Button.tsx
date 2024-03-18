@@ -15,8 +15,8 @@ export const Button: FC<{
 }> = (props) => {
   return (
     <Root
-      $type={props.type}
-      $size={props.size}
+      $type={props.type ?? 'Primary'}
+      $size={props.size ?? 'Medium'}
       disabled={props.disabled}
       tabIndex={0}
       onClick={props.onClick}
