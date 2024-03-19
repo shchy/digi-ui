@@ -597,7 +597,7 @@ export const useTypography = (type: textType, color?: colorType) => {
     line-height: ${props.lineHeight};
     letter-spacing: ${props.letterSpacing};
     &:disabled {
-      color: ${getColor('neutral-opacity-grey-420')};
+      color: ${getColor('neutral-opacity-grey-420')} !important;
     }
   `;
 };
