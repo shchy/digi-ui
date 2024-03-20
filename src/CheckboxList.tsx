@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { Fieldset, Text, Checkbox } from '.';
 
@@ -14,7 +14,7 @@ type Props<T> = {
   onChange: (items: Array<T>) => void;
   required?: boolean;
   supportText?: string;
-  errorText?: string;
+  errorText?: string | string[];
   disabled?: boolean;
   width?: string;
 };
@@ -23,6 +23,14 @@ export const CheckboxList = <T,>(props: Props<T>) => {
   const [state, setState] = useState<CheckboxListState>({
     hasError: false,
   });
+  const errors = useMemo(() => {
+    if (!props.errorText) return;
+    if (Array.isArray(props.errorText)) {
+      if (props.errorText.length == 0) return;
+      return props.errorText;
+    }
+    return [props.errorText];
+  }, [props.errorText]);
   const [selectableItems, setSelectableItems] = useState<
     {
       isSelected: boolean;
@@ -32,7 +40,7 @@ export const CheckboxList = <T,>(props: Props<T>) => {
 
   useEffect(() => {
     setState({
-      hasError: !!props.errorText,
+      hasError: !!errors,
     });
     setSelectableItems(
       props.list.map((x) => {
@@ -43,7 +51,7 @@ export const CheckboxList = <T,>(props: Props<T>) => {
         return item;
       })
     );
-  }, [props.errorText, props.list, props.selectedItems]);
+  }, [errors, props.list, props.selectedItems]);
 
   return (
     <Root disabled={props.disabled} $width={props.width}>
@@ -80,11 +88,13 @@ export const CheckboxList = <T,>(props: Props<T>) => {
         />
       ))}
 
-      {props.errorText && !props.disabled && (
-        <Text $type="Caption/L" $color="semantic-error-1">
-          {props.errorText}
-        </Text>
-      )}
+      {errors &&
+        !props.disabled &&
+        errors.map((x) => (
+          <Text $type="Caption/L" $color="semantic-error-1" $block>
+            {x}
+          </Text>
+        ))}
     </Root>
   );
 };

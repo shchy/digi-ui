@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -16,7 +16,7 @@ type Props<T> = {
   onChange: (item: T) => void;
   required?: boolean;
   supportText?: string;
-  errorText?: string;
+  errorText?: string | string[];
   disabled?: boolean;
   width?: string;
 };
@@ -25,12 +25,20 @@ export const Selector = <T,>(props: Props<T>) => {
   const [state, setState] = useState<SelectorState>({
     hasError: false,
   });
+  const errors = useMemo(() => {
+    if (!props.errorText) return;
+    if (Array.isArray(props.errorText)) {
+      if (props.errorText.length == 0) return;
+      return props.errorText;
+    }
+    return [props.errorText];
+  }, [props.errorText]);
 
   useEffect(() => {
     setState({
-      hasError: !!props.errorText,
+      hasError: !!errors,
     });
-  }, [props.errorText]);
+  }, [errors]);
 
   return (
     <Root disabled={props.disabled} $width={props.width}>
@@ -71,11 +79,13 @@ export const Selector = <T,>(props: Props<T>) => {
           <ArrowDown />
         </SelectIcon>
       </SelectFrame>
-      {props.errorText && !props.disabled && (
-        <Text $type="Caption/L" $color="semantic-error-1">
-          {props.errorText}
-        </Text>
-      )}
+      {errors &&
+        !props.disabled &&
+        errors.map((x) => (
+          <Text $type="Caption/L" $color="semantic-error-1" $block>
+            {x}
+          </Text>
+        ))}
     </Root>
   );
 };
