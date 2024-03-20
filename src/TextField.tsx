@@ -9,8 +9,8 @@ type TextFieldState = {
 
 export const TextField: FC<{
   label: string;
-  value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   required?: boolean;
   supportText?: string;
   errorText?: string | string[];

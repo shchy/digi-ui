@@ -9,8 +9,8 @@ type TextAreaState = {
 
 export const TextArea: FC<{
   label: string;
-  value: string;
-  onChange: ChangeEventHandler<HTMLTextAreaElement>;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
   required?: boolean;
   supportText?: string;
   errorText?: string | string[];
@@ -35,7 +35,7 @@ export const TextArea: FC<{
     setState({
       hasError: !!errors,
     });
-    setCount(props.value.length);
+    setCount(props.value?.length ?? 0);
   }, [errors, props.value]);
 
   return (
