@@ -72,7 +72,7 @@ export const TextField: FC<{
         $state={state}
         onChange={props.onChange}
         onBlur={props.onBlur}
-        ref={}
+        ref={props.ref}
         name={props.name}
         min={props.min}
         max={props.max}
