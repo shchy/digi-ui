@@ -23,6 +23,7 @@ export const TextArea: FC<{
   });
   const [count, setCount] = useState(0);
   const errors = useMemo(() => {
+    if (!props.errorText) return;
     if (Array.isArray(props.errorText)) {
       return props.errorText;
     }

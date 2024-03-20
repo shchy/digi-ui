@@ -21,6 +21,7 @@ export const TextField: FC<{
     hasError: false,
   });
   const errors = useMemo(() => {
+    if (!props.errorText) return;
     if (Array.isArray(props.errorText)) {
       return props.errorText;
     }
