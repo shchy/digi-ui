@@ -59,7 +59,7 @@ export const TextField: FC<{
       {errors &&
         !props.disabled &&
         errors.map((x) => (
-          <Text $type="Caption/L" $color="semantic-error-1">
+          <Text $type="Caption/L" $color="semantic-error-1" $block>
             {x}
           </Text>
         ))}
