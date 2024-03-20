@@ -8,4 +8,5 @@ export const Text = styled.label<{
 }>`
   ${(props) => useTypography(props.$type ?? 'Body/L', props.$color)}
   display: ${(props) => (props.$block ? 'block' : 'inline')};
+  pointer-events: none;
 `;
