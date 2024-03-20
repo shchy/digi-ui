@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useEffect, useState, FC } from 'react';
+import { ChangeEventHandler, useEffect, useState, FC, useMemo } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -13,19 +13,25 @@ export const TextField: FC<{
   onChange: ChangeEventHandler<HTMLInputElement>;
   required?: boolean;
   supportText?: string;
-  errorText?: string;
+  errorText?: string | string[];
   disabled?: boolean;
   width?: string;
 }> = (props) => {
   const [state, setState] = useState<TextFieldState>({
     hasError: false,
   });
+  const errors = useMemo(() => {
+    if (Array.isArray(props.errorText)) {
+      return props.errorText;
+    }
+    return [props.errorText];
+  }, [props.errorText]);
 
   useEffect(() => {
     setState({
-      hasError: !!props.errorText,
+      hasError: !!errors,
     });
-  }, [props.errorText]);
+  }, [errors]);
 
   return (
     <Root disabled={props.disabled} $width={props.width}>
@@ -48,11 +54,13 @@ export const TextField: FC<{
         $state={state}
         onChange={props.onChange}
       />
-      {props.errorText && !props.disabled && (
-        <Text $type="Caption/L" $color="semantic-error-1">
-          {props.errorText}
-        </Text>
-      )}
+      {errors &&
+        !props.disabled &&
+        errors.map((x) => (
+          <Text $type="Caption/L" $color="semantic-error-1">
+            {x}
+          </Text>
+        ))}
     </Root>
   );
 };

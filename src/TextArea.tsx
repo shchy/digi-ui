@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useEffect, useState, FC } from 'react';
+import { ChangeEventHandler, useEffect, useState, FC, useMemo } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -13,7 +13,7 @@ export const TextArea: FC<{
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
   required?: boolean;
   supportText?: string;
-  errorText?: string;
+  errorText?: string | string[];
   disabled?: boolean;
   maxLength?: number;
   width?: string;
@@ -22,13 +22,19 @@ export const TextArea: FC<{
     hasError: false,
   });
   const [count, setCount] = useState(0);
+  const errors = useMemo(() => {
+    if (Array.isArray(props.errorText)) {
+      return props.errorText;
+    }
+    return [props.errorText];
+  }, [props.errorText]);
 
   useEffect(() => {
     setState({
-      hasError: !!props.errorText,
+      hasError: !!errors,
     });
     setCount(props.value.length);
-  }, [props.errorText, props.value]);
+  }, [errors, props.value]);
 
   return (
     <Root disabled={props.disabled} $width={props.width}>
@@ -54,19 +60,18 @@ export const TextArea: FC<{
 
       <LeftRight>
         <StartCell>
-          {props.errorText && (
-            <Text $type="Caption/L" $color="semantic-error-1">
-              {props.errorText}
-            </Text>
-          )}
+          {errors &&
+            errors.map((x) => (
+              <Text $type="Caption/L" $color="semantic-error-1">
+                {x}
+              </Text>
+            ))}
         </StartCell>
         <EndCell>
           {props.maxLength && (
             <Text
               $type="Caption/M"
-              $color={
-                props.errorText ? 'semantic-error-1' : 'neutral-solid-grey-420'
-              }
+              $color={errors ? 'semantic-error-1' : 'neutral-solid-grey-420'}
             >
               {count}/{props.maxLength}
             </Text>
