@@ -8,10 +8,11 @@ type buttonSize = 'Large' | 'Medium' | 'Small' | 'X-Small';
 
 export const Button: FC<{
   label: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: buttonType;
   size?: buttonSize;
   disabled?: boolean;
+  buttonType?: 'button' | 'submit' | 'reset';
 }> = (props) => {
   return (
     <Root
@@ -20,6 +21,7 @@ export const Button: FC<{
       disabled={props.disabled}
       tabIndex={0}
       onClick={props.onClick}
+      type={props.buttonType ?? 'button'}
     >
       <Text $type="Button">{props.label}</Text>
     </Root>

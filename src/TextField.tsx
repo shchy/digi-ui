@@ -1,4 +1,12 @@
-import { ChangeEventHandler, useEffect, useState, FC, useMemo } from 'react';
+import {
+  ChangeEventHandler,
+  useEffect,
+  useState,
+  FC,
+  useMemo,
+  FocusEventHandler,
+  LegacyRef,
+} from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -11,11 +19,19 @@ export const TextField: FC<{
   label: string;
   value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   required?: boolean;
   supportText?: string;
   errorText?: string | string[];
   disabled?: boolean;
   width?: string;
+  ref?: LegacyRef<HTMLInputElement>;
+  name?: string;
+  min?: string | number;
+  max?: string | number;
+  maxLength?: number;
+  minLength?: number;
+  pattern?: string;
 }> = (props) => {
   const [state, setState] = useState<TextFieldState>({
     hasError: false,
@@ -55,6 +71,14 @@ export const TextField: FC<{
         value={props.value}
         $state={state}
         onChange={props.onChange}
+        onBlur={props.onBlur}
+        ref={}
+        name={props.name}
+        min={props.min}
+        max={props.max}
+        minLength={props.minLength}
+        maxLength={props.maxLength}
+        pattern={props.pattern}
       />
       {errors &&
         !props.disabled &&
