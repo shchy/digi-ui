@@ -16,12 +16,12 @@ export const Button: FC<{
 }> = (props) => {
   return (
     <Root
+      type={props.buttonType ?? 'button'}
+      onClick={props.onClick}
       $type={props.type ?? 'Primary'}
       $size={props.size ?? 'Medium'}
       disabled={props.disabled}
-      tabIndex={0}
-      onClick={props.onClick}
-      type={props.buttonType ?? 'button'}
+      // tabIndex={0}
     >
       <Text $type="Button">{props.label}</Text>
     </Root>
