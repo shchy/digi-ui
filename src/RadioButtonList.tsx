@@ -82,8 +82,8 @@ export const RadioButtonList = <T,>(props: Props<T>) => {
 
       {errors &&
         !props.disabled &&
-        errors.map((x) => (
-          <Text $type="Caption/L" $color="semantic-error-1" $block>
+        errors.map((x, i) => (
+          <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
             {x}
           </Text>
         ))}
