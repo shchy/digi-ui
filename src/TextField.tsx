@@ -5,7 +5,7 @@ import {
   FC,
   useMemo,
   FocusEventHandler,
-  LegacyRef,
+  forwardRef,
 } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
@@ -15,24 +15,26 @@ type TextFieldState = {
   hasError: boolean;
 };
 
-export const TextField: FC<{
-  label: string;
-  value?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
-  required?: boolean;
-  supportText?: string;
-  errorText?: string | string[];
-  disabled?: boolean;
-  width?: string;
-  ref?: LegacyRef<HTMLInputElement>;
-  name?: string;
-  min?: string | number;
-  max?: string | number;
-  maxLength?: number;
-  minLength?: number;
-  pattern?: string;
-}> = (props) => {
+export const TextField = forwardRef<
+  HTMLInputElement,
+  {
+    label: string;
+    value?: string;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onBlur?: FocusEventHandler<HTMLInputElement>;
+    required?: boolean;
+    supportText?: string;
+    errorText?: string | string[];
+    disabled?: boolean;
+    width?: string;
+    name?: string;
+    min?: string | number;
+    max?: string | number;
+    maxLength?: number;
+    minLength?: number;
+    pattern?: string;
+  }
+>((props, ref) => {
   const [state, setState] = useState<TextFieldState>({
     hasError: false,
   });
@@ -68,17 +70,19 @@ export const TextField: FC<{
       )}
       <TextInput
         type="text"
-        value={props.value}
-        $state={state}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-        ref={props.ref}
+        ref={ref}
         name={props.name}
+        required={props.required}
+        disabled={props.disabled}
+        value={props.value}
         min={props.min}
         max={props.max}
         minLength={props.minLength}
         maxLength={props.maxLength}
         pattern={props.pattern}
+        $state={state}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
       />
       {errors &&
         !props.disabled &&
@@ -89,7 +93,7 @@ export const TextField: FC<{
         ))}
     </Root>
   );
-};
+});
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   display: flex;
