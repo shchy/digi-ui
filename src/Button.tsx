@@ -21,9 +21,8 @@ export const Button: FC<{
       $type={props.type ?? 'Primary'}
       $size={props.size ?? 'Medium'}
       disabled={props.disabled}
-      // tabIndex={0}
     >
-      <Text $type="Button">{props.label}</Text>
+      <ButtonLabel $type="Button">{props.label}</ButtonLabel>
     </Root>
   );
 };
@@ -199,4 +198,8 @@ const Root = styled.button<{
       }
     }};
   }
+`;
+
+const ButtonLabel = styled(Text)`
+  pointer-events: none;
 `;
