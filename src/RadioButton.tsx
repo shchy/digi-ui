@@ -42,19 +42,37 @@ export const RadioButton = forwardRef<
   const innerRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     ref = innerRef;
-    console.log('useEffect', props.checked, innerRef.current);
-    if (props.checked === undefined && innerRef.current) {
-      console.log('innerRef.current?.checked', innerRef.current.checked);
-      console.log('checked', checked);
-      if (innerRef.current.checked != checked) {
-        setChecked(innerRef.current?.checked ?? false);
-        console.log('fire', checked);
-        props.onChange &&
-          props.onChange({
-            target: innerRef.current,
-          } as React.ChangeEvent<HTMLInputElement>);
-      }
-    }
+
+    const nativeChecked = Object.getOwnPropertyDescriptor(
+      HTMLInputElement.prototype,
+      'checked'
+    );
+    Object.defineProperty(HTMLInputElement.prototype, 'checked', {
+      set: (v: any) => {
+        console.log('set checked', v);
+        nativeChecked?.set?.call(innerRef.current, v);
+        setChecked(v);
+        // props.onChange &&
+        //   props.onChange({
+        //     target: innerRef.current,
+        //   } as React.ChangeEvent<HTMLInputElement>);
+      },
+    });
+
+    // innerRef.current?.checked;
+    // console.log('useEffect', props.checked, innerRef.current);
+    // if (props.checked === undefined && innerRef.current) {
+    //   console.log('innerRef.current?.checked', innerRef.current.checked);
+    //   console.log('checked', checked);
+    //   if (innerRef.current.checked != checked) {
+    //     setChecked(innerRef.current?.checked ?? false);
+    //     console.log('fire', checked);
+    //     props.onChange &&
+    //       props.onChange({
+    //         target: innerRef.current,
+    //       } as React.ChangeEvent<HTMLInputElement>);
+    //   }
+    // }
   }, [innerRef]);
 
   return (
