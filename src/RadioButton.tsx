@@ -1,12 +1,8 @@
 import {
   useId,
-  FC,
   forwardRef,
   ChangeEventHandler,
   FocusEventHandler,
-  useState,
-  useEffect,
-  useRef,
 } from 'react';
 import { styled, css } from 'styled-components';
 import { colorType, getColor } from './styles';
@@ -38,64 +34,6 @@ export const RadioButton = forwardRef<
   }
 >((props, ref) => {
   const id = useId();
-  // const [checked, setChecked] = useState(props.checked ?? false);
-  // const innerRef = useRef<HTMLInputElement>(null);
-  // const wait = (ms: number) =>
-  //   new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
-  // useEffect(() => {
-  //   ref = innerRef;
-  //   console.log('useEffect', innerRef.current);
-  //   wait(1000).then(() => {
-  //     console.log('after', props.checked, innerRef.current);
-  //     if (props.checked === undefined && innerRef.current) {
-  //       if (innerRef.current.checked != checked) {
-  //         setChecked(innerRef.current?.checked ?? false);
-  //         console.log('fire', checked);
-  //         props.onChange &&
-  //           props.onChange({
-  //             target: innerRef.current,
-  //           } as React.ChangeEvent<HTMLInputElement>);
-  //       }
-  //     }
-  //   });
-
-  //   // const nativeChecked = Object.getOwnPropertyDescriptor(
-  //   //   HTMLInputElement.prototype,
-  //   //   'checked'
-  //   // );
-  //   // if (nativeChecked) {
-  //   //   console.log('nativeChecked', nativeChecked);
-  //   //   const original = nativeChecked.set;
-
-  //   //   nativeChecked.set = function (v: any): void {
-  //   //     console.log('set checked', v);
-  //   //     original?.call(innerRef.current, v);
-  //   //     setChecked(v);
-  //   //     // props.onChange &&
-  //   //     //   props.onChange({
-  //   //     //     target: innerRef.current,
-  //   //     //   } as React.ChangeEvent<HTMLInputElement>);
-  //   //   };
-  //   //   console.log('nativeChecked.set', nativeChecked.set);
-  //   //   Object.defineProperty(innerRef.current, 'checked', nativeChecked);
-  //   //   console.log('override', innerRef.current);
-  //   // }
-
-  //   // innerRef.current?.checked;
-  //   // console.log('useEffect', props.checked, innerRef.current);
-  //   // if (props.checked === undefined && innerRef.current) {
-  //   //   console.log('innerRef.current?.checked', innerRef.current.checked);
-  //   //   console.log('checked', checked);
-  //   //   if (innerRef.current.checked != checked) {
-  //   //     setChecked(innerRef.current?.checked ?? false);
-  //   //     console.log('fire', checked);
-  //   //     props.onChange &&
-  //   //       props.onChange({
-  //   //         target: innerRef.current,
-  //   //       } as React.ChangeEvent<HTMLInputElement>);
-  //   //   }
-  //   // }
-  // }, [innerRef]);
 
   return (
     <Root disabled={props.disabled} $width={props.width}>
