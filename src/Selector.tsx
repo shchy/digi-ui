@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState, forwardRef } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+  forwardRef,
+  ChangeEventHandler,
+  FocusEventHandler,
+} from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -9,16 +16,21 @@ type SelectorState = {
 };
 type Props<T> = {
   label: string;
+  selectedItem?: T;
   list: Array<T>;
-  selectKey: (v: T) => string;
-  selectDisplay?: (v: T) => string;
-  selectedItem: T;
-  onChange: (item: T) => void;
-  required?: boolean;
   supportText?: string;
   errorText?: string | string[];
-  disabled?: boolean;
   width?: string;
+
+  selectKey: (v: T) => string;
+  selectDisplay?: (v: T) => string;
+
+  required?: boolean;
+  disabled?: boolean;
+  name?: string;
+
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
+  onBlur?: FocusEventHandler<HTMLSelectElement>;
 };
 
 export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
@@ -59,15 +71,13 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
         <SelectFrame>
           <Select
             ref={ref}
+            name={props.name}
+            required={props.required}
+            disabled={props.disabled}
             value={props.selectedItem && props.selectKey(props.selectedItem)}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
             $state={state}
-            onChange={(e) => {
-              const findOne = props.list.find(
-                (x) => props.selectKey(x) === e.target.value
-              );
-              if (!findOne) return;
-              props.onChange(findOne);
-            }}
           >
             {props.list.map((x) => (
               <option key={props.selectKey(x)} value={props.selectKey(x)}>
