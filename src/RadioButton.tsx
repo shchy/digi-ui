@@ -42,12 +42,14 @@ export const RadioButton = forwardRef<
   const innerRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     ref = innerRef;
-
+    console.log('useEffect', innerRef.current);
     const nativeChecked = Object.getOwnPropertyDescriptor(
       HTMLInputElement.prototype,
       'checked'
     );
     if (nativeChecked) {
+      console.log('nativeChecked', nativeChecked);
+
       nativeChecked.set = (v: any) => {
         console.log('set checked', v);
         nativeChecked?.set?.call(innerRef.current, v);
@@ -57,7 +59,9 @@ export const RadioButton = forwardRef<
         //     target: innerRef.current,
         //   } as React.ChangeEvent<HTMLInputElement>);
       };
+      console.log('nativeChecked.set', nativeChecked.set);
       Object.defineProperty(innerRef.current, 'checked', nativeChecked);
+      console.log('override', innerRef.current);
     }
 
     // innerRef.current?.checked;
