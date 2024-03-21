@@ -40,30 +40,46 @@ export const RadioButton = forwardRef<
   const id = useId();
   const [checked, setChecked] = useState(props.checked ?? false);
   const innerRef = useRef<HTMLInputElement>(null);
+  const wait = (ms: number) =>
+    new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
   useEffect(() => {
     ref = innerRef;
     console.log('useEffect', innerRef.current);
-    const nativeChecked = Object.getOwnPropertyDescriptor(
-      HTMLInputElement.prototype,
-      'checked'
-    );
-    if (nativeChecked) {
-      console.log('nativeChecked', nativeChecked);
-      const original = nativeChecked.set;
+    wait(1000).then(() => {
+      console.log('after', props.checked, innerRef.current);
+      if (props.checked === undefined && innerRef.current) {
+        if (innerRef.current.checked != checked) {
+          setChecked(innerRef.current?.checked ?? false);
+          console.log('fire', checked);
+          props.onChange &&
+            props.onChange({
+              target: innerRef.current,
+            } as React.ChangeEvent<HTMLInputElement>);
+        }
+      }
+    });
 
-      nativeChecked.set = function (v: any): void {
-        console.log('set checked', v);
-        original?.call(innerRef.current, v);
-        setChecked(v);
-        // props.onChange &&
-        //   props.onChange({
-        //     target: innerRef.current,
-        //   } as React.ChangeEvent<HTMLInputElement>);
-      };
-      console.log('nativeChecked.set', nativeChecked.set);
-      Object.defineProperty(innerRef.current, 'checked', nativeChecked);
-      console.log('override', innerRef.current);
-    }
+    // const nativeChecked = Object.getOwnPropertyDescriptor(
+    //   HTMLInputElement.prototype,
+    //   'checked'
+    // );
+    // if (nativeChecked) {
+    //   console.log('nativeChecked', nativeChecked);
+    //   const original = nativeChecked.set;
+
+    //   nativeChecked.set = function (v: any): void {
+    //     console.log('set checked', v);
+    //     original?.call(innerRef.current, v);
+    //     setChecked(v);
+    //     // props.onChange &&
+    //     //   props.onChange({
+    //     //     target: innerRef.current,
+    //     //   } as React.ChangeEvent<HTMLInputElement>);
+    //   };
+    //   console.log('nativeChecked.set', nativeChecked.set);
+    //   Object.defineProperty(innerRef.current, 'checked', nativeChecked);
+    //   console.log('override', innerRef.current);
+    // }
 
     // innerRef.current?.checked;
     // console.log('useEffect', props.checked, innerRef.current);
