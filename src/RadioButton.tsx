@@ -42,8 +42,18 @@ export const RadioButton = forwardRef<
   const innerRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     ref = innerRef;
-    if (props.checked === undefined) {
-      setChecked(innerRef.current?.checked ?? false);
+    console.log('useEffect', props.checked, innerRef.current);
+    if (props.checked === undefined && innerRef.current) {
+      console.log('innerRef.current?.checked', innerRef.current.checked);
+      console.log('checked', checked);
+      if (innerRef.current.checked != checked) {
+        setChecked(innerRef.current?.checked ?? false);
+        console.log('fire', checked);
+        props.onChange &&
+          props.onChange({
+            target: innerRef.current,
+          } as React.ChangeEvent<HTMLInputElement>);
+      }
     }
   }, [innerRef]);
 
