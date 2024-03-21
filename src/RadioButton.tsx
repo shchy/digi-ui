@@ -5,6 +5,8 @@ import {
   ChangeEventHandler,
   FocusEventHandler,
   useState,
+  useEffect,
+  useRef,
 } from 'react';
 import { styled, css } from 'styled-components';
 import { colorType, getColor } from './styles';
@@ -36,6 +38,14 @@ export const RadioButton = forwardRef<
   }
 >((props, ref) => {
   const id = useId();
+  const [checked, setChecked] = useState(props.checked ?? false);
+  const innerRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    ref = innerRef;
+    if (props.checked === undefined) {
+      setChecked(innerRef.current?.checked ?? false);
+    }
+  }, [innerRef]);
 
   return (
     <Root disabled={props.disabled} $width={props.width}>
@@ -44,18 +54,17 @@ export const RadioButton = forwardRef<
         $type="Body/L"
         $color={props.color}
         $istile={props.istile}
-        $checked={props.checked ?? false}
+        $checked={checked ?? false}
         $disabled={props.disabled}
       >
         <RadioInput
-          ref={ref}
+          ref={innerRef}
           id={id}
           type="radio"
           name={props.name ?? props.label}
           value={props.value}
           required={props.required}
           disabled={props.disabled}
-          checked={props.checked}
           min={props.min}
           max={props.max}
           minLength={props.minLength}
@@ -70,9 +79,9 @@ export const RadioButton = forwardRef<
           htmlFor={id}
           $type="Body/L"
           $color={props.color}
-          $checked={props.checked ?? false}
+          $checked={checked ?? false}
         >
-          {props.checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
+          {checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
         </RadioIcon>
         <RadioVert>
           {props.label}
