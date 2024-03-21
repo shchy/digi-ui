@@ -47,8 +47,8 @@ export const RadioButton = forwardRef<
       HTMLInputElement.prototype,
       'checked'
     );
-    Object.defineProperty(innerRef.current, 'checked', {
-      set: (v: any) => {
+    if (nativeChecked) {
+      nativeChecked.set = (v: any) => {
         console.log('set checked', v);
         nativeChecked?.set?.call(innerRef.current, v);
         setChecked(v);
@@ -56,8 +56,9 @@ export const RadioButton = forwardRef<
         //   props.onChange({
         //     target: innerRef.current,
         //   } as React.ChangeEvent<HTMLInputElement>);
-      },
-    });
+      };
+      Object.defineProperty(innerRef.current, 'checked', nativeChecked);
+    }
 
     // innerRef.current?.checked;
     // console.log('useEffect', props.checked, innerRef.current);
