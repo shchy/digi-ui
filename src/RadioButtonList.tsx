@@ -72,16 +72,15 @@ export const RadioButtonList = forwardRef<HTMLInputElement, Props<any>>(
         {props.list.map((x) => (
           <RadioButton
             key={props.selectKey(x)}
+            ref={ref}
             color={state.hasError ? 'semantic-error-1' : undefined}
             istile={props.istile}
-            ref={ref}
             name={props.name}
             required={props.required}
             disabled={props.disabled}
             value={
-              (props.selectedItem &&
-                props.selectKey(props.selectedItem) === props.selectKey(x)) ??
-              false
+              props.selectedItem &&
+              props.selectKey(props.selectedItem) === props.selectKey(x)
             }
             label={
               props.selectDisplay ? props.selectDisplay(x) : props.selectKey(x)
