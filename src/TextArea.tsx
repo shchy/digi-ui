@@ -1,4 +1,11 @@
-import { ChangeEventHandler, useEffect, useState, FC, useMemo } from 'react';
+import {
+  ChangeEventHandler,
+  FocusEventHandler,
+  useEffect,
+  useState,
+  useMemo,
+  forwardRef,
+} from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -7,17 +14,25 @@ type TextAreaState = {
   hasError: boolean;
 };
 
-export const TextArea: FC<{
-  label: string;
-  value?: string;
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-  required?: boolean;
-  supportText?: string;
-  errorText?: string | string[];
-  disabled?: boolean;
-  maxLength?: number;
-  width?: string;
-}> = (props) => {
+export const TextArea = forwardRef<
+  HTMLTextAreaElement,
+  {
+    label: string;
+    value?: string;
+    supportText?: string;
+    errorText?: string | string[];
+    width?: string;
+
+    required?: boolean;
+    disabled?: boolean;
+    name?: string;
+    maxLength?: number;
+    minLength?: number;
+
+    onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+    onBlur?: FocusEventHandler<HTMLTextAreaElement>;
+  }
+>((props, ref) => {
   const [state, setState] = useState<TextAreaState>({
     hasError: false,
   });
@@ -54,10 +69,16 @@ export const TextArea: FC<{
         </Text>
       )}
       <TextAreaInner
+        ref={ref}
+        name={props.name}
+        required={props.required}
+        disabled={props.disabled}
         value={props.value}
-        $state={state}
+        minLength={props.minLength}
         maxLength={props.maxLength}
         onChange={props.onChange}
+        onBlur={props.onBlur}
+        $state={state}
       />
 
       <LeftRight>
@@ -82,7 +103,7 @@ export const TextArea: FC<{
       </LeftRight>
     </Root>
   );
-};
+});
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   display: flex;

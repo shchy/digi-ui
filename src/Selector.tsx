@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, forwardRef } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
@@ -21,74 +21,77 @@ type Props<T> = {
   width?: string;
 };
 
-export const Selector = <T,>(props: Props<T>) => {
-  const [state, setState] = useState<SelectorState>({
-    hasError: false,
-  });
-  const errors = useMemo(() => {
-    if (!props.errorText) return;
-    if (Array.isArray(props.errorText)) {
-      if (props.errorText.length == 0) return;
-      return props.errorText;
-    }
-    return [props.errorText];
-  }, [props.errorText]);
-
-  useEffect(() => {
-    setState({
-      hasError: !!errors,
+export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
+  (props: Props<any>, ref) => {
+    const [state, setState] = useState<SelectorState>({
+      hasError: false,
     });
-  }, [errors]);
+    const errors = useMemo(() => {
+      if (!props.errorText) return;
+      if (Array.isArray(props.errorText)) {
+        if (props.errorText.length == 0) return;
+        return props.errorText;
+      }
+      return [props.errorText];
+    }, [props.errorText]);
 
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <LabelFrame>
-        <Text $type="Label/L">{props.label}</Text>
-        {props.required && (
-          <Text $type="Caption/L" $color={'semantic-error-1'}>
-            必須
+    useEffect(() => {
+      setState({
+        hasError: !!errors,
+      });
+    }, [errors]);
+
+    return (
+      <Root disabled={props.disabled} $width={props.width}>
+        <LabelFrame>
+          <Text $type="Label/L">{props.label}</Text>
+          {props.required && (
+            <Text $type="Caption/L" $color={'semantic-error-1'}>
+              必須
+            </Text>
+          )}
+        </LabelFrame>
+        {props.supportText && (
+          <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
+            {props.supportText}
           </Text>
         )}
-      </LabelFrame>
-      {props.supportText && (
-        <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
-          {props.supportText}
-        </Text>
-      )}
-      <SelectFrame>
-        <Select
-          value={props.selectedItem && props.selectKey(props.selectedItem)}
-          $state={state}
-          onChange={(e) => {
-            const findOne = props.list.find(
-              (x) => props.selectKey(x) === e.target.value
-            );
-            if (!findOne) return;
-            props.onChange(findOne);
-          }}
-        >
-          {props.list.map((x) => (
-            <option key={props.selectKey(x)} value={props.selectKey(x)}>
-              {props.selectDisplay
-                ? props.selectDisplay(x)
-                : props.selectKey(x)}
-            </option>
+        <SelectFrame>
+          <Select
+            ref={ref}
+            value={props.selectedItem && props.selectKey(props.selectedItem)}
+            $state={state}
+            onChange={(e) => {
+              const findOne = props.list.find(
+                (x) => props.selectKey(x) === e.target.value
+              );
+              if (!findOne) return;
+              props.onChange(findOne);
+            }}
+          >
+            {props.list.map((x) => (
+              <option key={props.selectKey(x)} value={props.selectKey(x)}>
+                {props.selectDisplay
+                  ? props.selectDisplay(x)
+                  : props.selectKey(x)}
+              </option>
+            ))}
+          </Select>
+          <SelectIcon>
+            <ArrowDown />
+          </SelectIcon>
+        </SelectFrame>
+        {errors &&
+          !props.disabled &&
+          errors.map((x, i) => (
+            <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
+              {x}
+            </Text>
           ))}
-        </Select>
-        <SelectIcon>
-          <ArrowDown />
-        </SelectIcon>
-      </SelectFrame>
-      {errors &&
-        !props.disabled &&
-        errors.map((x, i) => (
-          <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
-            {x}
-          </Text>
-        ))}
-    </Root>
-  );
-};
+      </Root>
+    );
+  }
+) as <T>(p: Props<T> & { ref?: React.Ref<HTMLSelectElement> }) => JSX.Element;
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   display: flex;

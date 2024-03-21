@@ -2,7 +2,6 @@ import {
   ChangeEventHandler,
   useEffect,
   useState,
-  FC,
   useMemo,
   FocusEventHandler,
   forwardRef,
@@ -20,19 +19,21 @@ export const TextField = forwardRef<
   {
     label: string;
     value?: string;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    onBlur?: FocusEventHandler<HTMLInputElement>;
-    required?: boolean;
     supportText?: string;
     errorText?: string | string[];
-    disabled?: boolean;
     width?: string;
+
+    required?: boolean;
+    disabled?: boolean;
     name?: string;
     min?: string | number;
     max?: string | number;
     maxLength?: number;
     minLength?: number;
     pattern?: string;
+
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onBlur?: FocusEventHandler<HTMLInputElement>;
   }
 >((props, ref) => {
   const [state, setState] = useState<TextFieldState>({
@@ -80,9 +81,9 @@ export const TextField = forwardRef<
         minLength={props.minLength}
         maxLength={props.maxLength}
         pattern={props.pattern}
-        $state={state}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        $state={state}
       />
       {errors &&
         !props.disabled &&
