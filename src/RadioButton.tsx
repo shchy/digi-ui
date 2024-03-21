@@ -47,7 +47,7 @@ export const RadioButton = forwardRef<
       HTMLInputElement.prototype,
       'checked'
     );
-    Object.defineProperty(HTMLInputElement.prototype, 'checked', {
+    Object.defineProperty(innerRef.current, 'checked', {
       set: (v: any) => {
         console.log('set checked', v);
         nativeChecked?.set?.call(innerRef.current, v);
