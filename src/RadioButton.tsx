@@ -38,8 +38,8 @@ export const RadioButton = forwardRef<
   }
 >((props, ref) => {
   const id = useId();
-  const [checked, setChecked] = useState(props.checked ?? false);
-  const innerRef = useRef<HTMLInputElement>(null);
+  // const [checked, setChecked] = useState(props.checked ?? false);
+  // const innerRef = useRef<HTMLInputElement>(null);
   // const wait = (ms: number) =>
   //   new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
   // useEffect(() => {
@@ -104,16 +104,16 @@ export const RadioButton = forwardRef<
         $type="Body/L"
         $color={props.color}
         $istile={props.istile}
-        $checked={checked ?? false}
+        $checked={props.checked ?? false}
         $disabled={props.disabled}
       >
         <RadioInput
-          ref={innerRef}
+          ref={ref}
           id={id}
           type="radio"
           name={props.name ?? props.label}
           value={props.value}
-          checked={checked}
+          checked={props.checked}
           required={props.required}
           disabled={props.disabled}
           min={props.min}
@@ -122,7 +122,7 @@ export const RadioButton = forwardRef<
           maxLength={props.maxLength}
           pattern={props.pattern}
           onChange={(e) => {
-            setChecked(e.target.checked);
+            // setChecked(e.target.checked);
             props.onChange && props.onChange(e);
           }}
           onBlur={props.onBlur}
@@ -131,9 +131,9 @@ export const RadioButton = forwardRef<
           htmlFor={id}
           $type="Body/L"
           $color={props.color}
-          $checked={checked ?? false}
+          $checked={props.checked ?? false}
         >
-          {checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
+          {props.checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
         </RadioIcon>
         <RadioVert>
           {props.label}
