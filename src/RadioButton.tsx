@@ -49,10 +49,11 @@ export const RadioButton = forwardRef<
     );
     if (nativeChecked) {
       console.log('nativeChecked', nativeChecked);
+      const original = nativeChecked.set;
 
-      nativeChecked.set = (v: any) => {
+      nativeChecked.set = function (v: any): void {
         console.log('set checked', v);
-        nativeChecked?.set?.call(innerRef.current, v);
+        original?.call(innerRef.current, v);
         setChecked(v);
         // props.onChange &&
         //   props.onChange({
