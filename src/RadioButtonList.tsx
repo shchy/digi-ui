@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+  forwardRef,
+  ChangeEventHandler,
+  FocusEventHandler,
+} from 'react';
 import { styled } from 'styled-components';
 import { Fieldset, Text, RadioButton } from '.';
 
@@ -7,89 +14,95 @@ type RadioButtonListState = {
 };
 type Props<T> = {
   label: string;
+  selectedItem?: T;
+  supportText?: string;
+  errorText?: string | string[];
+  width?: string;
+  istile?: 'true';
+
   list: Array<T>;
   selectKey: (v: T) => string;
   selectDisplay?: (v: T) => string;
   selectDescribe?: (v: T) => string;
-  selectedItem?: T;
-  onChange: (item: T) => void;
+
   required?: boolean;
-  supportText?: string;
-  errorText?: string | string[];
   disabled?: boolean;
-  istile?: 'true';
-  group?: string;
-  width?: string;
+  name?: string;
+
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
-export const RadioButtonList = <T,>(props: Props<T>) => {
-  const [state, setState] = useState<RadioButtonListState>({
-    hasError: false,
-  });
-  const errors = useMemo(() => {
-    if (!props.errorText) return;
-    if (Array.isArray(props.errorText)) {
-      if (props.errorText.length == 0) return;
-      return props.errorText;
-    }
-    return [props.errorText];
-  }, [props.errorText]);
-
-  useEffect(() => {
-    setState({
-      hasError: !!errors,
+export const RadioButtonList = forwardRef<HTMLInputElement, Props<any>>(
+  (props: Props<any>, ref) => {
+    const [state, setState] = useState<RadioButtonListState>({
+      hasError: false,
     });
-  }, [errors]);
+    const errors = useMemo(() => {
+      if (!props.errorText) return;
+      if (Array.isArray(props.errorText)) {
+        if (props.errorText.length == 0) return;
+        return props.errorText;
+      }
+      return [props.errorText];
+    }, [props.errorText]);
 
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <LabelFrame>
-        <Text $type="Label/L">{props.label}</Text>
-        {props.required && (
-          <Text $type="Caption/L" $color={'semantic-error-1'}>
-            必須
+    useEffect(() => {
+      setState({
+        hasError: !!errors,
+      });
+    }, [errors]);
+
+    return (
+      <Root disabled={props.disabled} $width={props.width}>
+        <LabelFrame>
+          <Text $type="Label/L">{props.label}</Text>
+          {props.required && (
+            <Text $type="Caption/L" $color={'semantic-error-1'}>
+              必須
+            </Text>
+          )}
+        </LabelFrame>
+        {props.supportText && (
+          <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
+            {props.supportText}
           </Text>
         )}
-      </LabelFrame>
-      {props.supportText && (
-        <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
-          {props.supportText}
-        </Text>
-      )}
 
-      {props.list.map((x) => (
-        <RadioButton
-          key={props.selectKey(x)}
-          label={
-            props.selectDisplay ? props.selectDisplay(x) : props.selectKey(x)
-          }
-          describe={props.selectDescribe && props.selectDescribe(x)}
-          value={
-            (props.selectedItem &&
-              props.selectKey(props.selectedItem) === props.selectKey(x)) ??
-            false
-          }
-          onChange={(e) => {
-            if (!e.target.checked) return;
-            props.onChange(x);
-          }}
-          disabled={props.disabled}
-          color={state.hasError ? 'semantic-error-1' : undefined}
-          group={props.group}
-          istile={props.istile}
-        />
-      ))}
-
-      {errors &&
-        !props.disabled &&
-        errors.map((x, i) => (
-          <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
-            {x}
-          </Text>
+        {props.list.map((x) => (
+          <RadioButton
+            key={props.selectKey(x)}
+            color={state.hasError ? 'semantic-error-1' : undefined}
+            istile={props.istile}
+            ref={ref}
+            name={props.name}
+            required={props.required}
+            disabled={props.disabled}
+            value={
+              (props.selectedItem &&
+                props.selectKey(props.selectedItem) === props.selectKey(x)) ??
+              false
+            }
+            label={
+              props.selectDisplay ? props.selectDisplay(x) : props.selectKey(x)
+            }
+            describe={props.selectDescribe && props.selectDescribe(x)}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+          />
         ))}
-    </Root>
-  );
-};
+
+        {errors &&
+          !props.disabled &&
+          errors.map((x, i) => (
+            <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
+              {x}
+            </Text>
+          ))}
+      </Root>
+    );
+  }
+) as <T>(p: Props<T> & { ref?: React.Ref<HTMLInputElement> }) => JSX.Element;
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   display: flex;

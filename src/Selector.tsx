@@ -17,11 +17,10 @@ type SelectorState = {
 type Props<T> = {
   label: string;
   selectedItem?: T;
-  list: Array<T>;
   supportText?: string;
   errorText?: string | string[];
   width?: string;
-
+  list: Array<T>;
   selectKey: (v: T) => string;
   selectDisplay?: (v: T) => string;
 

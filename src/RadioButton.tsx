@@ -1,20 +1,38 @@
-import { ChangeEventHandler, useId, FC } from 'react';
+import {
+  useId,
+  FC,
+  forwardRef,
+  ChangeEventHandler,
+  FocusEventHandler,
+} from 'react';
 import { styled, css } from 'styled-components';
 import { colorType, getColor } from './styles';
 import { Fieldset, Text } from '.';
 import { RadioIconUnCheck, RadioIconCheck } from './icons';
 
-export const RadioButton: FC<{
-  label: string;
-  value: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  disabled?: boolean;
-  color?: colorType;
-  group?: string;
-  describe?: string;
-  istile?: 'true';
-  width?: string;
-}> = (props) => {
+export const RadioButton = forwardRef<
+  HTMLInputElement,
+  {
+    label: string;
+    value?: boolean;
+    describe?: string;
+    istile?: 'true';
+    width?: string;
+    color?: colorType;
+
+    required?: boolean;
+    disabled?: boolean;
+    name?: string;
+    min?: string | number;
+    max?: string | number;
+    maxLength?: number;
+    minLength?: number;
+    pattern?: string;
+
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onBlur?: FocusEventHandler<HTMLInputElement>;
+  }
+>((props, ref) => {
   const id = useId();
   return (
     <Root disabled={props.disabled} $width={props.width}>
@@ -23,21 +41,30 @@ export const RadioButton: FC<{
         $type="Body/L"
         $color={props.color}
         $istile={props.istile}
-        $checked={props.value}
+        $checked={props.value ?? false}
         $disabled={props.disabled}
       >
         <RadioInput
+          ref={ref}
           id={id}
           type="radio"
-          name={props.group ?? props.label}
+          name={props.name ?? props.label}
+          required={props.required}
+          disabled={props.disabled}
           checked={props.value}
+          min={props.min}
+          max={props.max}
+          minLength={props.minLength}
+          maxLength={props.maxLength}
+          pattern={props.pattern}
           onChange={props.onChange}
+          onBlur={props.onBlur}
         />
         <RadioIcon
           htmlFor={id}
           $type="Body/L"
           $color={props.color}
-          $checked={props.value}
+          $checked={props.value ?? false}
         >
           {props.value ? <RadioIconCheck /> : <RadioIconUnCheck />}
         </RadioIcon>
@@ -56,7 +83,7 @@ export const RadioButton: FC<{
       </RadioLabel>
     </Root>
   );
-};
+});
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   width: ${(props) => props.$width};
