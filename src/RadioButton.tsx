@@ -73,6 +73,7 @@ export const RadioButton = forwardRef<
           type="radio"
           name={props.name ?? props.label}
           value={props.value}
+          // checked={checked}
           required={props.required}
           disabled={props.disabled}
           min={props.min}
@@ -81,6 +82,7 @@ export const RadioButton = forwardRef<
           maxLength={props.maxLength}
           pattern={props.pattern}
           onChange={(e) => {
+            setChecked(e.target.checked);
             props.onChange && props.onChange(e);
           }}
           onBlur={props.onBlur}
