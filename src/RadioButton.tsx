@@ -14,7 +14,8 @@ export const RadioButton = forwardRef<
   HTMLInputElement,
   {
     label: string;
-    value?: boolean;
+    value: string;
+    checked?: boolean;
     describe?: string;
     istile?: 'true';
     width?: string;
@@ -41,7 +42,7 @@ export const RadioButton = forwardRef<
         $type="Body/L"
         $color={props.color}
         $istile={props.istile}
-        $checked={props.value ?? false}
+        $checked={props.checked ?? false}
         $disabled={props.disabled}
       >
         <RadioInput
@@ -49,9 +50,10 @@ export const RadioButton = forwardRef<
           id={id}
           type="radio"
           name={props.name ?? props.label}
+          value={props.value}
           required={props.required}
           disabled={props.disabled}
-          checked={props.value}
+          checked={props.checked}
           min={props.min}
           max={props.max}
           minLength={props.minLength}
@@ -64,9 +66,9 @@ export const RadioButton = forwardRef<
           htmlFor={id}
           $type="Body/L"
           $color={props.color}
-          $checked={props.value ?? false}
+          $checked={props.checked ?? false}
         >
-          {props.value ? <RadioIconCheck /> : <RadioIconUnCheck />}
+          {props.checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
         </RadioIcon>
         <RadioVert>
           {props.label}
