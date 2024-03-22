@@ -58,7 +58,7 @@ export const Checkbox = forwardRef<
           $color={props.color}
           $checked={props.checked ?? false}
         >
-          {props.value ? <CheckboxIconChecked /> : <CheckboxIconUnCheck />}
+          {props.checked ? <CheckboxIconChecked /> : <CheckboxIconUnCheck />}
         </CheckboxIcon>
         {props.label}
       </CheckboxLabel>
