@@ -23,6 +23,7 @@ type Props<T> = {
   list: Array<T>;
   selectKey: (v: T) => string;
   selectDisplay?: (v: T) => string;
+  requiredLabel?: boolean;
 
   required?: boolean;
   disabled?: boolean;
@@ -56,7 +57,7 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
       <Root disabled={props.disabled} $width={props.width}>
         <LabelFrame>
           <Text $type="Label/L">{props.label}</Text>
-          {props.required && (
+          {props.requiredLabel && (
             <Text $type="Caption/L" $color={'semantic-error-1'}>
               必須
             </Text>

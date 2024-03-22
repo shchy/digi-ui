@@ -22,6 +22,7 @@ export const TextArea = forwardRef<
     supportText?: string;
     errorText?: string | string[];
     width?: string;
+    requiredLabel?: boolean;
 
     required?: boolean;
     disabled?: boolean;
@@ -57,7 +58,7 @@ export const TextArea = forwardRef<
     <Root disabled={props.disabled} $width={props.width}>
       <LabelFrame>
         <Text $type="Label/L">{props.label}</Text>
-        {props.required && (
+        {props.requiredLabel && (
           <Text $type="Caption/L" $color={'semantic-error-1'}>
             必須
           </Text>
