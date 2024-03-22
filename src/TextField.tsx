@@ -22,16 +22,7 @@ export const TextField = forwardRef<
     supportText?: string;
     errorText?: string | string[];
     width?: string;
-    inputType?:
-      | 'text'
-      | 'date'
-      | 'number'
-      | 'email'
-      | 'tel'
-      | 'url'
-      | 'password'
-      | 'search';
-
+    inputType?: React.HTMLInputTypeAttribute;
     required?: boolean;
     disabled?: boolean;
     name?: string;

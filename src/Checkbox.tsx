@@ -1,32 +1,62 @@
-import { ChangeEventHandler, useId, FC } from 'react';
+import {
+  useId,
+  forwardRef,
+  ChangeEventHandler,
+  FocusEventHandler,
+} from 'react';
 import { styled } from 'styled-components';
 import { colorType, getColor } from './styles';
 import { Fieldset, Text } from '.';
 import { CheckboxIconUnCheck, CheckboxIconChecked } from './icons';
 
-export const Checkbox: FC<{
-  label: string;
-  value: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  disabled?: boolean;
-  color?: colorType;
-  width?: string;
-}> = (props) => {
+export const Checkbox = forwardRef<
+  HTMLInputElement,
+  {
+    label: string;
+    value: string;
+    checked?: boolean;
+    width?: string;
+    color?: colorType;
+
+    required?: boolean;
+    disabled?: boolean;
+    name?: string;
+    min?: string | number;
+    max?: string | number;
+    maxLength?: number;
+    minLength?: number;
+    pattern?: string;
+
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onBlur?: FocusEventHandler<HTMLInputElement>;
+  }
+>((props, ref) => {
   const id = useId();
   return (
     <Root disabled={props.disabled} $width={props.width}>
       <CheckboxLabel htmlFor={id} $type="Body/L" $color={props.color}>
         <CheckboxInput
+          ref={ref}
           id={id}
           type="checkbox"
-          checked={props.value}
+          name={props.name ?? props.label}
+          value={props.value}
+          checked={props.checked}
+          required={props.required}
+          disabled={props.disabled}
+          min={props.min}
+          max={props.max}
+          minLength={props.minLength}
+          maxLength={props.maxLength}
+          pattern={props.pattern}
           onChange={props.onChange}
+          onBlur={props.onBlur}
         />
         <CheckboxIcon
           htmlFor={id}
           $type="Body/L"
           $color={props.color}
-          $checked={props.value}
+          $checked={props.checked ?? false}
         >
           {props.value ? <CheckboxIconChecked /> : <CheckboxIconUnCheck />}
         </CheckboxIcon>
@@ -34,7 +64,7 @@ export const Checkbox: FC<{
       </CheckboxLabel>
     </Root>
   );
-};
+});
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   width: ${(props) => props.$width};

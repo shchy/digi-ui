@@ -59,10 +59,7 @@ export const RadioButton = forwardRef<
           minLength={props.minLength}
           maxLength={props.maxLength}
           pattern={props.pattern}
-          onChange={(e) => {
-            // setChecked(e.target.checked);
-            props.onChange && props.onChange(e);
-          }}
+          onChange={props.onChange}
           onBlur={props.onBlur}
         />
         <RadioIcon

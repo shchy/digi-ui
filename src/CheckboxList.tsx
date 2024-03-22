@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+  forwardRef,
+  ChangeEventHandler,
+  FocusEventHandler,
+} from 'react';
 import { styled } from 'styled-components';
 import { Fieldset, Text, Checkbox } from '.';
 
@@ -7,97 +14,95 @@ type CheckboxListState = {
 };
 type Props<T> = {
   label: string;
+  selectedItems: Array<T>;
+  supportText?: string;
+  errorText?: string | string[];
+  width?: string;
+
   list: Array<T>;
   selectKey: (v: T) => string;
   selectDisplay?: (v: T) => string;
-  selectedItems: Array<T>;
-  onChange: (items: Array<T>) => void;
+
   required?: boolean;
-  supportText?: string;
-  errorText?: string | string[];
   disabled?: boolean;
-  width?: string;
+  name?: string;
+
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
-export const CheckboxList = <T,>(props: Props<T>) => {
-  const [state, setState] = useState<CheckboxListState>({
-    hasError: false,
-  });
-  const errors = useMemo(() => {
-    if (!props.errorText) return;
-    if (Array.isArray(props.errorText)) {
-      if (props.errorText.length == 0) return;
-      return props.errorText;
-    }
-    return [props.errorText];
-  }, [props.errorText]);
-  const [selectableItems, setSelectableItems] = useState<
-    {
-      isSelected: boolean;
-      item: T;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    setState({
-      hasError: !!errors,
+export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
+  (props: Props<any>, ref) => {
+    const [state, setState] = useState<CheckboxListState>({
+      hasError: false,
     });
-    setSelectableItems(
-      props.list.map((x) => {
-        const item = {
-          item: x,
-          isSelected: props.selectedItems.includes(x),
-        };
-        return item;
-      })
-    );
-  }, [errors, props.list, props.selectedItems]);
+    const errors = useMemo(() => {
+      if (!props.errorText) return;
+      if (Array.isArray(props.errorText)) {
+        if (props.errorText.length == 0) return;
+        return props.errorText;
+      }
+      return [props.errorText];
+    }, [props.errorText]);
 
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <LabelFrame>
-        <Text $type="Label/L">{props.label}</Text>
-        {props.required && (
-          <Text $type="Caption/L" $color={'semantic-error-1'}>
-            必須
+    useEffect(() => {
+      setState({
+        hasError: !!errors,
+      });
+    }, [errors, props.list]);
+
+    return (
+      <Root disabled={props.disabled} $width={props.width}>
+        <LabelFrame>
+          <Text $type="Label/L">{props.label}</Text>
+          {props.required && (
+            <Text $type="Caption/L" $color={'semantic-error-1'}>
+              必須
+            </Text>
+          )}
+        </LabelFrame>
+        {props.supportText && (
+          <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
+            {props.supportText}
           </Text>
         )}
-      </LabelFrame>
-      {props.supportText && (
-        <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
-          {props.supportText}
-        </Text>
-      )}
 
-      {selectableItems.map((x) => (
-        <Checkbox
-          color={state.hasError ? 'semantic-error-1' : undefined}
-          key={props.selectKey(x.item)}
-          label={
-            props.selectDisplay
-              ? props.selectDisplay(x.item)
-              : props.selectKey(x.item)
-          }
-          value={x.isSelected}
-          onChange={(e) => {
-            x.isSelected = e.target.checked;
-            props.onChange(
-              selectableItems.filter((x) => x.isSelected).map((x) => x.item)
-            );
-          }}
-        />
-      ))}
-
-      {errors &&
-        !props.disabled &&
-        errors.map((x, i) => (
-          <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
-            {x}
-          </Text>
+        {props.list.map((x) => (
+          <Checkbox
+            key={props.selectKey(x.item)}
+            ref={ref}
+            color={state.hasError ? 'semantic-error-1' : undefined}
+            name={props.name}
+            value={props.selectKey(x)}
+            required={props.required}
+            disabled={props.disabled}
+            checked={
+              props.selectedItems &&
+              props.selectedItems
+                .map((x) => props.selectKey(x))
+                .includes(props.selectKey(x))
+            }
+            label={
+              props.selectDisplay
+                ? props.selectDisplay(x.item)
+                : props.selectKey(x.item)
+            }
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+          />
         ))}
-    </Root>
-  );
-};
+
+        {errors &&
+          !props.disabled &&
+          errors.map((x, i) => (
+            <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
+              {x}
+            </Text>
+          ))}
+      </Root>
+    );
+  }
+) as <T>(p: Props<T> & { ref?: React.Ref<HTMLInputElement> }) => JSX.Element;
 
 const Root = styled(Fieldset)<{ $width?: string }>`
   display: flex;
