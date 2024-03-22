@@ -19,6 +19,7 @@ type Props<T> = {
   errorText?: string | string[];
   width?: string;
   istile?: 'true';
+  requiredLabel?: boolean;
 
   list: Array<T>;
   selectKey: (v: T) => string;
@@ -57,7 +58,7 @@ export const RadioButtonList = forwardRef<HTMLInputElement, Props<any>>(
       <Root disabled={props.disabled} $width={props.width}>
         <LabelFrame>
           <Text $type="Label/L">{props.label}</Text>
-          {props.required && (
+          {props.requiredLabel && (
             <Text $type="Caption/L" $color={'semantic-error-1'}>
               必須
             </Text>
