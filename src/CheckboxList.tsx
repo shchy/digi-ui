@@ -69,7 +69,7 @@ export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
 
         {props.list.map((x) => (
           <Checkbox
-            key={props.selectKey(x.item)}
+            key={props.selectKey(x)}
             ref={ref}
             color={state.hasError ? 'semantic-error-1' : undefined}
             name={props.name}
@@ -83,9 +83,7 @@ export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
                 .includes(props.selectKey(x))
             }
             label={
-              props.selectDisplay
-                ? props.selectDisplay(x.item)
-                : props.selectKey(x.item)
+              props.selectDisplay ? props.selectDisplay(x) : props.selectKey(x)
             }
             onChange={props.onChange}
             onBlur={props.onBlur}
