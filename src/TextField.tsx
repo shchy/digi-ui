@@ -22,6 +22,15 @@ export const TextField = forwardRef<
     supportText?: string;
     errorText?: string | string[];
     width?: string;
+    inputType?:
+      | 'text'
+      | 'date'
+      | 'number'
+      | 'email'
+      | 'tel'
+      | 'url'
+      | 'password'
+      | 'search';
 
     required?: boolean;
     disabled?: boolean;
@@ -70,7 +79,7 @@ export const TextField = forwardRef<
         </Text>
       )}
       <TextInput
-        type="text"
+        type={props.inputType ?? 'text'}
         ref={ref}
         name={props.name}
         required={props.required}
