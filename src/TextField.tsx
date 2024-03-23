@@ -1,18 +1,8 @@
-import {
-  useEffect,
-  useState,
-  useMemo,
-  forwardRef,
-  ChangeEventHandler,
-  FocusEventHandler,
-} from 'react';
+import { forwardRef, ChangeEventHandler, FocusEventHandler } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
-
-type TextFieldState = {
-  hasError: boolean;
-};
+import { hasError, toArray } from './utils';
 
 export const TextField = forwardRef<
   HTMLInputElement,
@@ -38,24 +28,6 @@ export const TextField = forwardRef<
     onBlur?: FocusEventHandler<HTMLInputElement>;
   }
 >((props, ref) => {
-  const [state, setState] = useState<TextFieldState>({
-    hasError: false,
-  });
-  const errors = useMemo(() => {
-    if (!props.errorText) return;
-    if (Array.isArray(props.errorText)) {
-      if (props.errorText.length == 0) return;
-      return props.errorText;
-    }
-    return [props.errorText];
-  }, [props.errorText]);
-
-  useEffect(() => {
-    setState({
-      hasError: !!errors,
-    });
-  }, [errors]);
-
   return (
     <Root disabled={props.disabled} $width={props.width}>
       <LabelFrame>
@@ -85,11 +57,12 @@ export const TextField = forwardRef<
         pattern={props.pattern}
         onChange={props.onChange}
         onBlur={props.onBlur}
-        $state={state}
+        $state={{
+          hasError: hasError(props.errorText),
+        }}
       />
-      {errors &&
-        !props.disabled &&
-        errors.map((x, i) => (
+      {!props.disabled &&
+        toArray(props.errorText)?.map((x, i) => (
           <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
             {x}
           </Text>
@@ -116,7 +89,9 @@ const LabelFrame = styled.div`
 `;
 
 const TextInput = styled.input<{
-  $state?: TextFieldState;
+  $state?: {
+    hasError: boolean;
+  };
 }>`
   ${() => useTypography('Body/L')}
 

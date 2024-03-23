@@ -1,17 +1,8 @@
-import {
-  useEffect,
-  useMemo,
-  useState,
-  forwardRef,
-  ChangeEventHandler,
-  FocusEventHandler,
-} from 'react';
+import { forwardRef, ChangeEventHandler, FocusEventHandler } from 'react';
 import { styled } from 'styled-components';
 import { Fieldset, Text, Checkbox } from '.';
+import { hasError, toArray } from './utils';
 
-type CheckboxListState = {
-  hasError: boolean;
-};
 type Props<T> = {
   label: string;
   selectedItems: Array<T>;
@@ -34,24 +25,6 @@ type Props<T> = {
 
 export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
   (props: Props<any>, ref) => {
-    const [state, setState] = useState<CheckboxListState>({
-      hasError: false,
-    });
-    const errors = useMemo(() => {
-      if (!props.errorText) return;
-      if (Array.isArray(props.errorText)) {
-        if (props.errorText.length == 0) return;
-        return props.errorText;
-      }
-      return [props.errorText];
-    }, [props.errorText]);
-
-    useEffect(() => {
-      setState({
-        hasError: !!errors,
-      });
-    }, [errors, props.list]);
-
     return (
       <Root disabled={props.disabled} $width={props.width}>
         <LabelFrame>
@@ -72,7 +45,7 @@ export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
           <Checkbox
             key={props.selectKey(x)}
             ref={ref}
-            color={state.hasError ? 'semantic-error-1' : undefined}
+            color={hasError(props.errorText) ? 'semantic-error-1' : undefined}
             name={props.name}
             value={props.selectKey(x)}
             required={props.required}
@@ -91,9 +64,8 @@ export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
           />
         ))}
 
-        {errors &&
-          !props.disabled &&
-          errors.map((x, i) => (
+        {!props.disabled &&
+          toArray(props.errorText)?.map((x, i) => (
             <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
               {x}
             </Text>

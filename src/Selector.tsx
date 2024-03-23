@@ -1,19 +1,10 @@
-import {
-  useEffect,
-  useMemo,
-  useState,
-  forwardRef,
-  ChangeEventHandler,
-  FocusEventHandler,
-} from 'react';
+import { forwardRef, ChangeEventHandler, FocusEventHandler } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
 import { ArrowDown } from './icons';
+import { hasError, toArray } from './utils';
 
-type SelectorState = {
-  hasError: boolean;
-};
 type Props<T> = {
   label: string;
   selectedItem?: T;
@@ -35,24 +26,6 @@ type Props<T> = {
 
 export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
   (props: Props<any>, ref) => {
-    const [state, setState] = useState<SelectorState>({
-      hasError: false,
-    });
-    const errors = useMemo(() => {
-      if (!props.errorText) return;
-      if (Array.isArray(props.errorText)) {
-        if (props.errorText.length == 0) return;
-        return props.errorText;
-      }
-      return [props.errorText];
-    }, [props.errorText]);
-
-    useEffect(() => {
-      setState({
-        hasError: !!errors,
-      });
-    }, [errors]);
-
     return (
       <Root disabled={props.disabled} $width={props.width}>
         <LabelFrame>
@@ -77,7 +50,9 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
             value={props.selectedItem && props.selectKey(props.selectedItem)}
             onChange={props.onChange}
             onBlur={props.onBlur}
-            $state={state}
+            $state={{
+              hasError: hasError(props.errorText),
+            }}
           >
             {props.list.map((x) => (
               <option key={props.selectKey(x)} value={props.selectKey(x)}>
@@ -91,9 +66,8 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
             <ArrowDown />
           </SelectIcon>
         </SelectFrame>
-        {errors &&
-          !props.disabled &&
-          errors.map((x, i) => (
+        {!props.disabled &&
+          toArray(props.errorText)?.map((x, i) => (
             <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
               {x}
             </Text>
@@ -128,7 +102,9 @@ const SelectFrame = styled.div`
 `;
 
 const Select = styled.select<{
-  $state?: SelectorState;
+  $state?: {
+    hasError: boolean;
+  };
 }>`
   grid-column: 1/2;
   grid-row: 1/2;

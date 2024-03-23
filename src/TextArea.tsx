@@ -1,18 +1,8 @@
-import {
-  ChangeEventHandler,
-  FocusEventHandler,
-  useEffect,
-  useState,
-  useMemo,
-  forwardRef,
-} from 'react';
+import { ChangeEventHandler, FocusEventHandler, forwardRef } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
-
-type TextAreaState = {
-  hasError: boolean;
-};
+import { hasError, toArray } from './utils';
 
 export const TextArea = forwardRef<
   HTMLTextAreaElement,
@@ -34,26 +24,6 @@ export const TextArea = forwardRef<
     onBlur?: FocusEventHandler<HTMLTextAreaElement>;
   }
 >((props, ref) => {
-  const [state, setState] = useState<TextAreaState>({
-    hasError: false,
-  });
-  const [count, setCount] = useState(0);
-  const errors = useMemo(() => {
-    if (!props.errorText) return;
-    if (Array.isArray(props.errorText)) {
-      if (props.errorText.length == 0) return;
-      return props.errorText;
-    }
-    return [props.errorText];
-  }, [props.errorText]);
-
-  useEffect(() => {
-    setState({
-      hasError: !!errors,
-    });
-    setCount(props.value?.length ?? 0);
-  }, [errors, props.value]);
-
   return (
     <Root disabled={props.disabled} $width={props.width}>
       <LabelFrame>
@@ -79,13 +49,15 @@ export const TextArea = forwardRef<
         maxLength={props.maxLength}
         onChange={props.onChange}
         onBlur={props.onBlur}
-        $state={state}
+        $state={{
+          hasError: hasError(props.errorText),
+        }}
       />
 
       <LeftRight>
         <StartCell>
-          {errors &&
-            errors.map((x, i) => (
+          {!props.disabled &&
+            toArray(props.errorText)?.map((x, i) => (
               <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
                 {x}
               </Text>
@@ -95,9 +67,13 @@ export const TextArea = forwardRef<
           {props.maxLength && (
             <Text
               $type="Caption/M"
-              $color={errors ? 'semantic-error-1' : 'neutral-solid-grey-420'}
+              $color={
+                props.errorText !== undefined && props.errorText.length > 0
+                  ? 'semantic-error-1'
+                  : 'neutral-solid-grey-420'
+              }
             >
-              {count}/{props.maxLength}
+              {props.value?.length ?? 0}/{props.maxLength}
             </Text>
           )}
         </EndCell>
@@ -137,7 +113,9 @@ const EndCell = styled.div`
 `;
 
 const TextAreaInner = styled.textarea<{
-  $state?: TextAreaState;
+  $state?: {
+    hasError: boolean;
+  };
 }>`
   ${() => useTypography('Body/L')}
 
