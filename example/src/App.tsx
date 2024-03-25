@@ -1,3 +1,4 @@
+import { Layout } from 'digi-ui';
 import { ExampleButton } from './_components/ExampleButton';
 import { ExampleTextField } from './_components/ExampleTextField';
 import { ExampleTextArea } from './_components/ExampleTextArea';
@@ -6,7 +7,7 @@ import { ExampleCheckbox } from './_components/ExampleCheckbox';
 import { ExampleCheckboxList } from './_components/ExampleCheckboxList';
 import { ExampleRadioButton } from './_components/ExampleRadioButton';
 import { ExampleRadioButtonList } from './_components/ExampleRadioButtonList';
-import { Layout } from 'digi-ui';
+import { ExampleIcons } from './_components/ExampleIcons';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <ExampleCheckboxList />
       <ExampleRadioButton />
       <ExampleRadioButtonList />
+      <ExampleIcons />
     </Layout>
   );
 }

@@ -4,6 +4,10 @@
   "description": "デジタル庁デザインシステムのFigmaを参考にコンポーネントを定義",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.js",
+    "./icons": "./src/icons/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
