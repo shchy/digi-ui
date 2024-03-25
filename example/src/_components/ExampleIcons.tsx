@@ -75,7 +75,7 @@ export const ExampleIcons = () => {
       'Update',
       'Work',
     ],
-    5
+    4
   );
 
   return (
@@ -86,8 +86,8 @@ export const ExampleIcons = () => {
         <Row key={i}>
           {xs.map((icon, j) => (
             <Col key={j} weight={1}>
-              <Cell $color="primitive-blue-900">
-                <Icon name={icon} type="fill" />
+              <Cell $color="primitive-blue-900" $type="Body/L">
+                <Icon name={icon} type="fill" $textType="Body/L" />
                 {icon}
               </Cell>
             </Col>
@@ -99,8 +99,8 @@ export const ExampleIcons = () => {
         <Row key={i}>
           {xs.map((icon, j) => (
             <Col key={j} weight={1}>
-              <Cell $color="primitive-cyan-900">
-                <Icon name={icon} type="line" />
+              <Cell $color="primitive-cyan-900" $type="Body/L">
+                <Icon name={icon} type="line" $textType="Body/L" />
                 {icon}
               </Cell>
             </Col>

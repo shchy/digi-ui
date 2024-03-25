@@ -1,3 +1,5 @@
+import { colorType, textType } from '../styles';
+
 export type Icons =
   | 'Add'
   | 'Application'
@@ -61,7 +63,12 @@ export type Icons =
   | 'Work';
 export type IconType = 'line' | 'fill';
 
-export interface IconProps {
+export interface SVGProps {
+  $textType?: textType;
+  $color?: colorType;
+}
+
+export interface IconProps extends React.SVGProps<SVGSVGElement>, SVGProps {
   name: Icons;
   type: IconType;
 }

@@ -1,14 +1,16 @@
 import React from 'react';
 import { NamedIconProps } from './types';
+import { Svg } from './Svg';
 
-export const ArrowUp: React.FC<NamedIconProps> = (props) => {
-  return props.type === 'fill' ? (
-    <svg
+export const ArrowUp: React.FC<NamedIconProps> = ({ type, ...rest }) => {
+  return type === 'fill' ? (
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...rest}
     >
       <g clipPath="url(#clip0_320_215)">
         <path
@@ -21,19 +23,20 @@ export const ArrowUp: React.FC<NamedIconProps> = (props) => {
           <rect width="24" height="24" fill="white" />
         </clipPath>
       </defs>
-    </svg>
+    </Svg>
   ) : (
-    <svg
+    <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...rest}
     >
       <path
         d="M4 16.4999L3 15.4999L12 6.3999L21 15.4999L20 16.4999L12 8.5999L4 16.4999Z"
         fill="currentColor"
       />
-    </svg>
+    </Svg>
   );
 };
