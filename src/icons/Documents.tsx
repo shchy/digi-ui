@@ -10,10 +10,10 @@ export const Documents: React.FC<NamedIconProps> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_320_414)">
+      <g clipPath="url(#clip0_320_414)">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M9.6 4L11.6 6H22V10.5H2V4H9.6ZM2 12H22V21H2V12Z"
           fill="currentColor"
         />
@@ -32,7 +32,7 @@ export const Documents: React.FC<NamedIconProps> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_320_411)">
+      <g clipPath="url(#clip0_320_411)">
         <path
           d="M11.6 6L9.6 4H2V21H22V6H11.6ZM9 5.5L11 7.5H20.5V10.5H3.5V5.5H9ZM3.5 19.5V12H20.5V19.5H3.5Z"
           fill="currentColor"

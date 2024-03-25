@@ -1,5 +1,6 @@
 import { Row, Col, Head, Text } from 'digi-ui';
 import { Icon, Icons } from 'digi-ui/icons';
+import styled from 'styled-components';
 
 export const ExampleIcons = () => {
   const splitArray = <T,>(xs: T[], size: number): T[][] => {
@@ -74,7 +75,7 @@ export const ExampleIcons = () => {
       'Update',
       'Work',
     ],
-    6
+    5
   );
 
   return (
@@ -85,9 +86,10 @@ export const ExampleIcons = () => {
         <Row key={i}>
           {xs.map((icon, j) => (
             <Col key={j} weight={1}>
-              <Text $color="primitive-blue-900">
+              <Cell $color="primitive-blue-900">
                 <Icon name={icon} type="fill" />
-              </Text>
+                {icon}
+              </Cell>
             </Col>
           ))}
         </Row>
@@ -97,9 +99,10 @@ export const ExampleIcons = () => {
         <Row key={i}>
           {xs.map((icon, j) => (
             <Col key={j} weight={1}>
-              <Text $color="primitive-cyan-900">
+              <Cell $color="primitive-cyan-900">
                 <Icon name={icon} type="line" />
-              </Text>
+                {icon}
+              </Cell>
             </Col>
           ))}
         </Row>
@@ -107,3 +110,9 @@ export const ExampleIcons = () => {
     </div>
   );
 };
+
+const Cell = styled(Text)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
