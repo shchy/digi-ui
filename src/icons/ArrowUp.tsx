@@ -13,7 +13,7 @@ export const ArrowUp: React.FC<NamedIconProps> = (props) => {
       <g clip-path="url(#clip0_320_215)">
         <path
           d="M12.0016 6.1001L2.60156 15.5001L4.00156 16.9001L12.0016 8.9001L20.0016 16.9001L21.4016 15.5001L12.0016 6.1001Z"
-          fill="#1A1A1C"
+          fill="currentColor"
         />
       </g>
       <defs>
@@ -32,7 +32,7 @@ export const ArrowUp: React.FC<NamedIconProps> = (props) => {
     >
       <path
         d="M4 16.4999L3 15.4999L12 6.3999L21 15.4999L20 16.4999L12 8.5999L4 16.4999Z"
-        fill="#1A1A1C"
+        fill="currentColor"
       />
     </svg>
   );

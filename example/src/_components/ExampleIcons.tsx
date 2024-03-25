@@ -1,5 +1,5 @@
-import { Row, Col, Head } from 'digi-ui';
-import { Icon, Icons, IconType } from 'digi-ui/icons';
+import { Row, Col, Head, Text } from 'digi-ui';
+import { Icon, Icons } from 'digi-ui/icons';
 
 export const ExampleIcons = () => {
   const splitArray = <T,>(xs: T[], size: number): T[][] => {
@@ -85,7 +85,9 @@ export const ExampleIcons = () => {
         <Row key={i}>
           {xs.map((icon, j) => (
             <Col key={j} weight={1}>
-              <Icon name={icon} type="fill" />
+              <Text $color="primitive-blue-900">
+                <Icon name={icon} type="fill" />
+              </Text>
             </Col>
           ))}
         </Row>
@@ -95,7 +97,9 @@ export const ExampleIcons = () => {
         <Row key={i}>
           {xs.map((icon, j) => (
             <Col key={j} weight={1}>
-              <Icon name={icon} type="line" />
+              <Text $color="primitive-cyan-900">
+                <Icon name={icon} type="line" />
+              </Text>
             </Col>
           ))}
         </Row>

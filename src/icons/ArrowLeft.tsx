@@ -13,7 +13,7 @@ export const ArrowLeft: React.FC<NamedIconProps> = (props) => {
       <g clip-path="url(#clip0_320_201)">
         <path
           d="M7.90156 12.0001L15.9016 4.0001L14.5016 2.6001L5.10156 12.0001L14.5016 21.4001L15.9016 20.0001L7.90156 12.0001Z"
-          fill="#1A1A1C"
+          fill="currentColor"
         />
       </g>
       <defs>
@@ -33,7 +33,7 @@ export const ArrowLeft: React.FC<NamedIconProps> = (props) => {
       <g clip-path="url(#clip0_320_198)">
         <path
           d="M14.4984 21L5.39844 12L14.4984 3L15.4984 4L7.59844 12L15.4984 20L14.4984 21Z"
-          fill="#1A1A1C"
+          fill="currentColor"
         />
       </g>
       <defs>
