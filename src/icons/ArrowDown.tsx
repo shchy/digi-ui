@@ -1,4 +1,4 @@
-import { Svg } from './Svg';
+import { Svg } from './types';
 
 export const ArrowDown: React.FC = () => {
   return (

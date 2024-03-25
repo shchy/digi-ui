@@ -1,4 +1,5 @@
-import { colorType, textType } from '../styles';
+import styled from 'styled-components';
+import { colorType, textType, useTypography } from '../styles';
 
 export type Icons =
   | 'Add'
@@ -67,6 +68,9 @@ export interface SVGProps {
   $textType?: textType;
   $color?: colorType;
 }
+export const Svg = styled.svg<SVGProps>`
+  ${(props) => useTypography(props.$textType ?? 'Body/L', props.$color, true)}
+`;
 
 export interface IconProps extends React.SVGProps<SVGSVGElement>, SVGProps {
   name: Icons;

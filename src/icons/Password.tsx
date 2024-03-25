@@ -1,6 +1,5 @@
 import React from 'react';
-import { NamedIconProps } from './types';
-import { Svg } from './Svg';
+import { NamedIconProps, Svg } from './types';
 
 export const Password: React.FC<NamedIconProps> = ({ type, ...rest }) => {
   return type === 'fill' ? (

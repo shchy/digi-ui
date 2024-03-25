@@ -1,6 +1,5 @@
 import React from 'react';
-import { NamedIconProps } from './types';
-import { Svg } from './Svg';
+import { NamedIconProps, Svg } from './types';
 
 export const FastTrack: React.FC<NamedIconProps> = ({ type, ...rest }) => {
   return type === 'fill' ? (

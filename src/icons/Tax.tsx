@@ -1,6 +1,5 @@
 import React from 'react';
-import { NamedIconProps } from './types';
-import { Svg } from './Svg';
+import { NamedIconProps, Svg } from './types';
 
 export const Tax: React.FC<NamedIconProps> = ({ type, ...rest }) => {
   return type === 'fill' ? (
