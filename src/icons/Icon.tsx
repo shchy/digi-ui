@@ -2,7 +2,7 @@ import { IconProps } from './types';
 import { Add } from './Add';
 import { Application } from './Application';
 import { Arrival } from './Arrival';
-import { ArrowDown2 } from './ArrowDown2';
+import { ArrowDown } from './ArrowDown';
 import { ArrowLeft } from './ArrowLeft';
 import { ArrowRight } from './ArrowRight';
 import { ArrowUp } from './ArrowUp';
@@ -73,7 +73,7 @@ const selectIcon = (p: IconProps) => {
     case 'Arrival':
       return <Arrival {...p} />;
     case 'ArrowDown2':
-      return <ArrowDown2 {...p} />;
+      return <ArrowDown {...p} />;
     case 'ArrowLeft':
       return <ArrowLeft {...p} />;
     case 'ArrowRight':

@@ -2,7 +2,7 @@ import { forwardRef, ChangeEventHandler, FocusEventHandler } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
-import { ArrowDown } from './icons';
+import { SelectorArrowDown } from './icons';
 import { hasError, toArray } from './utils';
 
 type Props<T> = {
@@ -63,7 +63,7 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
             ))}
           </Select>
           <SelectIcon>
-            <ArrowDown />
+            <SelectorArrowDown />
           </SelectIcon>
         </SelectFrame>
         {!props.disabled &&
