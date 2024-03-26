@@ -1,6 +1,6 @@
 import { MouseEventHandler, FC } from 'react';
 import { styled } from 'styled-components';
-import { getColor } from './styles';
+import { getColor, textType } from './styles';
 import { Text } from '.';
 
 type buttonType = 'Primary' | 'Secondary' | 'Tertiary';
@@ -14,6 +14,7 @@ export const Button: FC<{
   disabled?: boolean;
   buttonType?: 'button' | 'submit' | 'reset';
 }> = (props) => {
+  const labelType: textType = props.size === 'X-Small' ? 'Body/M' : 'Button';
   return (
     <Root
       type={props.buttonType ?? 'button'}
@@ -22,7 +23,7 @@ export const Button: FC<{
       $size={props.size ?? 'Medium'}
       disabled={props.disabled}
     >
-      <ButtonLabel $type="Button">{props.label}</ButtonLabel>
+      <ButtonLabel $type={labelType}>{props.label}</ButtonLabel>
     </Root>
   );
 };
@@ -64,6 +65,16 @@ const Root = styled.button<{
       case 'Medium':
       default:
         return '48px';
+    }
+  }};
+  margin: ${(props) => {
+    switch (props.$size) {
+      case 'Small':
+        return '4px 0';
+      case 'X-Small':
+        return '8px 0';
+      default:
+        return '0';
     }
   }};
   border-radius: ${(props) => {

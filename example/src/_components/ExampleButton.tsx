@@ -23,7 +23,7 @@ export const ExampleButton = () => {
         <Col weight={1}>
           <Button
             type="Primary"
-            size="Large"
+            size="Medium"
             label="ラベル"
             onClick={() => console.log('click')}
           />
@@ -31,7 +31,7 @@ export const ExampleButton = () => {
         <Col weight={1}>
           <Button
             type="Secondary"
-            size="Large"
+            size="Medium"
             label="ラベル"
             onClick={() => console.log('click')}
           />
@@ -39,7 +39,7 @@ export const ExampleButton = () => {
         <Col weight={1}>
           <Button
             type="Tertiary"
-            size="Large"
+            size="Medium"
             label="ラベル"
             onClick={() => console.log('click')}
           />
@@ -52,7 +52,7 @@ export const ExampleButton = () => {
         <Col weight={1}>
           <Button
             type="Primary"
-            size="Large"
+            size="Medium"
             label="ラベル"
             disabled
             onClick={() => console.log('click')}
@@ -61,7 +61,7 @@ export const ExampleButton = () => {
         <Col weight={1}>
           <Button
             type="Secondary"
-            size="Large"
+            size="Medium"
             label="ラベル"
             disabled
             onClick={() => console.log('click')}
@@ -70,7 +70,7 @@ export const ExampleButton = () => {
         <Col weight={1}>
           <Button
             type="Tertiary"
-            size="Large"
+            size="Medium"
             label="ラベル"
             disabled
             onClick={() => console.log('click')}
