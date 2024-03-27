@@ -72,7 +72,7 @@ const selectIcon = (p: IconProps) => {
       return <Application {...p} />;
     case 'Arrival':
       return <Arrival {...p} />;
-    case 'ArrowDown2':
+    case 'ArrowDown':
       return <ArrowDown {...p} />;
     case 'ArrowLeft':
       return <ArrowLeft {...p} />;

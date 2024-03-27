@@ -16,10 +16,10 @@ export const ExampleCheckboxList = () => {
     <div>
       <Head level="H1">CheckboxList</Head>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <CheckboxList
             label="電話番号"
             list={list}
@@ -31,13 +31,12 @@ export const ExampleCheckboxList = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <CheckboxList
             label="電話番号"
             list={list}
@@ -47,13 +46,12 @@ export const ExampleCheckboxList = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <CheckboxList
             label="電話番号"
             list={list}
@@ -65,13 +63,12 @@ export const ExampleCheckboxList = () => {
             errorText="数字で入力してください。"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <CheckboxList
             label="電話番号"
             list={list}
@@ -83,7 +80,6 @@ export const ExampleCheckboxList = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
     </div>
   );

@@ -9,10 +9,10 @@ export const ExampleRadioButtonList = () => {
     <div>
       <Head level="H1">RadioButtonList</Head>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButtonList
             label="Radio1"
             name="Radio1"
@@ -27,13 +27,12 @@ export const ExampleRadioButtonList = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButtonList
             label="Radio2"
             name="Radio2"
@@ -49,13 +48,12 @@ export const ExampleRadioButtonList = () => {
             selectDescribe={(x) => `補足説明-${x}`}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButtonList
             label="Radio3"
             name="Radio3"
@@ -71,13 +69,12 @@ export const ExampleRadioButtonList = () => {
             errorText="数字で入力してください。"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButtonList
             label="Radio4"
             name="Radio4"
@@ -94,7 +91,6 @@ export const ExampleRadioButtonList = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
     </div>
   );

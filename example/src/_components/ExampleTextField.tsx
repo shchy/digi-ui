@@ -7,10 +7,10 @@ export const ExampleTextField = () => {
     <div>
       <Head level="H1">TextField</Head>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextField
             label="電話番号"
             value={text}
@@ -19,13 +19,12 @@ export const ExampleTextField = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextField
             label="電話番号"
             value={text}
@@ -33,13 +32,12 @@ export const ExampleTextField = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextField
             label="電話番号"
             value={text}
@@ -49,13 +47,12 @@ export const ExampleTextField = () => {
             errorText="数字で入力してください。"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextField
             label="電話番号"
             value={text}
@@ -65,7 +62,6 @@ export const ExampleTextField = () => {
             supportText="電話番号"
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
     </div>
   );

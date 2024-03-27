@@ -585,11 +585,7 @@ export const getTextProp = (type: textType): textProp => {
   }
 };
 
-export const useTypography = (
-  type: textType,
-  color?: colorType,
-  isSVG: boolean = false
-) => {
+export const useTypography = (type: textType, color?: colorType) => {
   const props = getTextProp(type);
   const textColor = color ? getColor(color) : 'inherit';
   return css`
@@ -600,8 +596,6 @@ export const useTypography = (
     font-size: ${props.size};
     line-height: ${props.lineHeight};
     letter-spacing: ${props.letterSpacing};
-    width: ${isSVG && props.size};
-    height: ${isSVG && props.size};
     &:disabled {
       color: ${getColor('neutral-opacity-grey-420')} !important;
     }

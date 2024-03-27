@@ -1,7 +1,8 @@
 import { MouseEventHandler, FC } from 'react';
 import { styled } from 'styled-components';
-import { getColor, textType } from './styles';
+import { getColor, spaces, textType } from './styles';
 import { Text } from '.';
+import { Icon, IconProps } from './icons';
 
 type buttonType = 'Primary' | 'Secondary' | 'Tertiary';
 type buttonSize = 'Large' | 'Medium' | 'Small' | 'X-Small';
@@ -13,6 +14,8 @@ export const Button: FC<{
   size?: buttonSize;
   disabled?: boolean;
   buttonType?: 'button' | 'submit' | 'reset';
+  beforeIcon?: IconProps;
+  afterIcon?: IconProps;
 }> = (props) => {
   const labelType: textType = props.size === 'X-Small' ? 'Body/M' : 'Button';
   return (
@@ -23,7 +26,9 @@ export const Button: FC<{
       $size={props.size ?? 'Medium'}
       disabled={props.disabled}
     >
+      {props.beforeIcon && <Icon {...props.beforeIcon} />}
       <ButtonLabel $type={labelType}>{props.label}</ButtonLabel>
+      {props.afterIcon && <Icon {...props.afterIcon} />}
     </Root>
   );
 };
@@ -33,15 +38,16 @@ const Root = styled.button<{
   $size?: buttonSize;
 }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: ${spaces.XXS};
 
   font-size: ${(props) => {
     if (props.$size !== 'X-Small') return undefined;
     return '14px';
   }};
-  width: ${(props) => {
+  min-width: ${(props) => {
     switch (props.$size) {
       case 'Large':
         return '136px';

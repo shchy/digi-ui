@@ -16,10 +16,10 @@ export const ExampleCheckbox = () => {
     <div>
       <Head level="H1">Checkbox</Head>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Normal</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <Checkbox
             label="選択肢1"
             value={'A'}
@@ -27,13 +27,12 @@ export const ExampleCheckbox = () => {
             onChange={(e) => update('A', e.target.checked)}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <Checkbox
             label="選択肢2"
             value={'B'}
@@ -42,7 +41,6 @@ export const ExampleCheckbox = () => {
             disabled
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
     </div>
   );

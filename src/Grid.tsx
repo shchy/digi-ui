@@ -3,15 +3,40 @@ import styled from 'styled-components';
 import { spaces } from './styles';
 
 interface ICol {
-  weight: number | 'auto' | 'initial' | 'none';
+  desktop?: number | 'auto' | 'initial' | 'none';
+  tablet?: number | 'auto' | 'initial' | 'none';
+  mobile?: number | 'auto' | 'initial' | 'none';
   children?: ReactNode;
 }
 
 export const Col: FC<ICol> = (props) => {
-  return <InnerCol $w={props.weight}>{props.children}</InnerCol>;
+  return (
+    <InnerCol
+      $desktop={props.desktop}
+      $tablet={props.tablet}
+      $mobile={props.mobile}
+    >
+      {props.children}
+    </InnerCol>
+  );
 };
-const InnerCol = styled.div<{ $w: number | 'auto' | 'initial' | 'none' }>`
-  flex: ${(props) => props.$w};
+const InnerCol = styled.div<{
+  $desktop?: number | 'auto' | 'initial' | 'none';
+  $tablet?: number | 'auto' | 'initial' | 'none';
+  $mobile?: number | 'auto' | 'initial' | 'none';
+}>`
+  @media screen and (min-width: 1024px) {
+    flex: ${(props) =>
+      props.$mobile ?? props.$tablet ?? props.$desktop ?? 'initial'};
+  }
+  @media screen and (min-width: 1440px) {
+    flex: ${(props) =>
+      props.$tablet ?? props.$desktop ?? props.$mobile ?? 'initial'};
+  }
+  @media screen and (min-width: 1920px) {
+    flex: ${(props) =>
+      props.$desktop ?? props.$tablet ?? props.$mobile ?? 'initial'};
+  }
 `;
 
 export const Row: FC<{

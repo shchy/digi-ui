@@ -8,10 +8,10 @@ export const ExampleRadioButton = () => {
     <div>
       <Head level="H1">RadioButton</Head>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Normal</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButton
             label="Radio選択肢1"
             value="aaa"
@@ -19,13 +19,12 @@ export const ExampleRadioButton = () => {
             onChange={(e) => setChecked(e.target.checked)}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Tile</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButton
             label="Radio選択肢2"
             istile="true"
@@ -35,13 +34,12 @@ export const ExampleRadioButton = () => {
             onChange={(e) => setChecked(e.target.checked)}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <RadioButton
             label="Radio選択肢3"
             value="aaa"
@@ -50,7 +48,6 @@ export const ExampleRadioButton = () => {
             disabled
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
     </div>
   );

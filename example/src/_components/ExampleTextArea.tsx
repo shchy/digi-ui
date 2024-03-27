@@ -7,10 +7,10 @@ export const ExampleTextArea = () => {
     <div>
       <Head level="H1">TextArea</Head>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -20,13 +20,12 @@ export const ExampleTextArea = () => {
             maxLength={100}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -35,14 +34,13 @@ export const ExampleTextArea = () => {
             maxLength={100}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
 
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -53,14 +51,13 @@ export const ExampleTextArea = () => {
             maxLength={100}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
 
       <Row>
-        <Col weight={1}>
+        <Col desktop={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col weight={1}>
+        <Col desktop={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -71,7 +68,6 @@ export const ExampleTextArea = () => {
             maxLength={100}
           />
         </Col>
-        <Col weight={2}></Col>
       </Row>
     </div>
   );
