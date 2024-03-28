@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { MenuProps, MenuBase } from './MenuBase';
+import { MenuProps, MenuItemBase } from './MenuItemBase';
 
 export const Menu: FC<MenuProps> = (props) => {
-  return <MenuBase {...props} />;
+  return <MenuItemBase {...props} />;
 };

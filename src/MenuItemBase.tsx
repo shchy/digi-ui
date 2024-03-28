@@ -13,7 +13,7 @@ export type MenuProps = {
   onClick?: () => void;
 };
 
-export const MenuBase: FC<MenuProps> = (props) => {
+export const MenuItemBase: FC<MenuProps> = (props) => {
   const textType = props.textType ?? 'Body/L';
   return (
     <Root

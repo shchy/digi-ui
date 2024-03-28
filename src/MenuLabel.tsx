@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { MenuProps, MenuBase } from './MenuBase';
+import { MenuProps, MenuItemBase } from './MenuItemBase';
 
 type Props = Omit<MenuProps, 'selected' | 'disabled' | 'onClick'>;
 
 export const MenuLabel: FC<Props> = (props) => {
   const textType = props.textType ?? 'Button';
-  return <MenuBase {...props} textType={textType} />;
+  return <MenuItemBase {...props} textType={textType} />;
 };
