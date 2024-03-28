@@ -1,17 +1,18 @@
 import { FC } from 'react';
 import { css, styled } from 'styled-components';
-import { Text, Fieldset, textType, spaces, getColor } from '.';
-import { Icon, IconProps } from './icons';
+import {
+  Text,
+  spaces,
+  getColor,
+  MenuItemSectionHeader,
+  MenuItemSimple,
+  MenuItemDropdown,
+} from '.';
+import { Icon } from './icons';
 
-export type MenuProps = {
-  label: string;
-  beforeIcon?: IconProps;
-  afterIcon?: IconProps;
-  textType?: textType;
-  selected?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-};
+export type MenuProps = Omit<MenuItemSectionHeader, 'type'> &
+  Omit<MenuItemSimple, 'type'> &
+  Omit<MenuItemDropdown, 'type'>;
 
 export const MenuItemBase: FC<MenuProps> = (props) => {
   const textType = props.textType ?? 'Body/L';
@@ -23,7 +24,11 @@ export const MenuItemBase: FC<MenuProps> = (props) => {
       $disabled={!!props.onClick && props.disabled}
     >
       {props.beforeIcon && <Icon $textType={textType} {...props.beforeIcon} />}
-      <InnerText $type={textType} $block>
+      <InnerText
+        $type={textType}
+        $color={props.disabled ? 'neutral-solid-grey-420' : undefined}
+        $block
+      >
         {props.label}
       </InnerText>
       {props.afterIcon && <Icon $textType={textType} {...props.afterIcon} />}
@@ -31,7 +36,7 @@ export const MenuItemBase: FC<MenuProps> = (props) => {
   );
 };
 
-const Root = styled(Fieldset)<{
+const Root = styled.div<{
   $clickable: boolean;
   $disabled?: boolean;
   $selected?: boolean;
@@ -41,7 +46,7 @@ const Root = styled(Fieldset)<{
   align-items: center;
   gap: ${spaces.XXS};
   height: 50px;
-  width: fit-content;
+  /* width: fit-content; */
   padding: 0 ${spaces.S};
   cursor: ${(props) =>
     props.$disabled || !props.$clickable ? 'default' : 'pointer'};
