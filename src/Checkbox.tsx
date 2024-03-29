@@ -1,73 +1,39 @@
-import {
-  useId,
-  forwardRef,
-  ChangeEventHandler,
-  FocusEventHandler,
-} from 'react';
+import { useId, forwardRef } from 'react';
 import { styled } from 'styled-components';
 import { colorType, getColor } from './styles';
 import { Fieldset, Text } from '.';
 import { CheckboxIconUnCheck, CheckboxIconChecked } from './icons';
 
-export const Checkbox = forwardRef<
-  HTMLInputElement,
-  {
-    label: string;
-    value: string;
-    checked?: boolean;
-    width?: string;
-    color?: colorType;
+interface Props
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'ref' | 'type'> {
+  color?: colorType;
+}
 
-    required?: boolean;
-    disabled?: boolean;
-    name?: string;
-    min?: string | number;
-    max?: string | number;
-    maxLength?: number;
-    minLength?: number;
-    pattern?: string;
+export const Checkbox = forwardRef<HTMLInputElement, Props>(
+  ({ color, children, ...rest }, ref) => {
+    const id = useId();
 
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    onBlur?: FocusEventHandler<HTMLInputElement>;
+    return (
+      <Root disabled={rest.disabled}>
+        <CheckboxLabel htmlFor={id} $type="Body/L" $color={color}>
+          <CheckboxInput ref={ref} id={id} type="checkbox" {...rest} />
+          <CheckboxIcon
+            htmlFor={id}
+            $type="Body/L"
+            $color={color}
+            $checked={rest.checked ?? false}
+          >
+            {rest.checked ? <CheckboxIconChecked /> : <CheckboxIconUnCheck />}
+          </CheckboxIcon>
+          {children}
+        </CheckboxLabel>
+      </Root>
+    );
   }
->((props, ref) => {
-  const id = useId();
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <CheckboxLabel htmlFor={id} $type="Body/L" $color={props.color}>
-        <CheckboxInput
-          ref={ref}
-          id={id}
-          type="checkbox"
-          name={props.name ?? props.label}
-          value={props.value}
-          checked={props.checked}
-          required={props.required}
-          disabled={props.disabled}
-          min={props.min}
-          max={props.max}
-          minLength={props.minLength}
-          maxLength={props.maxLength}
-          pattern={props.pattern}
-          onChange={props.onChange}
-          onBlur={props.onBlur}
-        />
-        <CheckboxIcon
-          htmlFor={id}
-          $type="Body/L"
-          $color={props.color}
-          $checked={props.checked ?? false}
-        >
-          {props.checked ? <CheckboxIconChecked /> : <CheckboxIconUnCheck />}
-        </CheckboxIcon>
-        {props.label}
-      </CheckboxLabel>
-    </Root>
-  );
-});
+);
 
-const Root = styled(Fieldset)<{ $width?: string }>`
-  width: ${(props) => props.$width};
+const Root = styled(Fieldset)`
+  width: fit-content;
 `;
 const CheckboxLabel = styled(Text)`
   display: flex;
@@ -100,11 +66,7 @@ const CheckboxInput = styled.input`
   position: absolute;
 
   &:disabled {
-    border: ${(props) => {
-      return `1px solid ${getColor('neutral-solid-grey-420')}`;
-    }};
-    background-color: ${(props) => {
-      return getColor('neutral-solid-grey-50');
-    }};
+    border: 1px solid ${getColor('neutral-solid-grey-420')};
+    background-color: ${getColor('neutral-solid-grey-50')};
   }
 `;

@@ -1,94 +1,59 @@
-import {
-  useId,
-  forwardRef,
-  ChangeEventHandler,
-  FocusEventHandler,
-} from 'react';
+import { useId, forwardRef } from 'react';
 import { styled, css } from 'styled-components';
 import { colorType, getColor } from './styles';
 import { Fieldset, Text } from '.';
 import { RadioIconUnCheck, RadioIconCheck } from './icons';
 
-export const RadioButton = forwardRef<
-  HTMLInputElement,
-  {
-    label: string;
-    value: string;
-    checked?: boolean;
-    describe?: string;
-    istile?: 'true';
-    width?: string;
-    color?: colorType;
+interface Props
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'ref' | 'type'> {
+  describe?: string;
+  istile?: 'true';
+  color?: colorType;
+}
 
-    required?: boolean;
-    disabled?: boolean;
-    name?: string;
-    min?: string | number;
-    max?: string | number;
-    maxLength?: number;
-    minLength?: number;
-    pattern?: string;
+export const RadioButton = forwardRef<HTMLInputElement, Props>(
+  ({ describe, color, istile, children, ...rest }, ref) => {
+    const id = useId();
 
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    onBlur?: FocusEventHandler<HTMLInputElement>;
-  }
->((props, ref) => {
-  const id = useId();
-
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <RadioLabel
-        htmlFor={id}
-        $type="Body/L"
-        $color={props.color}
-        $istile={props.istile}
-        $checked={props.checked ?? false}
-        $disabled={props.disabled}
-      >
-        <RadioInput
-          ref={ref}
-          id={id}
-          type="radio"
-          name={props.name ?? props.label}
-          value={props.value}
-          checked={props.checked}
-          required={props.required}
-          disabled={props.disabled}
-          min={props.min}
-          max={props.max}
-          minLength={props.minLength}
-          maxLength={props.maxLength}
-          pattern={props.pattern}
-          onChange={props.onChange}
-          onBlur={props.onBlur}
-        />
-        <RadioIcon
+    return (
+      <Root disabled={rest.disabled}>
+        <RadioLabel
           htmlFor={id}
           $type="Body/L"
-          $color={props.color}
-          $checked={props.checked ?? false}
+          $color={color}
+          $istile={istile}
+          $checked={rest.checked ?? false}
+          $disabled={rest.disabled}
         >
-          {props.checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
-        </RadioIcon>
-        <RadioVert>
-          {props.label}
-          {props.describe && (
-            <Text
-              htmlFor={id}
-              $type="Caption/L"
-              $color="neutral-solid-grey-600"
-            >
-              {props.describe}
-            </Text>
-          )}
-        </RadioVert>
-      </RadioLabel>
-    </Root>
-  );
-});
+          <RadioInput ref={ref} id={id} type="radio" {...rest} />
+          <RadioIcon
+            htmlFor={id}
+            $type="Body/L"
+            $color={color}
+            $checked={rest.checked ?? false}
+          >
+            {rest.checked ? <RadioIconCheck /> : <RadioIconUnCheck />}
+          </RadioIcon>
+          <RadioVert>
+            {children}
+            {describe && (
+              <Text
+                htmlFor={id}
+                $type="Caption/L"
+                $color="neutral-solid-grey-600"
+              >
+                {describe}
+              </Text>
+            )}
+          </RadioVert>
+        </RadioLabel>
+      </Root>
+    );
+  }
+);
 
-const Root = styled(Fieldset)<{ $width?: string }>`
-  width: ${(props) => props.$width};
+const Root = styled(Fieldset)`
+  width: fit-content;
 `;
 const RadioLabel = styled(Text)<{
   $istile?: 'true';

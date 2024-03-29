@@ -4,80 +4,56 @@ import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
 import { hasError, toArray } from './utils';
 
-export const TextField = forwardRef<
-  HTMLInputElement,
-  {
-    label: string;
-    value?: string;
-    supportText?: string;
-    errorText?: string | string[];
-    width?: string;
-    inputType?: React.HTMLInputTypeAttribute;
-    requiredLabel?: boolean;
-
-    required?: boolean;
-    disabled?: boolean;
-    name?: string;
-    min?: string | number;
-    max?: string | number;
-    maxLength?: number;
-    minLength?: number;
-    pattern?: string;
-
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    onBlur?: FocusEventHandler<HTMLInputElement>;
-  }
->((props, ref) => {
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <LabelFrame>
-        <Text $type="Label/L">{props.label}</Text>
-        {props.requiredLabel && (
-          <Text $type="Caption/L" $color={'semantic-error-1'}>
-            必須
+interface Props
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'ref'> {
+  label: string;
+  supportText?: string;
+  errorText?: string | string[];
+  requiredLabel?: boolean;
+}
+export const TextField = forwardRef<HTMLInputElement, Props>(
+  ({ label, requiredLabel, supportText, errorText, ...rest }, ref) => {
+    return (
+      <Root disabled={rest.disabled}>
+        <LabelFrame>
+          <Text $type="Label/L">{label}</Text>
+          {requiredLabel && (
+            <Text $type="Caption/L" $color={'semantic-error-1'}>
+              必須
+            </Text>
+          )}
+        </LabelFrame>
+        {supportText && (
+          <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
+            {supportText}
           </Text>
         )}
-      </LabelFrame>
-      {props.supportText && (
-        <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
-          {props.supportText}
-        </Text>
-      )}
-      <TextInput
-        type={props.inputType ?? 'text'}
-        ref={ref}
-        name={props.name}
-        required={props.required}
-        disabled={props.disabled}
-        value={props.value}
-        min={props.min}
-        max={props.max}
-        minLength={props.minLength}
-        maxLength={props.maxLength}
-        pattern={props.pattern}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-        $state={{
-          hasError: hasError(props.errorText),
-        }}
-      />
-      {!props.disabled &&
-        toArray(props.errorText)?.map((x, i) => (
-          <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
-            {x}
-          </Text>
-        ))}
-    </Root>
-  );
-});
+        <TextInput
+          ref={ref}
+          $state={{
+            hasError: hasError(errorText),
+          }}
+          {...rest}
+          type={rest.type ?? 'text'}
+        />
+        {!rest.disabled &&
+          toArray(errorText)?.map((x, i) => (
+            <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
+              {x}
+            </Text>
+          ))}
+      </Root>
+    );
+  }
+);
 
-const Root = styled(Fieldset)<{ $width?: string }>`
+const Root = styled(Fieldset)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: ${(props) => props.$width};
+  width: fit-content;
 `;
 
 const LabelFrame = styled.div`
@@ -106,16 +82,10 @@ const TextInput = styled.input<{
   }};
 
   &:focus {
-    outline: ${(props) => {
-      return `4px solid ${getColor('focus-yellow')}`;
-    }};
+    outline: 4px solid ${getColor('focus-yellow')};
   }
   &:disabled {
-    border: ${(props) => {
-      return `1px solid ${getColor('neutral-solid-grey-420')}`;
-    }};
-    background-color: ${(props) => {
-      return getColor('neutral-solid-grey-50');
-    }};
+    border: 1px solid ${getColor('neutral-solid-grey-420')};
+    background-color: ${getColor('neutral-solid-grey-50')};
   }
 `;

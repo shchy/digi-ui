@@ -22,29 +22,32 @@ export const ExampleButton = () => {
         </Col>
         <Col large={1}>
           <Button
-            type="Primary"
-            size="Medium"
-            label="ラベル"
+            buttonType="Primary"
+            buttonSize="Medium"
             onClick={() => console.log('click')}
             beforeIcon={{ name: 'Add' }}
-          />
+          >
+            ラベル
+          </Button>
         </Col>
         <Col large={1}>
           <Button
-            type="Secondary"
-            size="Medium"
-            label="ラベル"
+            buttonType="Secondary"
+            buttonSize="Medium"
             onClick={() => console.log('click')}
             afterIcon={{ name: 'Work' }}
-          />
+          >
+            ラベル
+          </Button>
         </Col>
         <Col large={1}>
           <Button
-            type="Tertiary"
-            size="Medium"
-            label="ラベル"
+            buttonType="Tertiary"
+            buttonSize="Medium"
             onClick={() => console.log('click')}
-          />
+          >
+            ラベル
+          </Button>
         </Col>
       </Row>
       <Row>
@@ -53,30 +56,33 @@ export const ExampleButton = () => {
         </Col>
         <Col large={1}>
           <Button
-            type="Primary"
-            size="Medium"
-            label="ラベル"
+            buttonType="Primary"
+            buttonSize="Medium"
             disabled
             onClick={() => console.log('click')}
-          />
+          >
+            ラベル
+          </Button>
         </Col>
         <Col large={1}>
           <Button
-            type="Secondary"
-            size="Medium"
-            label="ラベル"
+            buttonType="Secondary"
+            buttonSize="Medium"
             disabled
             onClick={() => console.log('click')}
-          />
+          >
+            ラベル
+          </Button>
         </Col>
         <Col large={1}>
           <Button
-            type="Tertiary"
-            size="Medium"
-            label="ラベル"
+            buttonType="Tertiary"
+            buttonSize="Medium"
             disabled
             onClick={() => console.log('click')}
-          />
+          >
+            ラベル
+          </Button>
         </Col>
       </Row>
     </div>

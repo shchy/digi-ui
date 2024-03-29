@@ -13,11 +13,13 @@ export const ExampleRadioButton = () => {
         </Col>
         <Col large={3}>
           <RadioButton
-            label="Radio選択肢1"
+            name="asdf"
             value="aaa"
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
-          />
+          >
+            Radio選択肢1
+          </RadioButton>
         </Col>
       </Row>
       <Row>
@@ -26,13 +28,15 @@ export const ExampleRadioButton = () => {
         </Col>
         <Col large={3}>
           <RadioButton
-            label="Radio選択肢2"
+            name="asdf"
             istile="true"
             value="aaa"
             describe="説明用テキスト"
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
-          />
+          >
+            Radio選択肢1
+          </RadioButton>
         </Col>
       </Row>
       <Row>
@@ -41,12 +45,14 @@ export const ExampleRadioButton = () => {
         </Col>
         <Col large={3}>
           <RadioButton
-            label="Radio選択肢3"
+            name="asdf"
             value="aaa"
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
             disabled
-          />
+          >
+            Radio選択肢1
+          </RadioButton>
         </Col>
       </Row>
     </div>

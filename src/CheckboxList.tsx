@@ -56,12 +56,11 @@ export const CheckboxList = forwardRef<HTMLInputElement, Props<any>>(
                 .map((x) => props.selectKey(x))
                 .includes(props.selectKey(x))
             }
-            label={
-              props.selectDisplay ? props.selectDisplay(x) : props.selectKey(x)
-            }
             onChange={props.onChange}
             onBlur={props.onBlur}
-          />
+          >
+            {props.selectDisplay ? props.selectDisplay(x) : props.selectKey(x)}
+          </Checkbox>
         ))}
 
         {!props.disabled &&

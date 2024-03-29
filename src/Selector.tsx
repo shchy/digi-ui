@@ -1,64 +1,63 @@
-import { forwardRef, ChangeEventHandler, FocusEventHandler } from 'react';
+import { forwardRef } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
 import { SelectorArrowDown } from './icons';
 import { hasError, toArray } from './utils';
 
-type Props<T> = {
-  label: string;
+interface Props<T>
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'ref' | 'value'> {
   selectedItem?: T;
   supportText?: string;
   errorText?: string | string[];
-  width?: string;
   list: Array<T>;
   selectKey: (v: T) => string;
   selectDisplay?: (v: T) => string;
   requiredLabel?: boolean;
-
-  required?: boolean;
-  disabled?: boolean;
-  name?: string;
-
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
-  onBlur?: FocusEventHandler<HTMLSelectElement>;
-};
+}
 
 export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
-  (props: Props<any>, ref) => {
+  (
+    {
+      list,
+      selectKey,
+      selectDisplay,
+      selectedItem,
+      supportText,
+      errorText,
+      requiredLabel,
+      children,
+      ...rest
+    }: Props<any>,
+    ref
+  ) => {
     return (
-      <Root disabled={props.disabled} $width={props.width}>
+      <Root disabled={rest.disabled}>
         <LabelFrame>
-          <Text $type="Label/L">{props.label}</Text>
-          {props.requiredLabel && (
+          <Text $type="Label/L">{children}</Text>
+          {requiredLabel && (
             <Text $type="Caption/L" $color={'semantic-error-1'}>
               必須
             </Text>
           )}
         </LabelFrame>
-        {props.supportText && (
+        {supportText && (
           <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
-            {props.supportText}
+            {supportText}
           </Text>
         )}
         <SelectFrame>
           <Select
             ref={ref}
-            name={props.name}
-            required={props.required}
-            disabled={props.disabled}
-            value={props.selectedItem && props.selectKey(props.selectedItem)}
-            onChange={props.onChange}
-            onBlur={props.onBlur}
+            value={selectedItem && selectKey(selectedItem)}
             $state={{
-              hasError: hasError(props.errorText),
+              hasError: hasError(errorText),
             }}
+            {...rest}
           >
-            {props.list.map((x) => (
-              <option key={props.selectKey(x)} value={props.selectKey(x)}>
-                {props.selectDisplay
-                  ? props.selectDisplay(x)
-                  : props.selectKey(x)}
+            {list.map((x) => (
+              <option key={selectKey(x)} value={selectKey(x)}>
+                {selectDisplay ? selectDisplay(x) : selectKey(x)}
               </option>
             ))}
           </Select>
@@ -66,8 +65,8 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
             <SelectorArrowDown />
           </SelectIcon>
         </SelectFrame>
-        {!props.disabled &&
-          toArray(props.errorText)?.map((x, i) => (
+        {!rest.disabled &&
+          toArray(errorText)?.map((x, i) => (
             <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
               {x}
             </Text>
@@ -77,13 +76,13 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
   }
 ) as <T>(p: Props<T> & { ref?: React.Ref<HTMLSelectElement> }) => JSX.Element;
 
-const Root = styled(Fieldset)<{ $width?: string }>`
+const Root = styled(Fieldset)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: ${(props) => props.$width};
+  width: fit-content;
 `;
 
 const LabelFrame = styled.div`
@@ -123,17 +122,11 @@ const Select = styled.select<{
   }};
 
   &:focus {
-    outline: ${() => {
-      return `4px solid ${getColor('focus-yellow')}`;
-    }};
+    outline: 4px solid ${getColor('focus-yellow')};
   }
   &:disabled {
-    border: ${(props) => {
-      return `1px solid ${getColor('neutral-solid-grey-420')}`;
-    }};
-    background-color: ${(props) => {
-      return getColor('neutral-solid-grey-50');
-    }};
+    border: 1px solid ${getColor('neutral-solid-grey-420')};
+    background-color: ${getColor('neutral-solid-grey-50')};
   }
 `;
 

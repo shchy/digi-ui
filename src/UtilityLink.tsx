@@ -5,7 +5,8 @@ import { Link } from './Link';
 import { Icon, IconProps } from './icons';
 import { prevent } from './utils';
 
-interface Props extends Omit<React.HTMLProps<HTMLAnchorElement>, 'ref'> {
+interface Props
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'ref'> {
   beforeIcon?: IconProps;
   afterIcon?: IconProps;
   onClick?: () => void;

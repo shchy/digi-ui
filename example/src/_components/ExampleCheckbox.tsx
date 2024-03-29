@@ -21,11 +21,13 @@ export const ExampleCheckbox = () => {
         </Col>
         <Col large={3}>
           <Checkbox
-            label="選択肢1"
+            name="asdf"
             value={'A'}
             checked={selected.includes('A')}
             onChange={(e) => update('A', e.target.checked)}
-          />
+          >
+            選択肢1
+          </Checkbox>
         </Col>
       </Row>
       <Row>
@@ -34,12 +36,14 @@ export const ExampleCheckbox = () => {
         </Col>
         <Col large={3}>
           <Checkbox
-            label="選択肢2"
+            name="asdf"
             value={'B'}
             checked={selected.includes('B')}
             onChange={(e) => update('B', e.target.checked)}
             disabled
-          />
+          >
+            選択肢1
+          </Checkbox>
         </Col>
       </Row>
     </div>

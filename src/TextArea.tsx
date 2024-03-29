@@ -1,94 +1,93 @@
-import { ChangeEventHandler, FocusEventHandler, forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
 import { hasError, toArray } from './utils';
 
-export const TextArea = forwardRef<
-  HTMLTextAreaElement,
-  {
-    label: string;
-    value?: string;
-    supportText?: string;
-    errorText?: string | string[];
-    width?: string;
-    requiredLabel?: boolean;
+interface Props
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'ref'> {
+  label: string;
+  supportText?: string;
+  errorText?: string | string[];
+  requiredLabel?: boolean;
+}
 
-    required?: boolean;
-    disabled?: boolean;
-    name?: string;
-    maxLength?: number;
-    minLength?: number;
-
-    onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-    onBlur?: FocusEventHandler<HTMLTextAreaElement>;
-  }
->((props, ref) => {
-  return (
-    <Root disabled={props.disabled} $width={props.width}>
-      <LabelFrame>
-        <Text $type="Label/L">{props.label}</Text>
-        {props.requiredLabel && (
-          <Text $type="Caption/L" $color={'semantic-error-1'}>
-            必須
-          </Text>
-        )}
-      </LabelFrame>
-      {props.supportText && (
-        <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
-          {props.supportText}
-        </Text>
-      )}
-      <TextAreaInner
-        ref={ref}
-        name={props.name}
-        required={props.required}
-        disabled={props.disabled}
-        value={props.value}
-        minLength={props.minLength}
-        maxLength={props.maxLength}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-        $state={{
-          hasError: hasError(props.errorText),
-        }}
-      />
-
-      <LeftRight>
-        <StartCell>
-          {!props.disabled &&
-            toArray(props.errorText)?.map((x, i) => (
-              <Text key={i} $type="Caption/L" $color="semantic-error-1" $block>
-                {x}
-              </Text>
-            ))}
-        </StartCell>
-        <EndCell>
-          {props.maxLength && (
-            <Text
-              $type="Caption/M"
-              $color={
-                props.errorText !== undefined && props.errorText.length > 0
-                  ? 'semantic-error-1'
-                  : 'neutral-solid-grey-420'
-              }
-            >
-              {props.value?.length ?? 0}/{props.maxLength}
+export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
+  ({ label, requiredLabel, supportText, errorText, ...rest }, ref) => {
+    const textLength = useMemo(() => {
+      if (rest.value === undefined) return 0;
+      if (Array.isArray(rest.value)) {
+        return rest.value.reduce((sum, v: string) => sum + v.length, 0);
+      } else if (typeof rest.value === 'number') {
+        return rest.value.toString().length;
+      } else {
+        return rest.value.length;
+      }
+    }, [rest.value]);
+    return (
+      <Root disabled={rest.disabled}>
+        <LabelFrame>
+          <Text $type="Label/L">{label}</Text>
+          {requiredLabel && (
+            <Text $type="Caption/L" $color={'semantic-error-1'}>
+              必須
             </Text>
           )}
-        </EndCell>
-      </LeftRight>
-    </Root>
-  );
-});
+        </LabelFrame>
+        {supportText && (
+          <Text $type="Caption/L" $color={'neutral-solid-grey-600'}>
+            {supportText}
+          </Text>
+        )}
+        <TextAreaInner
+          ref={ref}
+          $state={{
+            hasError: hasError(errorText),
+          }}
+          {...rest}
+        />
 
-const Root = styled(Fieldset)<{ $width?: string }>`
+        <LeftRight>
+          <StartCell>
+            {!rest.disabled &&
+              toArray(errorText)?.map((x, i) => (
+                <Text
+                  key={i}
+                  $type="Caption/L"
+                  $color="semantic-error-1"
+                  $block
+                >
+                  {x}
+                </Text>
+              ))}
+          </StartCell>
+          <EndCell>
+            {rest.maxLength && (
+              <Text
+                $type="Caption/M"
+                $color={
+                  errorText !== undefined && errorText.length > 0
+                    ? 'semantic-error-1'
+                    : 'neutral-solid-grey-420'
+                }
+              >
+                {textLength}/{rest.maxLength}
+              </Text>
+            )}
+          </EndCell>
+        </LeftRight>
+      </Root>
+    );
+  }
+);
+
+const Root = styled(Fieldset)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: ${(props) => props.$width};
+  width: fit-content;
 `;
 
 const LabelFrame = styled.div`
@@ -130,16 +129,10 @@ const TextAreaInner = styled.textarea<{
   }};
 
   &:focus {
-    outline: ${(props) => {
-      return `4px solid ${getColor('focus-yellow')}`;
-    }};
+    outline: 4px solid ${getColor('focus-yellow')};
   }
   &:disabled {
-    border: ${(props) => {
-      return `1px solid ${getColor('neutral-solid-grey-420')}`;
-    }};
-    background-color: ${(props) => {
-      return getColor('neutral-solid-grey-50');
-    }};
+    border: 1px solid ${getColor('neutral-solid-grey-420')};
+    background-color: ${getColor('neutral-solid-grey-50')};
   }
 `;
