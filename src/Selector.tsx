@@ -7,6 +7,7 @@ import { hasError, toArray } from './utils';
 
 interface Props<T>
   extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'ref' | 'value'> {
+  label: string;
   selectedItem?: T;
   supportText?: string;
   errorText?: string | string[];
@@ -19,6 +20,7 @@ interface Props<T>
 export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
   (
     {
+      label,
       list,
       selectKey,
       selectDisplay,
@@ -26,7 +28,6 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
       supportText,
       errorText,
       requiredLabel,
-      children,
       ...rest
     }: Props<any>,
     ref
@@ -34,7 +35,7 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
     return (
       <Root disabled={rest.disabled}>
         <LabelFrame>
-          <Text $type="Label/L">{children}</Text>
+          <Text $type="Label/L">{label}</Text>
           {requiredLabel && (
             <Text $type="Caption/L" $color={'semantic-error-1'}>
               必須

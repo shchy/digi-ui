@@ -20,7 +20,7 @@
 [ ] MegaMenu
 [ ] Breadcrumb
 ---
-[ ] wrapしてるネイティブコントロールのPropsを...restで中継する
+[x] wrapしてるネイティブコントロールのPropsを...restで中継する
     React.XXXHTMLAttributes<HTMLXXXElement>
 [ ] onClickがついてるコンポーネントはbuttonで囲う（キー操作に対応するため）
 ---
