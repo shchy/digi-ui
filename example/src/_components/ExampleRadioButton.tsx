@@ -8,10 +8,10 @@ export const ExampleRadioButton = () => {
     <div>
       <Head level="H1">RadioButton</Head>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Normal</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButton
             label="Radio選択肢1"
             value="aaa"
@@ -21,10 +21,10 @@ export const ExampleRadioButton = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Tile</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButton
             label="Radio選択肢2"
             istile="true"
@@ -36,10 +36,10 @@ export const ExampleRadioButton = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButton
             label="Radio選択肢3"
             value="aaa"

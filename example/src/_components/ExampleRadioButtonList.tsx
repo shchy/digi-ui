@@ -9,10 +9,10 @@ export const ExampleRadioButtonList = () => {
     <div>
       <Head level="H1">RadioButtonList</Head>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButtonList
             label="Radio1"
             name="Radio1"
@@ -29,10 +29,10 @@ export const ExampleRadioButtonList = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButtonList
             label="Radio2"
             name="Radio2"
@@ -50,10 +50,10 @@ export const ExampleRadioButtonList = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButtonList
             label="Radio3"
             name="Radio3"
@@ -71,10 +71,10 @@ export const ExampleRadioButtonList = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <RadioButtonList
             label="Radio4"
             name="Radio4"

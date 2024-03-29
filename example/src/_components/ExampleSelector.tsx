@@ -9,10 +9,10 @@ export const ExampleSelector = () => {
     <div>
       <Head level="H1">Selector</Head>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <Selector
             label="電話番号"
             list={selectList}
@@ -29,10 +29,10 @@ export const ExampleSelector = () => {
       </Row>
 
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <Selector
             label="電話番号"
             list={selectList}
@@ -46,10 +46,10 @@ export const ExampleSelector = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <Selector
             label="電話番号"
             list={selectList}
@@ -66,10 +66,10 @@ export const ExampleSelector = () => {
       </Row>
 
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <Selector
             label="電話番号"
             list={selectList}

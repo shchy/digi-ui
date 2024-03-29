@@ -16,10 +16,10 @@ export const ExampleCheckbox = () => {
     <div>
       <Head level="H1">Checkbox</Head>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Normal</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <Checkbox
             label="選択肢1"
             value={'A'}
@@ -29,10 +29,10 @@ export const ExampleCheckbox = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <Checkbox
             label="選択肢2"
             value={'B'}

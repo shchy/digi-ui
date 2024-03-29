@@ -7,10 +7,10 @@ export const ExampleTextArea = () => {
     <div>
       <Head level="H1">TextArea</Head>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">必須あり</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -22,10 +22,10 @@ export const ExampleTextArea = () => {
         </Col>
       </Row>
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">必須なし</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -37,10 +37,10 @@ export const ExampleTextArea = () => {
       </Row>
 
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">エラーあり</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <TextArea
             label="電話番号"
             value={text}
@@ -54,10 +54,10 @@ export const ExampleTextArea = () => {
       </Row>
 
       <Row>
-        <Col desktop={1}>
+        <Col large={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col desktop={3}>
+        <Col large={3}>
           <TextArea
             label="電話番号"
             value={text}

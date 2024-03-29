@@ -85,7 +85,7 @@ export const ExampleIcons = () => {
       {icons.map((xs, i) => (
         <Row key={i}>
           {xs.map((icon, j) => (
-            <Col key={j} desktop={1}>
+            <Col key={j} large={1}>
               <Cell $color="primitive-blue-900" $type="Body/L">
                 <Icon name={icon} type="fill" $textType="Body/L" />
                 {icon}
@@ -98,7 +98,7 @@ export const ExampleIcons = () => {
       {icons.map((xs, i) => (
         <Row key={i}>
           {xs.map((icon, j) => (
-            <Col key={j} desktop={1}>
+            <Col key={j} large={1}>
               <Cell $color="primitive-cyan-900" $type="Body/L">
                 <Icon name={icon} type="line" $textType="Body/L" />
                 {icon}

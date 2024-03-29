@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { Interpolation, RuleSet, css } from 'styled-components';
 
 export type colorType =
   | 'neutral-white'
@@ -604,11 +604,68 @@ export const useTypography = (type: textType, color?: colorType) => {
 
 const spaceUnit = 8;
 export const spaces = {
-  XXS: `${spaceUnit * 0.5}px`,
-  XS: `${spaceUnit * 1}px`,
-  S: `${spaceUnit * 2}px`,
-  M: `${spaceUnit * 3}px`,
-  L: `${spaceUnit * 5}px`,
-  XL: `${spaceUnit * 8}px`,
-  XXL: `${spaceUnit * 13}px`,
+  XXS: `${spaceUnit * 0.5}px` /**  4px */,
+  XS: `${spaceUnit * 1}px` /**  8px */,
+  S: `${spaceUnit * 2}px` /** 16px */,
+  M: `${spaceUnit * 3}px` /** 24px */,
+  L: `${spaceUnit * 5}px` /** 40px */,
+  XL: `${spaceUnit * 8}px` /** 64px */,
+  XXL: `${spaceUnit * 13}px` /** 104px */,
 };
+
+export interface ByScreen<T> {
+  large?: T;
+  medium?: T;
+  small?: T;
+}
+export interface RuleSetByScreen extends ByScreen<RuleSet<object>> {}
+const defaultSize: ByScreen<number> = {
+  large: 1920,
+  medium: 1440,
+  small: 1024,
+};
+export type screenSize = keyof typeof defaultSize;
+export const media = ((breakpoints: ByScreen<number>) => {
+  const getSize = (size: screenSize) => {
+    switch (size) {
+      case 'large':
+        return `${breakpoints.large}px`;
+      case 'medium':
+        return `${breakpoints.medium}px`;
+      case 'small':
+        return `${breakpoints.small}px`;
+    }
+  };
+
+  const lessThan =
+    (size: screenSize) =>
+    (styles: any, ...interpolations: Interpolation<object>[]) =>
+      css`
+        @media (max-width: ${getSize(size)}) {
+          ${css(styles, ...interpolations)}
+        }
+      `;
+  const greaterThan =
+    (size: screenSize) =>
+    (styles: any, ...interpolations: Interpolation<object>[]) =>
+      css`
+        @media (min-width: ${getSize(size)}) {
+          ${css(styles, ...interpolations)}
+        }
+      `;
+  const between =
+    (min: screenSize, max: screenSize) =>
+    (styles: any, ...interpolations: Interpolation<object>[]) =>
+      css`
+        @media (min-width: ${getSize(min)}) and (max-width: ${getSize(max)}) {
+          ${css(styles, ...interpolations)}
+        }
+      `;
+
+  return {
+    getSize,
+    lessThan,
+    greaterThan,
+    between,
+  };
+})(defaultSize);

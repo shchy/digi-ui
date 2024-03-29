@@ -1,4 +1,14 @@
-import { Layout, Row, Col, MenuList, MenuItem, MenuItemSimple } from 'digi-ui';
+import {
+  Layout,
+  Row,
+  Col,
+  Text,
+  MenuList,
+  MenuItem,
+  MenuItemSimple,
+  Header,
+  Link,
+} from 'digi-ui';
 import { ExampleButton } from './_components/ExampleButton';
 import { ExampleTextField } from './_components/ExampleTextField';
 import { ExampleTextArea } from './_components/ExampleTextArea';
@@ -81,14 +91,18 @@ function App() {
       (selectableMenu as MenuItemWithPath).path === location.pathname;
   }
 
+  const dropdownMenu = {
+    type: 'dropdown',
+    label: 'コンポーネント',
+    menuItems: menuItems,
+  } as MenuItem;
   const headerMenus: MenuItem[] = [
-    {
-      type: 'dropdown',
-      label: 'コンポーネント',
-      align: 'end',
-      menuItems: menuItems,
-    },
+    dropdownMenu,
+    dropdownMenu,
+    dropdownMenu,
+    dropdownMenu,
   ];
+
   const sideMenus = [
     ...menuItems,
     {
@@ -101,25 +115,28 @@ function App() {
 
   return (
     <Layout>
+      <Header
+        logo={<Text $type="Headline/L">Logo</Text>}
+        items={[
+          <Link href="https://www.google.com" target="_blank">
+            Google
+          </Link>,
+          <Link href="https://www.yahoo.com" target="_blank">
+            Yahoo
+          </Link>,
+        ]}
+        globalMenus={headerMenus}
+      ></Header>
+
       <Row>
-        <Col desktop={'auto'}>
-          <MenuList
-            items={headerMenus}
-            direction="row"
-            align="end"
-            dropdownDirection="bottom"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col desktop={1} tablet={2}>
+        <Col large={1} medium={1} small={2}>
           <MenuList
             items={sideMenus}
             direction="column"
             dropdownDirection="right"
           />
         </Col>
-        <Col desktop={7} tablet={6}>
+        <Col large={7} medium={3} small={6}>
           <Routes>
             <Route path="/" element={<ExampleButton />} />
             <Route path="/textfield" element={<ExampleTextField />} />
@@ -131,16 +148,6 @@ function App() {
             <Route path="/radiobuttons" element={<ExampleRadioButtonList />} />
             <Route path="/icons" element={<ExampleIcons />} />
           </Routes>
-        </Col>
-      </Row>
-      <Row>
-        <Col desktop={'auto'}>
-          <MenuList
-            items={headerMenus}
-            direction="row"
-            align="end"
-            dropdownDirection="top"
-          />
         </Col>
       </Row>
     </Layout>

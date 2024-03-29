@@ -1,17 +1,23 @@
 import styled from 'styled-components';
-import { useTypography } from './styles';
+import { media, useTypography } from './styles';
 
 export const Layout = styled.div`
   ${(props) => useTypography('Body/L', 'neutral-solid-grey-900')}
   margin: 0 auto;
 
-  @media screen and (min-width: 1024px) {
+  ${media.lessThan('small')`
+    width: 95%;
+  `}
+  ${media.between('small', 'medium')`
     width: 928px;
-  }
-  @media screen and (min-width: 1440px) {
+    min-width: 928px;
+  `}
+  ${media.between('medium', 'large')`
     width: 1312px;
-  }
-  @media screen and (min-width: 1920px) {
+    min-width: 1312px;
+  `}
+  ${media.greaterThan('large')`
     width: 1696px;
-  }
+    min-width: 1696px;
+  `}
 `;
