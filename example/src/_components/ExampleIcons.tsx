@@ -74,6 +74,7 @@ export const ExampleIcons = () => {
       'Transactions',
       'Update',
       'Work',
+      'Close',
     ],
     4
   );

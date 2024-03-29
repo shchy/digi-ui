@@ -44,7 +44,16 @@ export const MenuItemDropdownComponent: FC<Props> = (props) => {
     <Root ref={frame} tabIndex={0} onBlur={blurHandler}>
       <MenuItemBase
         {...props}
-        afterIcon={{ name: selectDirectionIcon() }}
+        beforeIcon={
+          props.direction === 'left'
+            ? { name: selectDirectionIcon() }
+            : props.icon
+        }
+        afterIcon={
+          props.direction !== 'left'
+            ? { name: selectDirectionIcon() }
+            : props.icon
+        }
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (

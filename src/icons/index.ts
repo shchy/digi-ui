@@ -64,4 +64,5 @@ export * from './Tax';
 export * from './Transactions';
 export * from './Update';
 export * from './Work';
+export * from './Close';
 export * from './Icon';

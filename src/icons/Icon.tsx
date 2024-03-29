@@ -58,6 +58,7 @@ import { Tax } from './Tax';
 import { Transactions } from './Transactions';
 import { Update } from './Update';
 import { Work } from './Work';
+import { Close } from './Close';
 
 export const Icon: React.FC<IconProps> = (props) => {
   const icon = selectIcon(props);
@@ -184,6 +185,8 @@ const selectIcon = (p: IconProps) => {
       return <Update {...p} />;
     case 'Work':
       return <Work {...p} />;
+    case 'Close':
+      return <Close {...p} />;
     default:
       return <></>;
   }

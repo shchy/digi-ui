@@ -1,5 +1,5 @@
 import {
-  Layout,
+  Container,
   Row,
   Col,
   Text,
@@ -114,43 +114,52 @@ function App() {
   ];
 
   return (
-    <Layout>
-      <Header
-        logo={<Text $type="Headline/L">Logo</Text>}
-        items={[
-          <Link href="https://www.google.com" target="_blank">
-            Google
-          </Link>,
-          <Link href="https://www.yahoo.com" target="_blank">
-            Yahoo
-          </Link>,
-        ]}
-        globalMenus={headerMenus}
-      ></Header>
-
-      <Row>
-        <Col large={1} medium={1} small={2}>
-          <MenuList
-            items={sideMenus}
-            direction="column"
-            dropdownDirection="right"
-          />
-        </Col>
-        <Col large={7} medium={3} small={6}>
-          <Routes>
-            <Route path="/" element={<ExampleButton />} />
-            <Route path="/textfield" element={<ExampleTextField />} />
-            <Route path="/textarea" element={<ExampleTextArea />} />
-            <Route path="/selector" element={<ExampleSelector />} />
-            <Route path="/checkbox" element={<ExampleCheckbox />} />
-            <Route path="/checkboxs" element={<ExampleCheckboxList />} />
-            <Route path="/radiobutton" element={<ExampleRadioButton />} />
-            <Route path="/radiobuttons" element={<ExampleRadioButtonList />} />
-            <Route path="/icons" element={<ExampleIcons />} />
-          </Routes>
-        </Col>
-      </Row>
-    </Layout>
+    <>
+      <header>
+        <Header
+          logo={<Text $type="Headline/L">Logo</Text>}
+          items={[
+            <Link href="https://www.google.com" target="_blank">
+              Google
+            </Link>,
+            <Link href="https://www.yahoo.com" target="_blank">
+              Yahoo
+            </Link>,
+          ]}
+          globalMenus={headerMenus}
+          drawerPosition="right"
+        ></Header>
+      </header>
+      <main>
+        <Container>
+          <Row>
+            <Col large={1} medium={1} small={2}>
+              <MenuList
+                items={sideMenus}
+                direction="column"
+                dropdownDirection="right"
+              />
+            </Col>
+            <Col large={7} medium={3} small={6}>
+              <Routes>
+                <Route path="/" element={<ExampleButton />} />
+                <Route path="/textfield" element={<ExampleTextField />} />
+                <Route path="/textarea" element={<ExampleTextArea />} />
+                <Route path="/selector" element={<ExampleSelector />} />
+                <Route path="/checkbox" element={<ExampleCheckbox />} />
+                <Route path="/checkboxs" element={<ExampleCheckboxList />} />
+                <Route path="/radiobutton" element={<ExampleRadioButton />} />
+                <Route
+                  path="/radiobuttons"
+                  element={<ExampleRadioButtonList />}
+                />
+                <Route path="/icons" element={<ExampleIcons />} />
+              </Routes>
+            </Col>
+          </Row>
+        </Container>
+      </main>
+    </>
   );
 }
 

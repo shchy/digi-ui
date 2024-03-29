@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { media, useTypography } from './styles';
+import { media, spaces, useTypography } from './styles';
 
-export const Layout = styled.div`
-  ${(props) => useTypography('Body/L', 'neutral-solid-grey-900')}
+export const Container = styled.div`
   margin: 0 auto;
 
   ${media.lessThan('small')`
-    width: 95%;
+    width: calc(100% - ${spaces.S} - ${spaces.S});
+    padding: 0 ${spaces.S};
   `}
   ${media.between('small', 'medium')`
     width: 928px;
@@ -20,4 +20,6 @@ export const Layout = styled.div`
     width: 1696px;
     min-width: 1696px;
   `}
+
+  ${(props) => useTypography('Body/L', 'neutral-solid-grey-900')}
 `;

@@ -28,7 +28,7 @@ export interface MenuItemSimple extends MenuItemSelectable {
 }
 export interface MenuItemDropdown extends MenuItemSelectable {
   type: 'dropdown';
-  beforeIcon?: IconProps;
+  icon?: IconProps;
   direction?: 'top' | 'left' | 'bottom' | 'right';
   align?: 'start' | 'end';
   children?: React.ReactNode;

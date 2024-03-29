@@ -612,6 +612,10 @@ export const spaces = {
   XL: `${spaceUnit * 8}px` /** 64px */,
   XXL: `${spaceUnit * 13}px` /** 104px */,
 };
+export const zIndex = Object.freeze({
+  main: 0,
+  drawer: 1,
+});
 
 export interface ByScreen<T> {
   large?: T;

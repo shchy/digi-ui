@@ -60,7 +60,8 @@ export type Icons =
   | 'Tax'
   | 'Transactions'
   | 'Update'
-  | 'Work';
+  | 'Work'
+  | 'Close';
 export type IconType = 'line' | 'fill';
 
 export interface SVGProps {
@@ -73,35 +74,49 @@ export const Svg = styled.svg<SVGProps>`
     // TODO FontIconにしとけばuseTypographyでいけそうだけど一旦1.5倍くらいにしておく
     const textType: textType = props.$textType ?? 'Body/L';
     let textSize = 16;
-    switch (props.$textType) {
+    switch (textType) {
       case 'Headline/XXL':
         textSize = 57;
+        break;
       case 'Headline/XL':
         textSize = 45;
+        break;
       case 'Headline/L':
         textSize = 36;
+        break;
       case 'Headline/M':
         textSize = 32;
+        break;
       case 'Headline/S':
         textSize = 28;
+        break;
       case 'Headline/XS':
         textSize = 24;
+        break;
       case 'Headline/XXS':
         textSize = 20;
+        break;
       case 'Body/L':
         textSize = 16;
+        break;
       case 'Body/M':
         textSize = 14;
+        break;
       case 'Label/L':
         textSize = 14;
+        break;
       case 'Label/M':
         textSize = 12;
+        break;
       case 'Caption/L':
         textSize = 12;
+        break;
       case 'Caption/M':
         textSize = 10;
+        break;
       case 'Button':
         textSize = 16;
+        break;
       default:
         textSize = 16;
     }
