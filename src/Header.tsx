@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { media, spaces } from './styles';
 import { MenuItem, MenuList } from './MenuList';
@@ -15,8 +15,30 @@ export const Header: FC<{
   isSlim?: boolean;
   drawerPosition?: 'full' | 'left' | 'right';
   isDrawerOpen?: boolean;
-}> = ({ logo, items, globalMenus, isSlim, drawerPosition, isDrawerOpen }) => {
-  const [isDrawerOpenInner, setIsDrawerOpen] = useState(isDrawerOpen ?? false);
+  onChangeOpenDrawer?: (isOpen: boolean) => void;
+}> = ({
+  logo,
+  items,
+  globalMenus,
+  isSlim,
+  drawerPosition,
+  isDrawerOpen,
+  onChangeOpenDrawer,
+}) => {
+  const [isDrawerOpenInner, setIsDrawerOpenInner] = useState(
+    isDrawerOpen ?? false
+  );
+  const setIsDrawerOpen = (v: boolean) => {
+    setIsDrawerOpenInner(v);
+    if (isDrawerOpen !== v) {
+      onChangeOpenDrawer && onChangeOpenDrawer(v);
+    }
+  };
+  useEffect(() => {
+    if (isDrawerOpen !== undefined) {
+      setIsDrawerOpen(isDrawerOpen);
+    }
+  }, [isDrawerOpen]);
 
   const drawerDropdownDirection = () => {
     switch (drawerPosition) {
@@ -49,14 +71,14 @@ export const Header: FC<{
         <IconButton
           label={isDrawerOpenInner ? '閉じる' : 'メニュー'}
           name={isDrawerOpenInner ? 'Close' : 'Menu'}
-          direction="row"
+          direction="column"
           onClick={() => setIsDrawerOpen(!isDrawerOpenInner)}
         />
       </HamburgerFrame>
       <Drawer
         isOpen={isDrawerOpenInner}
         position={drawerPosition}
-        onClose={() => setIsDrawerOpen(false)}
+        onClose={() => drawerPosition !== 'full' && setIsDrawerOpen(false)}
       >
         {drawerPosition !== 'full' && (
           <SideDrawerContainer>
@@ -64,7 +86,7 @@ export const Header: FC<{
               <IconButton
                 label="閉じる"
                 name="Close"
-                direction="row"
+                direction="column"
                 onClick={() => setIsDrawerOpen(false)}
               />
             </CloseContainerInDrawer>

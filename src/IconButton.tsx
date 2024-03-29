@@ -16,7 +16,7 @@ export const IconButton: FC<Props> = (props) => {
         <Icon {...props} $textType="Headline/XXS" />
       </IconContainer>
       <LabelContainer>
-        <InnerText $type="Body/M">{props.label}</InnerText>
+        <InnerText $type="Caption/M">{props.label}</InnerText>
       </LabelContainer>
     </Root>
   );
@@ -32,7 +32,6 @@ const Root = styled.div<{ $v: Omit<Props, 'onClick'> }>`
     if ((direction ?? 'row') === 'column') {
       return css`
         flex-direction: column;
-        gap: ${spaces.XXS};
       `;
     } else {
       return css`

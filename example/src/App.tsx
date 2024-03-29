@@ -19,6 +19,7 @@ import { ExampleRadioButton } from './_components/ExampleRadioButton';
 import { ExampleRadioButtonList } from './_components/ExampleRadioButtonList';
 import { ExampleIcons } from './_components/ExampleIcons';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function App() {
   type MenuItemWithPath = { path?: string } & MenuItem;
   const selectMenu = (item: MenuItemWithPath) => {
     if (!item.path) return;
+    setIsDrawerOpen(false);
     navigate(item.path);
   };
 
@@ -112,6 +114,7 @@ function App() {
       menuItems: menuItems,
     } as MenuItemWithPath,
   ];
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <>
@@ -127,7 +130,9 @@ function App() {
             </Link>,
           ]}
           globalMenus={headerMenus}
-          drawerPosition="right"
+          drawerPosition="full"
+          isDrawerOpen={isDrawerOpen}
+          onChangeOpenDrawer={setIsDrawerOpen}
         ></Header>
       </header>
       <main>
@@ -140,7 +145,7 @@ function App() {
                 dropdownDirection="right"
               />
             </Col>
-            <Col large={7} medium={3} small={6}>
+            <Col large={7} medium={5} small={6}>
               <Routes>
                 <Route path="/" element={<ExampleButton />} />
                 <Route path="/textfield" element={<ExampleTextField />} />
