@@ -13,7 +13,7 @@ export const IconButton: FC<Props> = (props) => {
   return (
     <Root $v={props} onClick={props.onClick}>
       <IconContainer>
-        <Icon {...props} $textType="Headline/XXS" />
+        <Icon {...props} $textType="Body/L" />
       </IconContainer>
       <LabelContainer>
         <InnerText $type="Caption/M">{props.label}</InnerText>

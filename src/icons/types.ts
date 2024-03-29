@@ -123,8 +123,8 @@ export const Svg = styled.svg<SVGProps>`
     const textColor = props.$color ? getColor(props.$color) : 'inherit';
     return css`
       color: ${textColor};
-      width: ${`${textSize * 1.25}px`};
-      height: ${`${textSize * 1.25}px`};
+      width: ${`${textSize * 1.5}px`};
+      height: ${`${textSize * 1.5}px`};
       &:disabled {
         color: ${getColor('neutral-opacity-grey-420')} !important;
       }

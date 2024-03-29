@@ -21,11 +21,11 @@ export const UtilityLink: FC<Props> = ({
 }) => {
   return (
     <Frame onClick={onClick && prevent(onClick)}>
-      {beforeIcon && <Icon {...beforeIcon} $textType="Body/M" />}
+      {beforeIcon && <Icon {...beforeIcon} $textType="Caption/L" />}
       <OverrideLink $type="Body/M" {...rest}>
         {children}
       </OverrideLink>
-      {afterIcon && <Icon {...afterIcon} $textType="Caption/L" />}
+      {afterIcon && <Icon {...afterIcon} $textType="Caption/M" />}
     </Frame>
   );
 };
