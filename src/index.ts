@@ -2,6 +2,7 @@ export * from './styles';
 export * from './Text';
 export * from './Head';
 export * from './Link';
+export * from './UtilityLink';
 export * from './Fieldset';
 export * from './Button';
 export * from './TextField';

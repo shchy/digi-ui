@@ -7,7 +7,7 @@ import {
   MenuItem,
   MenuItemSimple,
   Header,
-  Link,
+  UtilityLink,
 } from 'digi-ui';
 import { ExampleButton } from './_components/ExampleButton';
 import { ExampleTextField } from './_components/ExampleTextField';
@@ -122,12 +122,21 @@ function App() {
         <Header
           logo={<Text $type="Headline/L">Logo</Text>}
           items={[
-            <Link href="https://www.google.com" target="_blank">
-              Google
-            </Link>,
-            <Link href="https://www.yahoo.com" target="_blank">
+            <UtilityLink
+              beforeIcon={{ name: 'Child' }}
+              afterIcon={{ name: 'NewWindow' }}
+              href="https://www.yahoo.com"
+              target="_blank"
+            >
               Yahoo
-            </Link>,
+            </UtilityLink>,
+            <UtilityLink
+              afterIcon={{ name: 'NewWindow' }}
+              href="https://www.google.com"
+              target="_blank"
+            >
+              Google
+            </UtilityLink>,
           ]}
           globalMenus={headerMenus}
           drawerPosition="full"
