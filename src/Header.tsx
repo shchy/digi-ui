@@ -7,7 +7,7 @@ import { Drawer } from './Drawer';
 import { Container } from './Container';
 import { Divider } from './Divider';
 
-export const Header: FC<{
+export interface HeaderProps {
   logo: React.ReactNode;
   items: React.ReactNode[];
   globalMenus: MenuItem[];
@@ -16,7 +16,9 @@ export const Header: FC<{
   drawerPosition?: 'full' | 'left' | 'right';
   isDrawerOpen?: boolean;
   onChangeOpenDrawer?: (isOpen: boolean) => void;
-}> = ({
+}
+
+export const Header: FC<HeaderProps> = ({
   logo,
   items,
   globalMenus,
@@ -101,7 +103,7 @@ export const Header: FC<{
         {drawerPosition === 'full' && (
           <MenuList
             items={globalMenus}
-            direction="row"
+            direction="column"
             dropdownDirection={drawerDropdownDirection()}
           />
         )}
@@ -173,7 +175,7 @@ const HamburgerFrame = styled.div`
   `}
 `;
 
-const ContainerFull = styled(Container)<{ $isSlim?: boolean }>`
+const ContainerFull = styled.div<{ $isSlim?: boolean }>`
   position: relative;
   display: grid;
   align-items: center;

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { getColor, zIndex } from './styles';
-import { Container } from './Container';
+import { Col, Row } from './Grid';
 
 interface Props {
   position?: 'full' | 'left' | 'right';
@@ -27,7 +27,9 @@ export const Drawer: FC<Props> = (props) => {
   return (
     <Frame ref={frame} $v={props} tabIndex={0} onBlur={blurHandler}>
       {props.position === 'full' ? (
-        <Container>{props.children}</Container>
+        <Row>
+          <Col>{props.children}</Col>
+        </Row>
       ) : (
         <>{props.children}</>
       )}

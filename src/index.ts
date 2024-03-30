@@ -23,3 +23,4 @@ export * from './MenuItemBase';
 export * from './MenuItemSectionHeaderComponent';
 export * from './MenuItemSimpleComponent';
 export * from './MenuItemDropdownComponent';
+export * from './Scaffold';
