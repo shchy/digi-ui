@@ -168,4 +168,5 @@ const Root = styled.button<{
 
 const ButtonLabel = styled(Text)`
   pointer-events: none;
+  white-space: nowrap;
 `;

@@ -171,7 +171,7 @@ const HamburgerFrame = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: end;
+    align-items: start;
     margin-left: ${spaces.S};
   `}
 `;
@@ -197,7 +197,7 @@ const ContainerFull = styled.div<{ $isSlim?: boolean }>`
     }
   }}
   ${media.lessThan('small')`
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr 6rem;
     grid-template-rows: ${`calc(${spaces.XL} + ${spaces.XS})`};
   `}
 `;

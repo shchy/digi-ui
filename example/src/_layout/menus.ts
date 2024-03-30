@@ -6,11 +6,9 @@ type MenuItemWithPath = { path?: string } & MenuItem;
 export const useMenus = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const selectMenu = (item: MenuItemWithPath) => {
     if (!item.path) return;
-    // setIsDrawerOpen(false);
     navigate(item.path);
   };
 

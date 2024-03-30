@@ -65,6 +65,7 @@ const RadioLabel = styled(Text)<{
   align-items: center;
   padding: 8px 0px;
   gap: 16px;
+  white-space: nowrap;
   ${(props) => {
     if (!props.$istile) return;
     let bordercolor = getColor('neutral-solid-grey-900');

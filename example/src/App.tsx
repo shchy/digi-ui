@@ -8,11 +8,17 @@ import { ExampleCheckboxList } from './_components/ExampleCheckboxList';
 import { ExampleRadioButton } from './_components/ExampleRadioButton';
 import { ExampleRadioButtonList } from './_components/ExampleRadioButtonList';
 import { ExampleIcons } from './_components/ExampleIcons';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useMenus } from './_layout/menus';
 import { CatalogLayout } from './_layout/CatalogLayout';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setIsDrawerOpen(false);
+  }, [location]);
   const { catalogMenuItems } = useMenus();
 
   const logo = (
@@ -39,6 +45,10 @@ function App() {
     globalMenus: globalMenu,
     items: items,
     drawerPosition: 'full',
+    isDrawerOpen: isDrawerOpen,
+    onChangeOpenDrawer(isOpen) {
+      setIsDrawerOpen(isOpen);
+    },
   } as HeaderProps;
 
   return (

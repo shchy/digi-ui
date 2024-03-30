@@ -85,4 +85,5 @@ const Root = styled.div<{
 
 const InnerText = styled(Text)`
   pointer-events: none;
+  white-space: nowrap;
 `;

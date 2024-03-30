@@ -41,6 +41,7 @@ const CheckboxLabel = styled(Text)`
   align-items: center;
   padding: 8px 0px;
   gap: 16px;
+  white-space: nowrap;
   /* &:focus-within {
     outline: ${(props) => {
     return `4px solid ${getColor('focus-yellow')}`;
