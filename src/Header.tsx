@@ -73,7 +73,7 @@ export const Header: FC<HeaderProps> = ({
         <IconButton
           label={isDrawerOpenInner ? '閉じる' : 'メニュー'}
           name={isDrawerOpenInner ? 'Close' : 'Menu'}
-          direction="column"
+          direction="row"
           onClick={() => setIsDrawerOpen(!isDrawerOpenInner)}
         />
       </HamburgerFrame>
@@ -125,6 +125,7 @@ const CloseContainerInDrawer = styled.div`
 const LogoFrame = styled.div<{ $isSlim?: boolean }>`
   grid-row: 1/2;
   grid-column: 1/2;
+  padding: ${spaces.S};
 `;
 const ItemsFrame = styled.div<{ $isSlim?: boolean }>`
   grid-row: 1/2;
@@ -179,23 +180,24 @@ const ContainerFull = styled.div<{ $isSlim?: boolean }>`
   position: relative;
   display: grid;
   align-items: center;
+  justify-content: center;
   gap: ${spaces.XXS};
-  padding: ${spaces.S};
+
   ${(props) => {
     if (!props.$isSlim) {
       return css`
         grid-template-columns: auto 1fr;
-        grid-template-rows: ${`${spaces.XL} calc(${spaces.XL} - ${spaces.XS})`};
+        grid-template-rows: ${`${spaces.XL} calc(${spaces.XL} + ${spaces.XS})`};
       `;
     } else {
       return css`
         grid-template-columns: auto 1fr auto;
-        grid-template-rows: ${`calc(${spaces.XL} - ${spaces.XS})`};
+        grid-template-rows: ${`calc(${spaces.XL} + ${spaces.XS})`};
       `;
     }
   }}
   ${media.lessThan('small')`
     grid-template-columns: auto 1fr auto;
-    grid-template-rows: ${`calc(${spaces.XL} - ${spaces.XS})`};
+    grid-template-rows: ${`calc(${spaces.XL} + ${spaces.XS})`};
   `}
 `;

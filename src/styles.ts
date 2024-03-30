@@ -665,11 +665,21 @@ export const media = ((breakpoints: ByScreen<number>) => {
           ${css(styles, ...interpolations)}
         }
       `;
+  const isLessThan = (size: screenSize) =>
+    matchMedia(`(max-width: ${getSize(size)})`).matches;
+  const isGreaterThan = (size: screenSize) =>
+    matchMedia(`(min-width: ${getSize(size)})`).matches;
+  const isBetween = (min: screenSize, max: screenSize) =>
+    matchMedia(`(min-width: ${getSize(min)}) and (max-width: ${getSize(max)})`)
+      .matches;
 
   return {
     getSize,
     lessThan,
     greaterThan,
     between,
+    isLessThan,
+    isGreaterThan,
+    isBetween,
   };
 })(defaultSize);

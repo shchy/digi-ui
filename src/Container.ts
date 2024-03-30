@@ -5,8 +5,8 @@ export const Container = styled.div`
   margin: 0 auto;
 
   ${media.lessThan('small')`
-    width: calc(100% - ${spaces.S} - ${spaces.S});
-    padding: 0 ${spaces.S};
+    width: calc(100% - ${spaces.M} - ${spaces.M});
+    padding: 0 ${spaces.M};
   `}
   ${media.between('small', 'medium')`
     width: 928px;
@@ -21,5 +21,5 @@ export const Container = styled.div`
     min-width: 1696px;
   `}
 
-  ${(props) => useTypography('Body/L', 'neutral-solid-grey-900')}
+  ${useTypography('Body/L', 'neutral-solid-grey-900')}
 `;

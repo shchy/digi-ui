@@ -1,4 +1,4 @@
-import { Col, MenuItem, MenuList, Row } from 'digi-ui';
+import { Col, MenuItem, MenuList, Row, media } from 'digi-ui';
 import { FC } from 'react';
 import { useMenus } from './menus';
 
@@ -10,7 +10,12 @@ export const CatalogLayout: FC<React.PropsWithChildren> = ({ children }) => {
     ...catalogMenuItems,
   ];
 
-  return (
+  const isMobile = media.isLessThan('small');
+  return isMobile ? (
+    <Row>
+      <Col>{children}</Col>
+    </Row>
+  ) : (
     <Row>
       <Col large={1} medium={1} small={2}>
         <MenuList

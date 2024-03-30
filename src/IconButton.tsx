@@ -16,7 +16,7 @@ export const IconButton: FC<Props> = (props) => {
         <Icon {...props} $textType="Body/L" />
       </IconContainer>
       <LabelContainer>
-        <InnerText $type="Caption/M">{props.label}</InnerText>
+        <InnerText $type="Body/M">{props.label}</InnerText>
       </LabelContainer>
     </Root>
   );
@@ -25,7 +25,6 @@ export const IconButton: FC<Props> = (props) => {
 const Root = styled.div<{ $v: Omit<Props, 'onClick'> }>`
   display: flex;
   align-items: center;
-  min-width: 6rem;
   cursor: pointer;
 
   ${({ $v: { direction } }) => {
@@ -37,6 +36,7 @@ const Root = styled.div<{ $v: Omit<Props, 'onClick'> }>`
       return css`
         flex-direction: row;
         gap: ${spaces.XS};
+        min-width: 3rem;
       `;
     }
   }};
@@ -58,4 +58,5 @@ const LabelContainer = styled.div`
 
 const InnerText = styled(Text)`
   cursor: pointer;
+  white-space: nowrap;
 `;

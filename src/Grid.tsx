@@ -61,4 +61,7 @@ const InnerRow = styled.div`
   flex-direction: row;
   gap: 32px;
   margin: ${spaces.M} 0;
+  ${media.lessThan('small')`
+    flex-direction: column;
+  `}
 `;

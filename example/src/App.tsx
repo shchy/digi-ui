@@ -15,30 +15,29 @@ import { CatalogLayout } from './_layout/CatalogLayout';
 function App() {
   const { catalogMenuItems } = useMenus();
 
+  const logo = (
+    <Text $type="Headline/XXS" style={{ whiteSpace: 'nowrap' }}>
+      デジタル庁
+    </Text>
+  );
   const globalMenu = [
     { label: 'カタログ', type: 'dropdown', menuItems: catalogMenuItems },
   ] as MenuItem[];
+  const items = [
+    <UtilityLink
+      beforeIcon={{ name: 'Child' }}
+      afterIcon={{ name: 'NewWindow' }}
+      href="https://www.google.com"
+      target="_blank"
+    >
+      Google
+    </UtilityLink>,
+  ];
 
   const headerInfo = {
-    logo: <Text $type="Headline/L">Logo</Text>,
+    logo: logo,
     globalMenus: globalMenu,
-    items: [
-      <UtilityLink
-        beforeIcon={{ name: 'Child' }}
-        afterIcon={{ name: 'NewWindow' }}
-        href="https://www.yahoo.com"
-        target="_blank"
-      >
-        Yahoo
-      </UtilityLink>,
-      <UtilityLink
-        afterIcon={{ name: 'NewWindow' }}
-        href="https://www.google.com"
-        target="_blank"
-      >
-        Google
-      </UtilityLink>,
-    ],
+    items: items,
     drawerPosition: 'full',
   } as HeaderProps;
 
