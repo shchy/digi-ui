@@ -112,7 +112,7 @@ const Select = styled.select<{
 
   ${() => useTypography('Body/L')}
   min-width: calc(327px - 32px - 2px);
-  height: 56px;
+  min-height: 56px;
   padding: 12px 16px;
 
   border-radius: 8px;

@@ -19,6 +19,7 @@ export const MenuItemBase: FC<MenuProps> = (props) => {
   return (
     <Root
       onClick={props.onClick}
+      tabIndex={!props.onClick ? -1 : undefined}
       $clickable={!!props.onClick}
       $selected={!!props.onClick && props.selected}
       $disabled={!!props.onClick && props.disabled}
@@ -36,11 +37,14 @@ export const MenuItemBase: FC<MenuProps> = (props) => {
   );
 };
 
-const Root = styled.div<{
+const Root = styled.button<{
   $clickable: boolean;
   $disabled?: boolean;
   $selected?: boolean;
 }>`
+  background-color: transparent;
+  border: none;
+
   display: flex;
   flex-direction: row;
   align-items: center;

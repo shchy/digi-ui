@@ -42,11 +42,11 @@ const CheckboxLabel = styled(Text)`
   padding: 8px 0px;
   gap: 16px;
   white-space: nowrap;
-  /* &:focus-within {
-    outline: ${(props) => {
-    return `4px solid ${getColor('focus-yellow')}`;
-  }};
-  } */
+  &:focus-within {
+    outline: 2px solid ${getColor('focus-yellow')};
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
 `;
 const CheckboxIcon = styled(Text)<{ $checked: boolean }>`
   height: 24px;

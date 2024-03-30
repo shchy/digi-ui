@@ -31,6 +31,7 @@ const StickyHeader = styled.header`
     width: 100%;
     height: 100%;
     backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
     z-index: -1;
   }
 `;

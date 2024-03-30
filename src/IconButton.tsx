@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { spaces } from './styles';
+import { getColor, spaces } from './styles';
 import { Icon, IconProps } from './icons';
 import { Text } from './Text';
 
@@ -22,10 +22,18 @@ export const IconButton: FC<Props> = (props) => {
   );
 };
 
-const Root = styled.div<{ $v: Omit<Props, 'onClick'> }>`
+const Root = styled.button<{ $v: Omit<Props, 'onClick'> }>`
   display: flex;
   align-items: center;
-  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  &:focus-within {
+    outline: ${`2px solid ${getColor('focus-yellow')}`};
+    border-radius: 2px;
+  }
+  &:hover {
+    background-color: ${getColor('neutral-solid-grey-50')};
+  }
 
   ${({ $v: { direction } }) => {
     if ((direction ?? 'row') === 'column') {

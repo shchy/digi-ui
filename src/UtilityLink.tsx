@@ -9,28 +9,41 @@ interface Props
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'ref'> {
   beforeIcon?: IconProps;
   afterIcon?: IconProps;
-  onClick?: () => void;
 }
 
 export const UtilityLink: FC<Props> = ({
   beforeIcon,
   afterIcon,
-  onClick,
   children,
   ...rest
 }) => {
   return (
-    <Frame onClick={onClick && prevent(onClick)}>
-      {beforeIcon && <Icon {...beforeIcon} $textType="Caption/L" />}
-      <OverrideLink $type="Body/M" {...rest}>
-        {children}
-      </OverrideLink>
-      {afterIcon && <Icon {...afterIcon} $textType="Caption/M" />}
-    </Frame>
+    <OverrideLink
+      $type="Body/M"
+      $color="neutral-solid-grey-900"
+      {...rest}
+      {...(!rest.href && rest.onClick ? { href: '#' } : {})}
+    >
+      {beforeIcon && (
+        <Icon
+          {...beforeIcon}
+          $textType="Caption/L"
+          $color="neutral-solid-grey-900"
+        />
+      )}
+      {children}
+      {afterIcon && (
+        <Icon
+          {...afterIcon}
+          $textType="Caption/M"
+          $color="neutral-solid-grey-900"
+        />
+      )}
+    </OverrideLink>
   );
 };
 
-const Frame = styled.div`
+const OverrideLink = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -38,19 +51,11 @@ const Frame = styled.div`
   gap: ${spaces.XXS};
   height: 1em;
 
-  &:focus-within {
-    outline: ${`2px solid ${getColor('focus-yellow')}`};
-    border-radius: 2px;
-  }
   &:hover {
     background-color: ${getColor('neutral-solid-grey-50')};
   }
-`;
-
-const OverrideLink = styled(Link)`
   &:focus {
     color: ${getColor('neutral-solid-grey-900')};
-    outline: none;
   }
   &:visited {
     color: ${getColor('neutral-solid-grey-900')};

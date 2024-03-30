@@ -21,11 +21,13 @@ export const Drawer: FC<Props> = (props) => {
   };
   useEffect(() => {
     if (props.isOpen) {
-      frame.current?.focus();
+      const firstChild = frame.current?.querySelector('button');
+      firstChild && (firstChild as HTMLElement).focus();
+      console.log(firstChild);
     }
   }, [props.isOpen]);
   return (
-    <Frame ref={frame} $v={props} tabIndex={0} onBlur={blurHandler}>
+    <Frame ref={frame} $v={props} onBlur={blurHandler}>
       {props.position === 'full' ? (
         <Row>
           <Col>{props.children}</Col>

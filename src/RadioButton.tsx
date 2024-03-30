@@ -79,11 +79,12 @@ const RadioLabel = styled(Text)<{
       padding: 16px;
       border: 1px solid ${bordercolor};
     `;
-  }}/* &:focus-within {
-    outline: ${(props) => {
-    return `4px solid ${getColor('focus-yellow')}`;
-  }};
-  } */
+  }}
+  &:focus-within {
+    outline: 2px solid ${getColor('focus-yellow')};
+    outline-offset: ${({ $istile }) => (!$istile ? '2px' : '0')};
+    border-radius: 8px;
+  }
 `;
 
 const RadioIcon = styled(Text)<{ $checked: boolean }>`

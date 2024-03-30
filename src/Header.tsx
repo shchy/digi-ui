@@ -88,7 +88,7 @@ export const Header: FC<HeaderProps> = ({
               <IconButton
                 label="閉じる"
                 name="Close"
-                direction="column"
+                direction="row"
                 onClick={() => setIsDrawerOpen(false)}
               />
             </CloseContainerInDrawer>
@@ -197,7 +197,7 @@ const ContainerFull = styled.div<{ $isSlim?: boolean }>`
     }
   }}
   ${media.lessThan('small')`
-    grid-template-columns: auto 1fr 6rem;
+    grid-template-columns: auto 1fr 7.5rem;
     grid-template-rows: ${`calc(${spaces.XL} + ${spaces.XS})`};
   `}
 `;

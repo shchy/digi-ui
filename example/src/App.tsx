@@ -8,7 +8,7 @@ import { ExampleCheckboxList } from './_components/ExampleCheckboxList';
 import { ExampleRadioButton } from './_components/ExampleRadioButton';
 import { ExampleRadioButtonList } from './_components/ExampleRadioButtonList';
 import { ExampleIcons } from './_components/ExampleIcons';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useMenus } from './_layout/menus';
 import { CatalogLayout } from './_layout/CatalogLayout';
 import { useEffect, useState } from 'react';
@@ -21,8 +21,13 @@ function App() {
   }, [location]);
   const { catalogMenuItems } = useMenus();
 
+  const navigate = useNavigate();
   const logo = (
-    <Text $type="Headline/XXS" style={{ whiteSpace: 'nowrap' }}>
+    <Text
+      onClick={() => navigate('/')}
+      $type="Headline/XXS"
+      style={{ whiteSpace: 'nowrap', fontWeight: 'bold' }}
+    >
       デジタル庁
     </Text>
   );

@@ -41,7 +41,7 @@ export const MenuItemDropdownComponent: FC<Props> = (props) => {
   const contents = resolveContents();
 
   return (
-    <Root ref={frame} tabIndex={0} onBlur={blurHandler}>
+    <Root ref={frame} onBlur={blurHandler}>
       <MenuItemBase
         {...props}
         beforeIcon={

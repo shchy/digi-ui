@@ -18,6 +18,7 @@ export const ExampleTextArea = () => {
             requiredLabel={true}
             supportText="電話番号"
             maxLength={100}
+            rows={10}
           />
         </Col>
       </Row>
