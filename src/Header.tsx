@@ -11,6 +11,7 @@ export interface HeaderProps {
   logo: React.ReactNode;
   items: React.ReactNode[];
   globalMenus: MenuItem[];
+  pageMenus?: MenuItem[];
   globalMenuAlign?: 'start' | 'center' | 'end';
   isSlim?: boolean;
   drawerPosition?: 'full' | 'left' | 'right';
@@ -19,10 +20,11 @@ export interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({
+  isSlim,
   logo,
   items,
   globalMenus,
-  isSlim,
+  pageMenus,
   drawerPosition,
   isDrawerOpen,
   onChangeOpenDrawer,
@@ -93,6 +95,16 @@ export const Header: FC<HeaderProps> = ({
               />
             </CloseContainerInDrawer>
             <Divider $type="dashed" />
+            {pageMenus && (
+              <>
+                <MenuList
+                  items={pageMenus}
+                  direction="column"
+                  dropdownDirection={drawerDropdownDirection()}
+                />
+                <Divider $type="solid" />
+              </>
+            )}
             <MenuList
               items={globalMenus}
               direction="column"
@@ -101,11 +113,23 @@ export const Header: FC<HeaderProps> = ({
           </SideDrawerContainer>
         )}
         {drawerPosition === 'full' && (
-          <MenuList
-            items={globalMenus}
-            direction="column"
-            dropdownDirection={drawerDropdownDirection()}
-          />
+          <>
+            {pageMenus && (
+              <>
+                <MenuList
+                  items={pageMenus}
+                  direction="column"
+                  dropdownDirection={drawerDropdownDirection()}
+                />
+                <Divider $type="solid" />
+              </>
+            )}
+            <MenuList
+              items={globalMenus}
+              direction="column"
+              dropdownDirection={drawerDropdownDirection()}
+            />
+          </>
         )}
       </Drawer>
     </ContainerFull>

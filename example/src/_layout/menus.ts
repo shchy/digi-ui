@@ -24,6 +24,7 @@ export const useMenus = () => {
   };
 
   const catalogMenuItems: MenuItemWithPath[] = [
+    { type: 'section-header', label: 'カタログ' },
     {
       type: 'simple',
       label: 'ボタン',

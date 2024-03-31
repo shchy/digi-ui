@@ -119,7 +119,7 @@ const TextAreaInner = styled.textarea<{
   ${() => useTypography('Body/L')}
 
   min-height: calc(120px - 24px - 2px);
-  min-width: calc(100% - 32px - 2px);
+  /* min-width: calc(100% - 32px - 2px); */
   padding: 12px 16px;
   border-radius: 8px;
   border: ${(props) => {

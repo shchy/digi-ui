@@ -59,7 +59,7 @@ const Root = styled.button<{
     props.$selected &&
     css`
       color: ${getColor('primitive-blue-900')};
-      height: calc(50px - 4px);
+      height: calc(50px);
       padding-top: 2px;
       border-bottom: 2px solid ${getColor('primitive-blue-900')};
     `}
@@ -67,11 +67,16 @@ const Root = styled.button<{
   ${(props) => {
     if (props.$disabled || !props.$clickable) return;
     return css`
+      &:focus {
+        outline: ${`2px solid ${getColor('focus-yellow')}`};
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
       &:hover {
-        background-color: ${getColor('neutral-solid-grey-50')};
+        background-color: ${getColor('neutral-opacity-grey-50')};
         ${!props.$selected &&
         css`
-          height: calc(50px - 2px);
+          height: calc(50px);
           padding-top: 1px;
           border-bottom: 1px solid ${getColor('neutral-solid-grey-900')};
         `}
@@ -79,7 +84,7 @@ const Root = styled.button<{
       &:active {
         background-color: ${getColor('neutral-solid-grey-50')};
         color: ${getColor('primitive-blue-900')};
-        height: calc(50px - 4px);
+        height: calc(50px);
         padding-top: 2px;
         border-bottom: 2px solid ${getColor('primitive-blue-900')};
       }

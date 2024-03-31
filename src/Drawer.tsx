@@ -23,7 +23,6 @@ export const Drawer: FC<Props> = (props) => {
     if (props.isOpen) {
       const firstChild = frame.current?.querySelector('button');
       firstChild && (firstChild as HTMLElement).focus();
-      console.log(firstChild);
     }
   }, [props.isOpen]);
   return (
