@@ -9,14 +9,15 @@ interface Props
   describe?: string;
   istile?: 'true';
   color?: colorType;
+  componentWidth?: number | string;
 }
 
 export const RadioButton = forwardRef<HTMLInputElement, Props>(
-  ({ describe, color, istile, children, ...rest }, ref) => {
+  ({ describe, color, istile, children, componentWidth, ...rest }, ref) => {
     const id = useId();
 
     return (
-      <Root disabled={rest.disabled}>
+      <Root disabled={rest.disabled} $componentWidth={componentWidth}>
         <RadioLabel
           htmlFor={id}
           $type="Body/L"
@@ -52,9 +53,7 @@ export const RadioButton = forwardRef<HTMLInputElement, Props>(
   }
 );
 
-const Root = styled(Fieldset)`
-  width: fit-content;
-`;
+const Root = styled(Fieldset)``;
 const RadioLabel = styled(Text)<{
   $istile?: 'true';
   $checked: boolean;

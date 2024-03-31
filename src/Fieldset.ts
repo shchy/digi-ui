@@ -1,7 +1,7 @@
 import { styled, css } from 'styled-components';
 import { getColor } from './styles';
 
-export const Fieldset = styled.fieldset`
+export const Fieldset = styled.fieldset<{ $componentWidth?: number | string }>`
   border: none;
   padding: 0;
   margin: 0;
@@ -13,4 +13,5 @@ export const Fieldset = styled.fieldset`
       }
     `;
   }}
+  width: ${(props) => props.$componentWidth ?? 'auto'};
 `;

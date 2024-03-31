@@ -10,10 +10,14 @@ interface Props
   supportText?: string;
   errorText?: string | string[];
   requiredLabel?: boolean;
+  componentWidth?: number | string;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ label, requiredLabel, supportText, errorText, ...rest }, ref) => {
+  (
+    { label, requiredLabel, supportText, errorText, componentWidth, ...rest },
+    ref
+  ) => {
     const textLength = useMemo(() => {
       if (rest.value === undefined) return 0;
       if (Array.isArray(rest.value)) {
@@ -25,7 +29,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
       }
     }, [rest.value]);
     return (
-      <Root disabled={rest.disabled}>
+      <Root disabled={rest.disabled} $componentWidth={componentWidth}>
         <LabelFrame>
           <Text $type="Label/L">{label}</Text>
           {requiredLabel && (
@@ -87,7 +91,6 @@ const Root = styled(Fieldset)`
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: fit-content;
 `;
 
 const LabelFrame = styled.div`
@@ -119,7 +122,7 @@ const TextAreaInner = styled.textarea<{
   ${() => useTypography('Body/L')}
 
   min-height: calc(120px - 24px - 2px);
-  /* min-width: calc(100% - 32px - 2px); */
+  width: calc(100% - 32px - 2px);
   padding: 12px 16px;
   border-radius: 8px;
   border: ${(props) => {

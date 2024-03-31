@@ -15,6 +15,7 @@ interface Props<T>
   selectKey: (v: T) => string;
   selectDisplay?: (v: T) => string;
   requiredLabel?: boolean;
+  componentWidth?: number | string;
 }
 
 export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
@@ -28,12 +29,13 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
       supportText,
       errorText,
       requiredLabel,
+      componentWidth,
       ...rest
     }: Props<any>,
     ref
   ) => {
     return (
-      <Root disabled={rest.disabled}>
+      <Root disabled={rest.disabled} $componentWidth={componentWidth}>
         <LabelFrame>
           <Text $type="Label/L">{label}</Text>
           {requiredLabel && (
@@ -83,7 +85,6 @@ const Root = styled(Fieldset)`
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: fit-content;
 `;
 
 const LabelFrame = styled.div`

@@ -23,6 +23,7 @@ export const IconButton: FC<Props> = (props) => {
 };
 
 const Root = styled.button<{ $v: Omit<Props, 'onClick'> }>`
+  color: ${getColor('neutral-solid-grey-900')};
   display: flex;
   align-items: center;
   background-color: transparent;

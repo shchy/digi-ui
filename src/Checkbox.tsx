@@ -7,14 +7,15 @@ import { CheckboxIconUnCheck, CheckboxIconChecked } from './icons';
 interface Props
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'ref' | 'type'> {
   color?: colorType;
+  componentWidth?: number | string;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, Props>(
-  ({ color, children, ...rest }, ref) => {
+  ({ color, componentWidth, children, ...rest }, ref) => {
     const id = useId();
 
     return (
-      <Root disabled={rest.disabled}>
+      <Root disabled={rest.disabled} $componentWidth={componentWidth}>
         <CheckboxLabel htmlFor={id} $type="Body/L" $color={color}>
           <CheckboxInput ref={ref} id={id} type="checkbox" {...rest} />
           <CheckboxIcon
@@ -32,9 +33,7 @@ export const Checkbox = forwardRef<HTMLInputElement, Props>(
   }
 );
 
-const Root = styled(Fieldset)`
-  width: fit-content;
-`;
+const Root = styled(Fieldset)``;
 const CheckboxLabel = styled(Text)`
   display: flex;
   flex-direction: row;

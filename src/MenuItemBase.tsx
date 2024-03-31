@@ -44,13 +44,13 @@ const Root = styled.button<{
 }>`
   background-color: transparent;
   border: none;
+  color: ${getColor('neutral-solid-grey-900')};
 
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: ${spaces.XXS};
   height: 50px;
-  /* width: fit-content; */
   padding: 0 ${spaces.S};
   cursor: ${(props) =>
     props.$disabled || !props.$clickable ? 'default' : 'pointer'};
@@ -65,7 +65,11 @@ const Root = styled.button<{
     `}
 
   ${(props) => {
-    if (props.$disabled || !props.$clickable) return;
+    if (props.$disabled || !props.$clickable) {
+      return css`
+        pointer-events: none;
+      `;
+    }
     return css`
       &:focus {
         outline: ${`2px solid ${getColor('focus-yellow')}`};

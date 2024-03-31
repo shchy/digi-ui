@@ -23,6 +23,9 @@ export const Drawer: FC<Props> = (props) => {
     if (props.isOpen) {
       const firstChild = frame.current?.querySelector('button');
       firstChild && (firstChild as HTMLElement).focus();
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
     }
   }, [props.isOpen]);
   return (
@@ -51,7 +54,7 @@ const Frame = styled.div<{ $v: Props }>`
       `;
     }
   }};
-
+  overflow: auto;
   position: absolute;
   z-index: ${zIndex.drawer};
   background-color: ${getColor('neutral-white')};
@@ -64,7 +67,7 @@ const Frame = styled.div<{ $v: Props }>`
           top: 0;
           left: 0;
           width: fit-content;
-          height: 100vh;
+          height: 100dvh;
           box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.1);
         `;
       case 'right':
@@ -72,7 +75,7 @@ const Frame = styled.div<{ $v: Props }>`
           top: 0;
           right: 0;
           width: fit-content;
-          height: 100vh;
+          height: 100dvh;
           box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.1);
         `;
       case 'full':
@@ -81,7 +84,7 @@ const Frame = styled.div<{ $v: Props }>`
           top: 100%;
           left: 0;
           width: 100%;
-          height: calc(100vh - 100%);
+          height: calc(100dvh - 100%);
         `;
     }
   }}

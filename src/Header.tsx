@@ -4,7 +4,6 @@ import { media, spaces } from './styles';
 import { MenuItem, MenuList } from './MenuList';
 import { IconButton } from './IconButton';
 import { Drawer } from './Drawer';
-import { Container } from './Container';
 import { Divider } from './Divider';
 
 export interface HeaderProps {
@@ -56,6 +55,19 @@ export const Header: FC<HeaderProps> = ({
     }
   };
 
+  const globalMenuTitle: MenuItem = {
+    label: 'グローバルメニュー',
+    type: 'section-header',
+  };
+  const toolMenuTitle: MenuItem = {
+    label: 'ユーティリティメニュー',
+    type: 'section-header',
+  };
+  const pageMenuTitle: MenuItem = {
+    label: 'ページメニュー',
+    type: 'section-header',
+  };
+
   return (
     <ContainerFull $isSlim={isSlim}>
       <LogoFrame $isSlim={isSlim}>{logo}</LogoFrame>
@@ -98,7 +110,7 @@ export const Header: FC<HeaderProps> = ({
             {pageMenus && (
               <>
                 <MenuList
-                  items={pageMenus}
+                  items={[pageMenuTitle, ...pageMenus]}
                   direction="column"
                   dropdownDirection={drawerDropdownDirection()}
                 />
@@ -106,7 +118,7 @@ export const Header: FC<HeaderProps> = ({
               </>
             )}
             <MenuList
-              items={globalMenus}
+              items={[globalMenuTitle, ...globalMenus]}
               direction="column"
               dropdownDirection={drawerDropdownDirection()}
             />
@@ -117,7 +129,7 @@ export const Header: FC<HeaderProps> = ({
             {pageMenus && (
               <>
                 <MenuList
-                  items={pageMenus}
+                  items={[pageMenuTitle, ...pageMenus]}
                   direction="column"
                   dropdownDirection={drawerDropdownDirection()}
                 />
@@ -125,7 +137,7 @@ export const Header: FC<HeaderProps> = ({
               </>
             )}
             <MenuList
-              items={globalMenus}
+              items={[globalMenuTitle, ...globalMenus]}
               direction="column"
               dropdownDirection={drawerDropdownDirection()}
             />
