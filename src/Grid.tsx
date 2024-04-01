@@ -60,8 +60,13 @@ const InnerRow = styled.div`
   display: flex;
   flex-direction: row;
   gap: 32px;
-  margin: ${spaces.M} 0;
-  ${media.lessThan('small')`
+
+  ${media.lessThan('medium')`
     flex-direction: column;
+    margin: ${spaces.M} ${spaces.S};
+  `}
+  ${media.greaterThan('large')`
+    flex-direction: column;
+    margin: ${spaces.M} calc(${spaces.L} - ${spaces.XS});
   `}
 `;
