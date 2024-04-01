@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./src/index.js",
-    "./icons": "./src/icons/index.js"
+    ".": "./dist/index.js",
+    "./icons": "./dist/icons/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -16,9 +16,13 @@
   "author": "shchy",
   "license": "MIT",
   "dependencies": {
-    "@types/react": "^18",
     "react": "^18",
-    "styled-components": "^6.1.8",
+    "react-dom": "^18",
+    "styled-components": "^6"
+  },
+  "devDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "typescript": "^5"
   }
 }
