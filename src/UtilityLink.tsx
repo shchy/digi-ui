@@ -3,7 +3,6 @@ import { getColor, spaces } from './styles';
 import { FC } from 'react';
 import { Link } from './Link';
 import { Icon, IconProps } from './icons';
-import { prevent } from './utils';
 
 interface Props
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'ref'> {
