@@ -23,6 +23,7 @@ export const Header: FC<HeaderProps> = ({
   logo,
   items,
   globalMenus,
+  globalMenuAlign,
   pageMenus,
   drawerPosition,
   isDrawerOpen,
@@ -76,7 +77,7 @@ export const Header: FC<HeaderProps> = ({
           <span key={i}>{x}</span>
         ))}
       </ItemsFrame>
-      <GlobalMenuFrame $isSlim={isSlim}>
+      <GlobalMenuFrame $isSlim={isSlim} $globalMenuAlign={globalMenuAlign}>
         <MenuList
           items={globalMenus}
           direction="row"
