@@ -1,11 +1,28 @@
 import { FC, useRef, useState } from 'react';
 import { css, styled } from 'styled-components';
-import { MenuItemDropdown, MenuItemBase, getColor, MenuList } from '.';
-import { Icons } from './icons';
+import {
+  getColor,
+  MenuList,
+  textType,
+  MenuItem,
+  Text,
+  spaces,
+  useTypography,
+} from '.';
+import { Icon, IconProps, Icons } from './icons';
+import React from 'react';
 
-type Props = Omit<MenuItemDropdown, 'type'>;
+export interface Props {
+  label: string;
+  textType?: textType;
+  disabled?: boolean;
+  icon?: IconProps;
+  direction?: 'top' | 'left' | 'bottom' | 'right';
+  align?: 'start' | 'end';
+  menuItems?: MenuItem[];
+}
 
-export const MenuItemDropdownComponent: FC<Props> = (props) => {
+export const Dropdown: FC<React.PropsWithChildren<Props>> = (props) => {
   const selectDirectionIcon = (): Icons => {
     switch (props.direction) {
       case 'top':
@@ -39,23 +56,25 @@ export const MenuItemDropdownComponent: FC<Props> = (props) => {
   };
 
   const contents = resolveContents();
+  const beforeIcon =
+    props.direction === 'left' ? { name: selectDirectionIcon() } : props.icon;
+  const afterIcon =
+    props.direction !== 'left' ? { name: selectDirectionIcon() } : props.icon;
 
   return (
-    <Root ref={frame} onBlur={blurHandler}>
-      <MenuItemBase
-        {...props}
-        beforeIcon={
-          props.direction === 'left'
-            ? { name: selectDirectionIcon() }
-            : props.icon
-        }
-        afterIcon={
-          props.direction !== 'left'
-            ? { name: selectDirectionIcon() }
-            : props.icon
-        }
-        onClick={() => setIsOpen(!isOpen)}
-      />
+    <Frame ref={frame} onBlur={blurHandler}>
+      <Root disabled={props.disabled} onClick={() => setIsOpen(!isOpen)}>
+        {beforeIcon && <Icon $textType={props.textType} {...beforeIcon} />}
+        <InnerText
+          $type={props.textType}
+          $color={props.disabled ? 'neutral-solid-grey-420' : undefined}
+          $block
+        >
+          {props.label}
+        </InnerText>
+        {afterIcon && <Icon $textType={props.textType} {...afterIcon} />}
+      </Root>
+
       {isOpen && (
         <DropList
           $isOpen={isOpen}
@@ -65,15 +84,43 @@ export const MenuItemDropdownComponent: FC<Props> = (props) => {
           {contents}
         </DropList>
       )}
-    </Root>
+    </Frame>
   );
 };
 
-const Root = styled.div`
+const Frame = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: column;
+  width: fit-content;
 `;
+const Root = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${getColor('neutral-solid-grey-900')};
+  ${useTypography('Body/L')}
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${spaces.XXS};
+
+  padding: 0 ${spaces.S};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${getColor('neutral-solid-grey-50')};
+  }
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+`;
+
+const InnerText = styled(Text)`
+  pointer-events: none;
+  white-space: nowrap;
+`;
+
 const DropList = styled.div<{
   $isOpen: boolean;
   $direction?: 'top' | 'left' | 'bottom' | 'right';

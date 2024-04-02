@@ -10,6 +10,7 @@ import { ExampleIcons } from './_components/ExampleIcons';
 import { ExampleTile } from './_components/ExampleTile';
 import { Routes, Route } from 'react-router-dom';
 import { CatalogLayout } from './_layout/CatalogLayout';
+import { ExampleDropdown } from './_components/ExampleDropdown';
 
 function App() {
   return (
@@ -92,6 +93,14 @@ function App() {
           element={
             <CatalogLayout>
               <ExampleTile />
+            </CatalogLayout>
+          }
+        />
+        <Route
+          path="/dropdown"
+          element={
+            <CatalogLayout>
+              <ExampleDropdown />
             </CatalogLayout>
           }
         />

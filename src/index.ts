@@ -13,6 +13,7 @@ export * from './CheckboxList';
 export * from './RadioButton';
 export * from './RadioButtonList';
 export * from './IconButton';
+export * from './Dropdown';
 export * from './Container';
 export * from './Header';
 export * from './Drawer';

@@ -77,6 +77,11 @@ export const useMenus = () => {
     },
     {
       type: 'simple',
+      label: 'Dropdown',
+      path: '/dropdown',
+    },
+    {
+      type: 'simple',
       label: 'DisableTest',
       disabled: true,
     },
@@ -84,6 +89,13 @@ export const useMenus = () => {
   addOnClick(catalogMenuItems);
 
   return {
-    catalogMenuItems,
+    catalogMenuItems: [
+      ...catalogMenuItems,
+      {
+        type: 'dropdown',
+        label: 'DropdownTest',
+        menuItems: catalogMenuItems,
+      },
+    ],
   };
 };
