@@ -106,10 +106,13 @@ const Root = styled.button`
   padding: 0 ${spaces.S};
   cursor: pointer;
 
+  &:focus {
+    outline: ${`2px solid ${getColor('focus-yellow')}`};
+    border-radius: 4px;
+  }
   &:hover {
     background-color: ${getColor('neutral-solid-grey-50')};
   }
-
   &:disabled {
     cursor: default;
     pointer-events: none;
