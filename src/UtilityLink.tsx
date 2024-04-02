@@ -50,9 +50,6 @@ const OverrideLink = styled(Link)`
   gap: ${spaces.XXS};
   height: 1em;
 
-  &:hover {
-    background-color: ${getColor('neutral-solid-grey-50')};
-  }
   &:focus {
     color: ${getColor('neutral-solid-grey-900')};
   }
@@ -61,6 +58,7 @@ const OverrideLink = styled(Link)`
   }
   &:hover {
     color: ${getColor('neutral-solid-grey-900')};
+    background-color: ${getColor('neutral-solid-grey-50')};
   }
   &:active {
     color: ${getColor('neutral-solid-grey-900')};

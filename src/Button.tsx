@@ -65,10 +65,12 @@ const Root = styled.button<{
           &:hover {
             text-decoration: underline;
             background-color: ${getColor('primitive-blue-1000')};
+            outline: none;
           }
           &:active {
             text-decoration: underline;
             background-color: ${getColor('primitive-blue-1100')};
+            outline: none;
           }
           &:disabled {
             text-decoration: none;
@@ -90,11 +92,13 @@ const Root = styled.button<{
           &:hover {
             text-decoration: underline;
             background-color: ${getColor('primitive-blue-200')};
+            outline: none;
           }
           &:active {
             text-decoration: underline;
             background-color: ${getColor('primitive-blue-300')};
             border: 1px solid ${getColor('primitive-blue-1200')};
+            outline: none;
           }
           &:disabled {
             border: 1px solid ${getColor('neutral-solid-grey-420')};
@@ -118,10 +122,12 @@ const Root = styled.button<{
           &:hover {
             text-decoration: underline;
             background-color: ${getColor('primitive-blue-200')};
+            outline: none;
           }
           &:active {
             text-decoration: underline;
             background-color: ${getColor('primitive-blue-300')};
+            outline: none;
           }
           &:disabled {
             text-decoration: none;

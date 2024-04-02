@@ -72,6 +72,11 @@ export const useMenus = () => {
     },
     {
       type: 'simple',
+      label: 'Tiles',
+      path: '/tiles',
+    },
+    {
+      type: 'simple',
       label: 'DisableTest',
       disabled: true,
     },

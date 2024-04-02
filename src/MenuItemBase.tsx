@@ -78,6 +78,7 @@ const Root = styled.button<{
       }
       &:hover {
         background-color: ${getColor('neutral-opacity-grey-50')};
+        outline: none;
         ${!props.$selected &&
         css`
           height: calc(50px);

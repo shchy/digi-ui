@@ -34,6 +34,7 @@ const Root = styled.button<{ $v: Omit<Props, 'onClick'> }>`
   }
   &:hover {
     background-color: ${getColor('neutral-solid-grey-50')};
+    outline: none;
   }
 
   ${({ $v: { direction } }) => {

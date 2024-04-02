@@ -25,3 +25,5 @@ export * from './MenuItemSimpleComponent';
 export * from './MenuItemDropdownComponent';
 export * from './Scaffold';
 export * from './SideMenuPage';
+export * from './Tile';
+export * from './Banner';

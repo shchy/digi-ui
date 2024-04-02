@@ -4,23 +4,12 @@ export const ExampleButton = () => {
   return (
     <div>
       <Head level="H1">Button</Head>
-      <Row>
-        <Col large={1}></Col>
-        <Col large={1}>
-          <Text $type="Headline/S">Primary</Text>
-        </Col>
-        <Col large={1}>
-          <Text $type="Headline/S">Secondary</Text>
-        </Col>
-        <Col large={1}>
-          <Text $type="Headline/S">Tertiary</Text>
-        </Col>
-      </Row>
+      <Head level="H2">Primary</Head>
       <Row>
         <Col large={1}>
           <Text $type="Headline/XS">Normal</Text>
         </Col>
-        <Col large={1}>
+        <Col large={7}>
           <Button
             buttonType="Primary"
             buttonSize="Medium"
@@ -30,7 +19,28 @@ export const ExampleButton = () => {
             ラベル
           </Button>
         </Col>
+      </Row>
+      <Row>
         <Col large={1}>
+          <Text $type="Headline/XS">Disabled</Text>
+        </Col>
+        <Col large={7}>
+          <Button
+            buttonType="Primary"
+            buttonSize="Medium"
+            disabled
+            onClick={() => console.log('click')}
+          >
+            ラベル
+          </Button>
+        </Col>
+      </Row>
+      <Head level="H2">Secondary</Head>
+      <Row>
+        <Col large={1}>
+          <Text $type="Headline/XS">Normal</Text>
+        </Col>
+        <Col large={7}>
           <Button
             buttonType="Secondary"
             buttonSize="Medium"
@@ -40,7 +50,28 @@ export const ExampleButton = () => {
             ラベル
           </Button>
         </Col>
+      </Row>
+      <Row>
         <Col large={1}>
+          <Text $type="Headline/XS">Disabled</Text>
+        </Col>
+        <Col large={7}>
+          <Button
+            buttonType="Secondary"
+            buttonSize="Medium"
+            disabled
+            onClick={() => console.log('click')}
+          >
+            ラベル
+          </Button>
+        </Col>
+      </Row>
+      <Head level="H2">Tertiary</Head>
+      <Row>
+        <Col large={1}>
+          <Text $type="Headline/XS">Normal</Text>
+        </Col>
+        <Col large={7}>
           <Button
             buttonType="Tertiary"
             buttonSize="Medium"
@@ -54,27 +85,7 @@ export const ExampleButton = () => {
         <Col large={1}>
           <Text $type="Headline/XS">Disabled</Text>
         </Col>
-        <Col large={1}>
-          <Button
-            buttonType="Primary"
-            buttonSize="Medium"
-            disabled
-            onClick={() => console.log('click')}
-          >
-            ラベル
-          </Button>
-        </Col>
-        <Col large={1}>
-          <Button
-            buttonType="Secondary"
-            buttonSize="Medium"
-            disabled
-            onClick={() => console.log('click')}
-          >
-            ラベル
-          </Button>
-        </Col>
-        <Col large={1}>
+        <Col large={7}>
           <Button
             buttonType="Tertiary"
             buttonSize="Medium"

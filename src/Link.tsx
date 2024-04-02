@@ -39,6 +39,7 @@ const StyledLink = styled.a<{
   }
   &:hover {
     color: ${getColor('primitive-blue-900')};
+    outline: none;
   }
   &:active {
     color: ${getColor('primitive-orange-700')};

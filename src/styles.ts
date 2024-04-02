@@ -612,6 +612,18 @@ export const spaces = {
   XL: `${spaceUnit * 8}px` /** 64px */,
   XXL: `${spaceUnit * 13}px` /** 104px */,
 };
+
+export const radius = {
+  None: '0px',
+  Card_S: '8px',
+  Card_M: '16px',
+  Card_L: '32px',
+  S: '8px',
+  M: '12px',
+  L: '16px',
+  Full: '50% 0',
+};
+
 export const zIndex = Object.freeze({
   main: 0,
   drawer: 1,

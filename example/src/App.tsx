@@ -7,6 +7,7 @@ import { ExampleCheckboxList } from './_components/ExampleCheckboxList';
 import { ExampleRadioButton } from './_components/ExampleRadioButton';
 import { ExampleRadioButtonList } from './_components/ExampleRadioButtonList';
 import { ExampleIcons } from './_components/ExampleIcons';
+import { ExampleTile } from './_components/ExampleTile';
 import { Routes, Route } from 'react-router-dom';
 import { CatalogLayout } from './_layout/CatalogLayout';
 
@@ -83,6 +84,14 @@ function App() {
           element={
             <CatalogLayout>
               <ExampleIcons />
+            </CatalogLayout>
+          }
+        />
+        <Route
+          path="/tiles"
+          element={
+            <CatalogLayout>
+              <ExampleTile />
             </CatalogLayout>
           }
         />
