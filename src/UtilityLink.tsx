@@ -50,6 +50,8 @@ const OverrideLink = styled(Link)`
   gap: ${spaces.XXS};
   height: 1em;
 
+  color: ${getColor('neutral-solid-grey-900')};
+
   &:focus {
     color: ${getColor('neutral-solid-grey-900')};
   }

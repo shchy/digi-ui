@@ -26,6 +26,8 @@ interface Props<T> {
   onChange?: (selected: T[]) => void;
 }
 
+// TODO ヘッダクリックイベント追加してソート
+
 export const Table = <T,>({
   list,
   columns,
