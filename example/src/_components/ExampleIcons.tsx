@@ -1,5 +1,5 @@
 import { Row, Col, Head, Text } from '../../../src';
-import { Icon, Icons } from '../../../src/icons';
+import { HDots, Icon, Icons } from '../../../src/icons';
 import styled from 'styled-components';
 
 export const ExampleIcons = () => {
@@ -75,6 +75,8 @@ export const ExampleIcons = () => {
       'Update',
       'Work',
       'Close',
+      'HDots',
+      'VDots',
     ],
     4
   );
