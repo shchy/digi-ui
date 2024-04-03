@@ -29,3 +29,5 @@ export * from './SideMenuPage';
 export * from './Tile';
 export * from './Banner';
 export * from './Table';
+export * from './Pagenation';
+export * from './CircleButton';

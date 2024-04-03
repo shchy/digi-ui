@@ -2,6 +2,9 @@ export * from './CheckboxIconUnCheck';
 export * from './CheckboxIconChecked';
 export * from './RadioIconUnCheck';
 export * from './RadioIconCheck';
+export * from './FirstPageArrow';
+export * from './EndPageArrow';
+export * from './Dots';
 
 export * from './types';
 export * from './Add';

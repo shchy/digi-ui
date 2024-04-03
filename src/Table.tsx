@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import { spaces, useTypography } from './styles';
-// import { FC } from 'react';
-import { getColor } from '../dist';
+import { spaces, useTypography, getColor, Pagenation } from '.';
+import { useState } from 'react';
 
 export interface TableColumnInfo<T> {
   header: string;
@@ -21,42 +20,73 @@ interface Props<T> {
   columns: TableColumnInfo<T>[];
   caption?: string;
   style?: TableStyle;
+  inPageSize?: number;
+  compactPager?: boolean;
 }
 
-export const Table = <T,>({ list, columns, caption, style }: Props<T>) => {
+export const Table = <T,>({
+  list,
+  columns,
+  caption,
+  style,
+  inPageSize,
+  compactPager,
+}: Props<T>) => {
+  const pageSize = inPageSize ?? list.length;
+  const pageCount = Math.ceil(list.length / pageSize);
+  const [currentPage, setCurrentPage] = useState(0);
+  const getPageList = (p: number) =>
+    list.slice(p * pageSize, p * pageSize + pageSize);
+
+  const [inPageList, setInPageList] = useState(getPageList(currentPage));
+  const movePage = (p: number) => {
+    setCurrentPage(p);
+    setInPageList(getPageList(p));
+  };
+
   return (
-    <Frame $v={style}>
-      <table>
-        {caption && <caption>{caption}</caption>}
-        <thead>
-          <tr>
-            {columns.map((c, ci) => (
-              <th
-                key={ci}
-                colSpan={c.colSpan}
-                style={{ textAlign: c.align, width: c.width }}
-              >
-                {c.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((r, ri) => {
-            const tds = columns.map((c, ci) => (
-              <td
-                key={ci}
-                colSpan={c.colSpan}
-                style={{ textAlign: c.align, width: c.width }}
-              >
-                {c.data(r)}
-              </td>
-            ));
-            return <tr key={ri}>{tds}</tr>;
-          })}
-        </tbody>
-      </table>
-    </Frame>
+    <>
+      <Frame $v={style}>
+        <table>
+          {caption && <caption>{caption}</caption>}
+          <thead>
+            <tr>
+              {columns.map((c, ci) => (
+                <th
+                  key={ci}
+                  colSpan={c.colSpan}
+                  style={{ textAlign: c.align, width: c.width }}
+                >
+                  {c.header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {inPageList.map((r, ri) => {
+              const tds = columns.map((c, ci) => (
+                <td
+                  key={ci}
+                  colSpan={c.colSpan}
+                  style={{ textAlign: c.align, width: c.width }}
+                >
+                  {c.data(r)}
+                </td>
+              ));
+              return <tr key={ri}>{tds}</tr>;
+            })}
+          </tbody>
+        </table>
+      </Frame>
+      {pageCount > 1 && (
+        <Pagenation
+          compact={compactPager}
+          pageCount={pageCount}
+          page={currentPage}
+          onPage={(next) => movePage(next)}
+        />
+      )}
+    </>
   );
 };
 

@@ -20,7 +20,7 @@ export const ExampleTable = () => {
   }
   const now = new Date();
   const [list] = useState<Data[]>(
-    [...Array(20).keys()].map((i) => ({
+    [...Array(35).keys()].map((i) => ({
       id: `id_${i}`,
       name: `name_${i}`,
       date: new Date(new Date(now).setDate(now.getDate() + i)).toISOString(),
@@ -83,6 +83,8 @@ export const ExampleTable = () => {
             list={list}
             columns={columns}
             style={{ borderLine: 'horizontal' }}
+            inPageSize={5}
+            compactPager
           />
         </Col>
       </Row>

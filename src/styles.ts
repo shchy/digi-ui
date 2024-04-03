@@ -621,7 +621,7 @@ export const radius = {
   S: '8px',
   M: '12px',
   L: '16px',
-  Full: '50% 0',
+  Full: '50%',
 };
 
 export const zIndex = Object.freeze({
