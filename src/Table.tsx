@@ -43,19 +43,14 @@ export const Table = <T,>({
   const { pageSize, pageCount } = useMemo(() => {
     const pageSize = inPageSize ?? list.length;
     const pageCount = Math.ceil(list.length / pageSize);
-
-    console.log(pageSize, pageCount);
     return { pageSize, pageCount };
   }, [inPageSize]);
 
   const inPageList = useMemo(() => {
-    const xs = list.slice(
+    return list.slice(
       currentPage * pageSize,
       currentPage * pageSize + pageSize
     );
-
-    console.log(xs);
-    return xs;
   }, [currentPage, pageSize]);
 
   const movePage = (p: number) => {
