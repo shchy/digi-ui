@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { spaces, useTypography, getColor, Pagenation, Checkbox } from '.';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export interface TableColumnInfo<T> {
   header: string;
@@ -39,21 +39,23 @@ export const Table = <T,>({
   onChange,
 }: Props<T>) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const getPageList = (p: number) =>
-    list.slice(p * pageSize, p * pageSize + pageSize);
-
-  const [inPageList, setInPageList] = useState(getPageList(currentPage));
-  const movePage = (p: number) => {
-    setCurrentPage(p);
-    setInPageList(getPageList(p));
-  };
 
   const { pageSize, pageCount } = useMemo(() => {
     const pageSize = inPageSize ?? list.length;
     const pageCount = Math.ceil(list.length / pageSize);
-    movePage(0);
     return { pageSize, pageCount };
   }, [inPageSize]);
+
+  const inPageList = useMemo(() => {
+    return list.slice(
+      currentPage * pageSize,
+      currentPage * pageSize + pageSize
+    );
+  }, [currentPage, pageSize]);
+
+  const movePage = (p: number) => {
+    setCurrentPage(p);
+  };
 
   const [selected, setSelected] = useState<T[] | undefined>(selectedList);
   const update = (v: T, checked: boolean) => {
