@@ -1,4 +1,4 @@
-import { Row, Col, Head, Text, TextArea } from 'digi-ui';
+import { Row, Col, Head, Text, TextArea } from '../../../src';
 import { useState } from 'react';
 
 export const ExampleTextArea = () => {

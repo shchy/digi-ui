@@ -11,6 +11,7 @@ import { ExampleTile } from './_components/ExampleTile';
 import { Routes, Route } from 'react-router-dom';
 import { CatalogLayout } from './_layout/CatalogLayout';
 import { ExampleDropdown } from './_components/ExampleDropdown';
+import { ExampleTable } from './_components/ExampleTable';
 
 function App() {
   return (
@@ -101,6 +102,14 @@ function App() {
           element={
             <CatalogLayout>
               <ExampleDropdown />
+            </CatalogLayout>
+          }
+        />
+        <Route
+          path="/tables"
+          element={
+            <CatalogLayout>
+              <ExampleTable />
             </CatalogLayout>
           }
         />

@@ -1,4 +1,4 @@
-import { Row, Col, Head, Dropdown, MenuItem } from 'digi-ui';
+import { Row, Col, Head, Dropdown, MenuItem } from '../../../src';
 
 export const ExampleDropdown = () => {
   const menus: MenuItem[] = [

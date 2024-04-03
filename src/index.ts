@@ -28,3 +28,4 @@ export * from './Scaffold';
 export * from './SideMenuPage';
 export * from './Tile';
 export * from './Banner';
+export * from './Table';

@@ -1,4 +1,4 @@
-import { Row, Col, Head, Text, TextField } from 'digi-ui';
+import { Row, Col, Head, Text, TextField } from '../../../src';
 import { useState } from 'react';
 
 export const ExampleTextField = () => {

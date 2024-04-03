@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MenuItem, MenuItemSimple } from 'digi-ui';
+import { MenuItem, MenuItemSimple } from '../../../src';
 
 type MenuItemWithPath = { path?: string } & MenuItem;
 
@@ -79,6 +79,11 @@ export const useMenus = () => {
       type: 'simple',
       label: 'Dropdown',
       path: '/dropdown',
+    },
+    {
+      type: 'simple',
+      label: 'Table',
+      path: '/tables',
     },
     {
       type: 'simple',

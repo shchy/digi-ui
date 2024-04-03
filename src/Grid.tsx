@@ -13,6 +13,8 @@ export const Col: FC<ICol> = (props) => {
 const InnerCol = styled.div<{
   $weight: ByScreen<number | 'auto' | 'initial' | 'none' | undefined>;
 }>`
+  min-width: 0;
+  min-height: 0;
   ${(props) => {
     return css`
       ${media.lessThan('small')`

@@ -1,5 +1,5 @@
-import { Row, Col, Head, Text } from 'digi-ui';
-import { Icon, Icons } from 'digi-ui/icons';
+import { Row, Col, Head, Text } from '../../../src';
+import { Icon, Icons } from '../../../src/icons';
 import styled from 'styled-components';
 
 export const ExampleIcons = () => {

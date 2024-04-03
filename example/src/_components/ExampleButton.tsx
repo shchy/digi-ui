@@ -1,4 +1,4 @@
-import { Row, Col, Button, Text, Head } from 'digi-ui';
+import { Row, Col, Button, Text, Head } from '../../../src';
 
 export const ExampleButton = () => {
   return (

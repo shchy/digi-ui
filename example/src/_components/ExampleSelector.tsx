@@ -1,4 +1,4 @@
-import { Row, Col, Text, Selector, Head } from 'digi-ui';
+import { Row, Col, Text, Selector, Head } from '../../../src';
 import { useState } from 'react';
 
 export const ExampleSelector = () => {

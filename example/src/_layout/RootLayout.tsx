@@ -5,7 +5,7 @@ import {
   Scaffold,
   HeaderProps,
   SideMenuPage,
-} from 'digi-ui';
+} from '../../../src';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FC, useEffect, useState } from 'react';
 

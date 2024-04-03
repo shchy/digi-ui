@@ -1,4 +1,4 @@
-import { Row, Col, Text, RadioButtonList, Head } from 'digi-ui';
+import { Row, Col, Text, RadioButtonList, Head } from '../../../src';
 import { useState } from 'react';
 
 export const ExampleRadioButtonList = () => {

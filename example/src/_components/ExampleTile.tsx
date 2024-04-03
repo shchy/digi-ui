@@ -1,4 +1,4 @@
-import { Row, Col, Tile, Text, Head } from 'digi-ui';
+import { Row, Col, Tile, Text, Head } from '../../../src';
 import { Icon } from '../../../dist/icons';
 
 export const ExampleTile = () => {

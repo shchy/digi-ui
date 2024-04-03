@@ -8,15 +8,21 @@ interface Props
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'ref' | 'type'> {
   color?: colorType;
   componentWidth?: number | string;
+  isSimple?: boolean;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, Props>(
-  ({ color, componentWidth, children, ...rest }, ref) => {
+  ({ color, componentWidth, isSimple, children, ...rest }, ref) => {
     const id = useId();
 
     return (
       <Root disabled={rest.disabled} $componentWidth={componentWidth}>
-        <CheckboxLabel htmlFor={id} $type="Body/L" $color={color}>
+        <CheckboxLabel
+          htmlFor={id}
+          $type="Body/L"
+          $color={color}
+          $isSimple={isSimple}
+        >
           <CheckboxInput ref={ref} id={id} type="checkbox" {...rest} />
           <CheckboxIcon
             htmlFor={id}
@@ -33,18 +39,20 @@ export const Checkbox = forwardRef<HTMLInputElement, Props>(
   }
 );
 
-const Root = styled(Fieldset)``;
-const CheckboxLabel = styled(Text)`
+const Root = styled(Fieldset)`
+  width: fit-content;
+`;
+const CheckboxLabel = styled(Text)<{ $isSimple?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 8px 0px;
+  ${({ $isSimple: isSimple }) => !isSimple && 'padding: 8px 0px'};
   gap: 16px;
   white-space: nowrap;
   &:focus-within {
     outline: 2px solid ${getColor('focus-yellow')};
     outline-offset: 2px;
-    border-radius: 8px;
+    ${({ $isSimple: isSimple }) => !isSimple && 'border-radius: 8px'};
   }
 `;
 const CheckboxIcon = styled(Text)<{ $checked: boolean }>`
