@@ -61,7 +61,9 @@ export type Icons =
   | 'Transactions'
   | 'Update'
   | 'Work'
-  | 'Close';
+  | 'Close'
+  | 'HDots'
+  | 'VDots';
 export type IconType = 'line' | 'fill';
 
 export interface SVGProps {

@@ -59,6 +59,8 @@ import { Transactions } from './Transactions';
 import { Update } from './Update';
 import { Work } from './Work';
 import { Close } from './Close';
+import { HDots } from './HDots';
+import { VDots } from './VDots';
 
 export const Icon: React.FC<IconProps> = (props) => {
   const icon = selectIcon(props);
@@ -187,6 +189,10 @@ const selectIcon = (p: IconProps) => {
       return <Work {...p} />;
     case 'Close':
       return <Close {...p} />;
+    case 'HDots':
+      return <HDots {...p} />;
+    case 'VDots':
+      return <VDots {...p} />;
     default:
       return <></>;
   }

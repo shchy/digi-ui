@@ -4,7 +4,8 @@ export * from './RadioIconUnCheck';
 export * from './RadioIconCheck';
 export * from './FirstPageArrow';
 export * from './EndPageArrow';
-export * from './Dots';
+export * from './HDots';
+export * from './VDots';
 
 export * from './types';
 export * from './Add';

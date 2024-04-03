@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Text, CircleButton, spaces, useTypography, media } from '.';
-import { Dots, EndPageArrow, FirstPageArrow, Icon } from './icons';
+import { HDots, EndPageArrow, FirstPageArrow, Icon } from './icons';
 
 interface Props {
   pageCount: number;
@@ -41,7 +41,7 @@ export const Pagenation = ({ pageCount, page, onPage, compact }: Props) => {
       </CircleButton>
       {isFull && (
         <>
-          <Dots />
+          <HDots />
           {befores.map((p, i) => {
             const key = `b-${i}`;
             return (
@@ -77,7 +77,7 @@ export const Pagenation = ({ pageCount, page, onPage, compact }: Props) => {
               </CircleButton>
             );
           })}
-          <Dots />
+          <HDots />
         </>
       )}
       <CircleButton

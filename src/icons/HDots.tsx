@@ -1,7 +1,7 @@
 import React from 'react';
 import { Svg } from './types';
 
-export const Dots: React.FC = ({ ...rest }) => {
+export const HDots: React.FC = ({ ...rest }) => {
   return (
     <Svg
       width="24"
