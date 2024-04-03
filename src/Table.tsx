@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { spaces, useTypography, getColor, Pagenation } from '.';
-import { useState } from 'react';
+import { spaces, useTypography, getColor, Pagenation, Checkbox } from '.';
+import { useMemo, useState } from 'react';
 
 export interface TableColumnInfo<T> {
   header: string;
@@ -22,6 +22,8 @@ interface Props<T> {
   style?: TableStyle;
   inPageSize?: number;
   compactPager?: boolean;
+  selectedList?: T[];
+  onChange?: (selected: T[]) => void;
 }
 
 export const Table = <T,>({
@@ -31,10 +33,17 @@ export const Table = <T,>({
   style,
   inPageSize,
   compactPager,
+  selectedList,
+  onChange,
 }: Props<T>) => {
-  const pageSize = inPageSize ?? list.length;
-  const pageCount = Math.ceil(list.length / pageSize);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { pageSize, pageCount } = useMemo(() => {
+    const pageSize = inPageSize ?? list.length;
+    const pageCount = Math.ceil(list.length / pageSize);
+    return { pageSize, pageCount };
+  }, [inPageSize]);
+
   const getPageList = (p: number) =>
     list.slice(p * pageSize, p * pageSize + pageSize);
 
@@ -44,6 +53,45 @@ export const Table = <T,>({
     setInPageList(getPageList(p));
   };
 
+  const [selected, setSelected] = useState<T[] | undefined>(selectedList);
+  const update = (v: T, checked: boolean) => {
+    if (!selected) return;
+    let xs: T[] = [];
+    if (checked && !selected.includes(v)) {
+      xs = [...selected, v];
+    } else if (selected.includes(v)) {
+      xs = selected.filter((x) => x !== v);
+    }
+    setSelected(xs);
+    onChange && onChange(xs);
+  };
+  const cs = useMemo(() => {
+    if (!selected) return columns;
+    return [
+      {
+        header: '',
+        width: 0,
+        data: (x) => (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Checkbox
+              isSimple
+              checked={selected.includes(x)}
+              onChange={(e) => update(x, e.target.checked)}
+            />
+          </div>
+        ),
+      } as TableColumnInfo<T>,
+      ...columns,
+    ];
+  }, [columns]);
+
   return (
     <>
       <Frame $v={style}>
@@ -51,7 +99,7 @@ export const Table = <T,>({
           {caption && <caption>{caption}</caption>}
           <thead>
             <tr>
-              {columns.map((c, ci) => (
+              {cs.map((c, ci) => (
                 <th
                   key={ci}
                   colSpan={c.colSpan}
@@ -64,7 +112,7 @@ export const Table = <T,>({
           </thead>
           <tbody>
             {inPageList.map((r, ri) => {
-              const tds = columns.map((c, ci) => (
+              const tds = cs.map((c, ci) => (
                 <td
                   key={ci}
                   colSpan={c.colSpan}

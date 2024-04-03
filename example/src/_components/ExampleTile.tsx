@@ -1,5 +1,5 @@
 import { Row, Col, Tile, Text, Head } from '../../../src';
-import { Icon } from '../../../dist/icons';
+import { Icon } from '../../../src/icons';
 
 export const ExampleTile = () => {
   return (

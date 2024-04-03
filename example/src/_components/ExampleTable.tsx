@@ -28,36 +28,7 @@ export const ExampleTable = () => {
       isAdmin: i % 2 == 0,
     }))
   );
-  const [selected, setSelected] = useState<Data[]>([]);
-  const update = (v: Data, checked: boolean) => {
-    if (checked && !selected.includes(v)) {
-      setSelected([...selected, v]);
-    } else if (selected.includes(v)) {
-      setSelected(selected.filter((x) => x !== v));
-    }
-  };
   const columns: TableColumnInfo<Data>[] = [
-    {
-      header: '',
-      width: 0,
-      data: (x) => (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Checkbox
-            isSimple
-            value={x.id}
-            checked={selected.includes(x)}
-            onChange={(e) => update(x, e.target.checked)}
-          />
-        </div>
-      ),
-    },
     { header: 'ID', data: (x) => x.id },
     { header: 'Name', data: (x) => x.name },
     { header: 'Age', data: (x) => x.age.toString(), align: 'right' },
@@ -72,6 +43,7 @@ export const ExampleTable = () => {
       ),
     },
   ];
+  const [selected, setSelected] = useState<Data[]>([]);
 
   return (
     <div>
@@ -85,6 +57,8 @@ export const ExampleTable = () => {
             style={{ borderLine: 'horizontal' }}
             inPageSize={5}
             compactPager
+            selectedList={selected}
+            onChange={(xs) => setSelected(xs)}
           />
         </Col>
       </Row>
