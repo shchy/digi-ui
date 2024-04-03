@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 import { getColor, useTypography } from './styles';
 import { Fieldset, Text } from '.';
 import { SelectorArrowDown } from './icons';
@@ -16,6 +16,7 @@ interface Props<T>
   selectDisplay?: (v: T) => string;
   requiredLabel?: boolean;
   componentWidth?: number | string;
+  isSimple?: boolean;
 }
 
 export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
@@ -30,11 +31,12 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
       errorText,
       requiredLabel,
       componentWidth,
+      isSimple,
       ...rest
     }: Props<any>,
     ref
   ) => {
-    return (
+    return !isSimple ? (
       <Root disabled={rest.disabled} $componentWidth={componentWidth}>
         <LabelFrame>
           <Text $type="Label/L">{label}</Text>
@@ -75,16 +77,47 @@ export const Selector = forwardRef<HTMLSelectElement, Props<any>>(
             </Text>
           ))}
       </Root>
+    ) : (
+      <Root
+        disabled={rest.disabled}
+        $componentWidth={componentWidth}
+        direction="row"
+      >
+        <Text $type="Label/L" $noWrap>
+          {label}
+        </Text>
+        <SelectFrame>
+          <Select
+            ref={ref}
+            value={selectedItem && selectKey(selectedItem)}
+            $state={{
+              hasError: hasError(errorText),
+            }}
+            $isSimple={isSimple}
+            {...rest}
+          >
+            {list.map((x) => (
+              <option key={selectKey(x)} value={selectKey(x)}>
+                {selectDisplay ? selectDisplay(x) : selectKey(x)}
+              </option>
+            ))}
+          </Select>
+          <SelectIcon>
+            <SelectorArrowDown />
+          </SelectIcon>
+        </SelectFrame>
+      </Root>
     );
   }
 ) as <T>(p: Props<T> & { ref?: React.Ref<HTMLSelectElement> }) => JSX.Element;
 
-const Root = styled(Fieldset)`
+const Root = styled(Fieldset)<{ direction?: 'row' | 'column' }>`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: ${({ direction }) => direction ?? 'column'};
+  align-items: ${({ direction }) => (direction === 'row' ? 'center' : 'start')};
   padding: 0px;
   gap: 8px;
+  width: fit-content;
 `;
 
 const LabelFrame = styled.div`
@@ -106,15 +139,27 @@ const Select = styled.select<{
   $state?: {
     hasError: boolean;
   };
+  $isSimple?: boolean;
 }>`
   grid-column: 1/2;
   grid-row: 1/2;
   appearance: none;
 
   ${() => useTypography('Body/L')}
-  min-width: calc(327px - 32px - 2px);
-  min-height: 56px;
-  padding: 12px 16px;
+  ${({ $isSimple }) => {
+    if ($isSimple) {
+      return css`
+        min-width: calc(180px - 24px - 2px);
+        padding: 4px 12px;
+      `;
+    }
+    return css`
+      min-width: calc(327px - 32px - 2px);
+      min-height: 56px;
+      padding: 12px 16px;
+    `;
+  }}
+  
 
   border-radius: 8px;
   border: ${(props) => {
@@ -139,4 +184,8 @@ const SelectIcon = styled.div`
   justify-self: end;
   margin-right: 16px;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

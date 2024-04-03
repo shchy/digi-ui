@@ -1,13 +1,4 @@
-import {
-  Row,
-  Col,
-  Head,
-  Checkbox,
-  Text,
-  Table,
-  TableColumnInfo,
-} from '../../../src';
-// import { Icon } from 'digi-ui/icons';
+import { Row, Col, Head, Text, Table, TableColumnInfo } from '../../../src';
 import { useState } from 'react';
 
 export const ExampleTable = () => {

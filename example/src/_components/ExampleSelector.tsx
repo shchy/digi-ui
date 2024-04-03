@@ -84,6 +84,25 @@ export const ExampleSelector = () => {
           />
         </Col>
       </Row>
+      <Row>
+        <Col large={1}>
+          <Text $type="Headline/XS">Simple</Text>
+        </Col>
+        <Col large={3}>
+          <Selector
+            isSimple
+            label="電話番号"
+            list={selectList}
+            selectKey={(x) => x}
+            selectedItem={selected}
+            onChange={(e) =>
+              setSelected(selectList.find((x) => x === e.target.value))
+            }
+            requiredLabel={true}
+            supportText="電話番号"
+          />
+        </Col>
+      </Row>
     </div>
   );
 };
