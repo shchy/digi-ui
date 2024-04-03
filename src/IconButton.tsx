@@ -5,7 +5,7 @@ import { Icon, IconProps } from './icons';
 import { Text } from './Text';
 
 type Props = {
-  label: string;
+  label?: string;
   direction?: 'row' | 'column';
   onClick?: () => void;
 } & IconProps;
@@ -15,9 +15,11 @@ export const IconButton: FC<Props> = (props) => {
       <IconContainer>
         <Icon {...props} $textType="Body/L" />
       </IconContainer>
-      <LabelContainer>
-        <InnerText $type="Body/M">{props.label}</InnerText>
-      </LabelContainer>
+      {props.label && (
+        <LabelContainer>
+          <InnerText $type="Body/M">{props.label}</InnerText>
+        </LabelContainer>
+      )}
     </Root>
   );
 };
