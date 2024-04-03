@@ -39,13 +39,6 @@ export const Table = <T,>({
   onChange,
 }: Props<T>) => {
   const [currentPage, setCurrentPage] = useState(0);
-
-  const { pageSize, pageCount } = useMemo(() => {
-    const pageSize = inPageSize ?? list.length;
-    const pageCount = Math.ceil(list.length / pageSize);
-    return { pageSize, pageCount };
-  }, [inPageSize]);
-
   const getPageList = (p: number) =>
     list.slice(p * pageSize, p * pageSize + pageSize);
 
@@ -54,6 +47,13 @@ export const Table = <T,>({
     setCurrentPage(p);
     setInPageList(getPageList(p));
   };
+
+  const { pageSize, pageCount } = useMemo(() => {
+    const pageSize = inPageSize ?? list.length;
+    const pageCount = Math.ceil(list.length / pageSize);
+    movePage(0);
+    return { pageSize, pageCount };
+  }, [inPageSize]);
 
   const [selected, setSelected] = useState<T[] | undefined>(selectedList);
   const update = (v: T, checked: boolean) => {
