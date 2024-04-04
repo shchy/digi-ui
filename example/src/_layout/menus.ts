@@ -87,6 +87,11 @@ export const useMenus = () => {
     },
     {
       type: 'simple',
+      label: 'Modal',
+      path: '/modals',
+    },
+    {
+      type: 'simple',
       label: 'DisableTest',
       disabled: true,
     },

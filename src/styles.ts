@@ -627,6 +627,7 @@ export const radius = {
 export const zIndex = Object.freeze({
   main: 0,
   drawer: 1,
+  modal: 3,
 });
 
 export interface ByScreen<T> {

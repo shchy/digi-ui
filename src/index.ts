@@ -31,3 +31,5 @@ export * from './Banner';
 export * from './Table';
 export * from './Pagenation';
 export * from './CircleButton';
+export * from './Modal';
+export * from './ModalDialog';

@@ -12,6 +12,7 @@ import { Routes, Route } from 'react-router-dom';
 import { CatalogLayout } from './_layout/CatalogLayout';
 import { ExampleDropdown } from './_components/ExampleDropdown';
 import { ExampleTable } from './_components/ExampleTable';
+import { ExampleModal } from './_components/ExampleModal';
 
 function App() {
   return (
@@ -110,6 +111,14 @@ function App() {
           element={
             <CatalogLayout>
               <ExampleTable />
+            </CatalogLayout>
+          }
+        />
+        <Route
+          path="/modals"
+          element={
+            <CatalogLayout>
+              <ExampleModal />
             </CatalogLayout>
           }
         />

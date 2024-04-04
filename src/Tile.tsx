@@ -6,8 +6,12 @@ import { prevent } from './utils';
 interface Props {
   title: React.ReactNode;
   body: React.ReactNode;
+  footer?: React.ReactNode;
+
   color?: colorType;
   borderWidth?: string;
+  height?: 'fill' | 'fit-content';
+  noPadding?: boolean;
 
   href?: string;
   target?: React.HTMLAttributeAnchorTarget;
@@ -17,8 +21,11 @@ interface Props {
 export const Tile: FC<Props> = ({
   title,
   body,
+  footer,
   borderWidth,
   color,
+  height,
+  noPadding,
   ...rest
 }) => {
   const isLink = !!rest.href || !!rest.onClick;
@@ -33,19 +40,39 @@ export const Tile: FC<Props> = ({
       {body}
     </FrameLink>
   ) : (
-    <Frame $v={{ borderWidth: borderWidth, color: color }}>
-      {title}
-      {body}
+    <Frame
+      $v={{
+        borderWidth: borderWidth,
+        color: color,
+        height: height,
+        noPadding: noPadding,
+      }}
+    >
+      <div>{title}</div>
+      <div>{body}</div>
+      <div>{footer}</div>
     </Frame>
   );
 };
 
-const Frame = styled.div<{ $v: { color?: colorType; borderWidth?: string } }>`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: ${spaces.M};
+const Frame = styled.div<{
+  $v: {
+    color?: colorType;
+    borderWidth?: string;
+    height?: 'fill' | 'fit-content';
+    noPadding?: boolean;
+  };
+}>`
+  padding: ${({ $v: { noPadding } }) => (noPadding ? '0' : spaces.M)};
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto;
   gap: ${spaces.XS};
+
+  height: ${({ $v: { height, noPadding } }) => {
+    const pad = noPadding ? '' : ` - ${spaces.M} - ${spaces.M}`;
+    return height === 'fill' ? `calc(100% ${pad})` : 'fit-content';
+  }};
 
   ${({ $v }) => useTypography('Body/L', $v.color)}
   border: ${({ $v }) =>
@@ -54,6 +81,10 @@ const Frame = styled.div<{ $v: { color?: colorType; borderWidth?: string } }>`
     )}`};
   border-radius: ${radius.M};
   background-color: ${getColor('neutral-white')};
+
+  * {
+    overflow-wrap: break-word;
+  }
 `;
 
 const FrameLink = styled.a<{ $v: { color?: colorType; borderWidth?: string } }>`
