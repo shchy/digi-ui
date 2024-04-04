@@ -30,12 +30,19 @@ export const Modal: FC<React.PropsWithChildren<Props>> = ({
       onClose && onClose();
     }
   };
+  const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target;
+    if (target && frame.current?.contains(target as Element)) {
+      return;
+    }
+    onClose && onClose();
+  };
   return (
     <Frame
       ref={frame}
       $v={{ isOpen }}
       tabIndex={-1}
-      onClick={() => onClose && onClose()}
+      onClick={onClickHandler}
       onKeyUp={onKeyDownHandler}
     >
       <Dialog>{children}</Dialog>
