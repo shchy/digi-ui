@@ -86,7 +86,7 @@ const Dialog = styled.div`
   ${media.between('small', 'large')`
     min-width: calc(100% * 0.25);
     min-height: calc(100% * 0.25);
-    max-width: calc(100% * 0.5);
+    max-width: calc(100% * 0.75);
     max-height: calc(100% * 0.75);
     margin: auto auto;
     padding: ${spaces.L} calc(${spaces.XL} - ${spaces.XS});
@@ -94,7 +94,7 @@ const Dialog = styled.div`
   ${media.greaterThan('large')`
     min-width: calc(100% * 0.25);
     min-height: calc(100% * 0.25);
-    max-width: calc(100% * 0.5);
+    max-width: calc(100% * 0.75);
     max-height: calc(100% * 0.75);
     margin: auto auto;
     padding: ${spaces.L} calc(${spaces.XL} - ${spaces.XS});
