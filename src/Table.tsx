@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
-import { spaces, useTypography, getColor, Pagenation, Checkbox } from '.';
-import { useEffect, useMemo, useState } from 'react';
+import { spaces, useTypography, getColor, Pagenation, Checkbox, Text } from '.';
+import { useMemo, useState } from 'react';
+import { hashCode } from './utils';
+import { Icon } from './icons';
+
+export type SortOrder = 'none' | 'asc' | 'desc';
 
 export interface TableColumnInfo<T> {
   header: string;
@@ -8,6 +12,7 @@ export interface TableColumnInfo<T> {
   align?: 'left' | 'center' | 'right';
   width?: string | number;
   colSpan?: number;
+  onSort?: (a: T, b: T) => number;
 }
 
 interface TableStyle {
@@ -38,20 +43,58 @@ export const Table = <T,>({
   selectedList,
   onChange,
 }: Props<T>) => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [sortOrder, setSortOrder] = useState<{
+    column: TableColumnInfo<T>;
+    order: SortOrder;
+    compare: (a: T, b: T) => number;
+  }>();
+  const onSortHandler = (c: TableColumnInfo<T>) => {
+    if (!c.onSort) return;
+    const isSameColumn = sortOrder && sortOrder.column === c;
+    const nextOrder = isSameColumn
+      ? sortOrder.order === 'asc'
+        ? 'desc'
+        : sortOrder.order === 'desc'
+        ? 'none'
+        : 'asc'
+      : 'asc';
+    setSortOrder({ column: c, compare: c.onSort, order: nextOrder });
+  };
+  const sortIcon = (c: TableColumnInfo<T>) => {
+    const order =
+      sortOrder && sortOrder.column === c ? sortOrder.order : undefined;
+    if (!order || order === 'none') return <></>;
+    return order === 'asc' ? (
+      <Icon name="ArrowDown" />
+    ) : (
+      <Icon name="ArrowUp" />
+    );
+  };
 
+  const sortedList = useMemo(() => {
+    if (!sortOrder || sortOrder.order === 'none' || !sortOrder.compare)
+      return list;
+    const ascOrdered = list.sort(sortOrder.compare);
+    if (sortOrder.order === 'asc') {
+      return ascOrdered;
+    } else {
+      return ascOrdered.reverse();
+    }
+  }, [list, sortOrder]);
+
+  const [currentPage, setCurrentPage] = useState(0);
   const { pageSize, pageCount } = useMemo(() => {
-    const pageSize = inPageSize ?? list.length;
-    const pageCount = Math.ceil(list.length / pageSize);
+    const pageSize = inPageSize ?? sortedList.length;
+    const pageCount = Math.ceil(sortedList.length / pageSize);
     return { pageSize, pageCount };
   }, [inPageSize]);
 
   const inPageList = useMemo(() => {
-    return list.slice(
+    return sortedList.slice(
       currentPage * pageSize,
       currentPage * pageSize + pageSize
     );
-  }, [currentPage, pageSize]);
+  }, [sortedList, sortOrder, currentPage, pageSize]);
 
   const movePage = (p: number) => {
     setCurrentPage(p);
@@ -105,11 +148,15 @@ export const Table = <T,>({
             <tr>
               {cs.map((c, ci) => (
                 <th
-                  key={ci}
+                  key={hashCode({ c, ci })}
                   colSpan={c.colSpan}
-                  style={{ textAlign: c.align, width: c.width }}
+                  style={{ width: c.width }}
+                  onClick={() => onSortHandler(c)}
                 >
-                  {c.header}
+                  <div>
+                    <Text style={{ textAlign: c.align }}>{c.header}</Text>
+                    {sortIcon(c)}
+                  </div>
                 </th>
               ))}
             </tr>
@@ -118,14 +165,14 @@ export const Table = <T,>({
             {inPageList.map((r, ri) => {
               const tds = cs.map((c, ci) => (
                 <td
-                  key={ci}
+                  key={hashCode({ c, ci })}
                   colSpan={c.colSpan}
                   style={{ textAlign: c.align, width: c.width }}
                 >
                   {c.data(r)}
                 </td>
               ));
-              return <tr key={ri}>{tds}</tr>;
+              return <tr key={hashCode({ r, ri })}>{tds}</tr>;
             })}
           </tbody>
         </table>
@@ -165,6 +212,15 @@ const Frame = styled.div<{
     padding: ${spaces.XS};
     text-align: left;
     vertical-align: middle;
+  }
+
+  table th div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    *:first-child {
+      flex: 1;
+    }
   }
 
   table th {

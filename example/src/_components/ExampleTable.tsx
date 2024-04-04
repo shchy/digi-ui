@@ -20,9 +20,22 @@ export const ExampleTable = () => {
     }))
   );
   const columns: TableColumnInfo<Data>[] = [
-    { header: 'ID', data: (x) => x.id },
-    { header: 'Name', data: (x) => x.name },
-    { header: 'Age', data: (x) => x.age.toString(), align: 'right' },
+    {
+      header: 'ID',
+      data: (x) => x.id,
+      onSort: (x, y) => (x.id < y.id ? -1 : 1),
+    },
+    {
+      header: 'Name',
+      data: (x) => x.name,
+      onSort: (x, y) => (x.id < y.id ? -1 : 1),
+    },
+    {
+      header: 'Age',
+      data: (x) => x.age.toString(),
+      align: 'right',
+      onSort: (x, y) => (x.id < y.id ? -1 : 1),
+    },
     { header: 'Date', data: (x) => x.date },
     { header: 'IsAdmin', data: (x) => (x.isAdmin ? 'Admin' : 'None') },
     {
