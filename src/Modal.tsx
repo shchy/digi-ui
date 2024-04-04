@@ -31,7 +31,13 @@ export const Modal: FC<React.PropsWithChildren<Props>> = ({
     }
   };
   return (
-    <Frame ref={frame} $v={{ isOpen }} tabIndex={-1} onKeyUp={onKeyDownHandler}>
+    <Frame
+      ref={frame}
+      $v={{ isOpen }}
+      tabIndex={-1}
+      onClick={() => onClose && onClose()}
+      onKeyUp={onKeyDownHandler}
+    >
       <Dialog>{children}</Dialog>
     </Frame>
   );
