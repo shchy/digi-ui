@@ -5,6 +5,15 @@ import { hashCode } from './utils';
 import { Icon } from './icons';
 
 export type SortOrder = 'none' | 'asc' | 'desc';
+export const defaultSort = <T,>(
+  getter: (x: T) => string | number | object | Date | boolean
+) => {
+  return (x: T, y: T) => {
+    const xv = getter(x);
+    const yv = getter(y);
+    return xv === yv ? 0 : xv < yv ? -1 : 1;
+  };
+};
 
 export interface TableColumnInfo<T> {
   header: string;

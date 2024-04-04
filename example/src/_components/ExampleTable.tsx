@@ -1,4 +1,12 @@
-import { Row, Col, Head, Text, Table, TableColumnInfo } from '../../../src';
+import {
+  Row,
+  Col,
+  Head,
+  Text,
+  Table,
+  TableColumnInfo,
+  defaultSort,
+} from '../../../src';
 import { useState } from 'react';
 
 export const ExampleTable = () => {
@@ -23,18 +31,18 @@ export const ExampleTable = () => {
     {
       header: 'ID',
       data: (x) => x.id,
-      onSort: (x, y) => (x.id < y.id ? -1 : 1),
+      onSort: defaultSort((x) => x.id),
     },
     {
       header: 'Name',
       data: (x) => x.name,
-      onSort: (x, y) => (x.id < y.id ? -1 : 1),
+      onSort: defaultSort((x) => x.name),
     },
     {
       header: 'Age',
       data: (x) => x.age.toString(),
       align: 'right',
-      onSort: (x, y) => (x.id < y.id ? -1 : 1),
+      onSort: defaultSort((x) => x.age),
     },
     { header: 'Date', data: (x) => x.date },
     { header: 'IsAdmin', data: (x) => (x.isAdmin ? 'Admin' : 'None') },
