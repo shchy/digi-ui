@@ -32,7 +32,11 @@ export const Modal: FC<React.PropsWithChildren<Props>> = ({
   };
   const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target;
-    if (target && frame.current?.contains(target as Element)) {
+    if (
+      target &&
+      target !== frame.current &&
+      frame.current?.contains(target as Element)
+    ) {
       return;
     }
     onClose && onClose();
