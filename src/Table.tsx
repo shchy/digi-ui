@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { spaces, useTypography, getColor, Pagenation, Checkbox, Text } from '.';
 import { useMemo, useState } from 'react';
-import { hashCode } from './utils';
+import { hashCode, useSelectedList } from './utils';
 import { Icon } from './icons';
 
 export type SortOrder = 'none' | 'asc' | 'desc';
@@ -109,20 +109,13 @@ export const Table = <T,>({
     setCurrentPage(p);
   };
 
-  const [selected, setSelected] = useState<T[] | undefined>(selectedList);
-  const update = (v: T, checked: boolean) => {
-    if (!selected) return;
-    let xs: T[] = [];
-    if (checked && !selected.includes(v)) {
-      xs = [...selected, v];
-    } else if (selected.includes(v)) {
-      xs = selected.filter((x) => x !== v);
-    }
-    setSelected(xs);
-    onChange && onChange(xs);
-  };
+  const [selected, updateSelected] = useSelectedList<T>(
+    selectedList ?? [],
+    onChange
+  );
+
   const cs = useMemo(() => {
-    if (!selected) return columns;
+    if (!selectedList) return columns;
     return [
       {
         header: '',
@@ -139,7 +132,7 @@ export const Table = <T,>({
             <Checkbox
               isSimple
               checked={selected.includes(x)}
-              onChange={(e) => update(x, e.target.checked)}
+              onChange={(e) => updateSelected(x, e.target.checked)}
             />
           </div>
         ),
@@ -221,6 +214,7 @@ const Frame = styled.div<{
     padding: ${spaces.XS};
     text-align: left;
     vertical-align: middle;
+    white-space: nowrap;
   }
 
   table th div {

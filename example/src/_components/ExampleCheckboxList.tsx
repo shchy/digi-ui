@@ -1,16 +1,14 @@
-import { Row, Col, Text, CheckboxList, Head } from '../../../src';
 import { useState } from 'react';
+import { Row, Col, Text, CheckboxList, Head } from '../../../src';
+import {
+  createChangeCheckedHandler,
+  useSelectedList,
+} from '../../../src/utils';
 
 export const ExampleCheckboxList = () => {
-  const list = ['A', 'B', 'C'];
-  const [selectedItems, setSelected] = useState<string[]>([]);
-  const update = (v: string, checked: boolean) => {
-    if (checked && !selectedItems.includes(v)) {
-      setSelected([...selectedItems, v]);
-    } else if (selectedItems.includes(v)) {
-      setSelected(selectedItems.filter((x) => x !== v));
-    }
-  };
+  const [list] = useState(['A', 'B', 'C']);
+  const [selectedItems, update] = useSelectedList<string>([]);
+  const onChangeHandler = createChangeCheckedHandler(list, (x) => x, update);
 
   return (
     <div>
@@ -26,7 +24,7 @@ export const ExampleCheckboxList = () => {
             selectKey={(x) => x}
             selectedItems={selectedItems}
             selectDisplay={(x) => `選択肢${x}`}
-            onChange={(e) => update(e.target.value, e.target.checked)}
+            onChange={onChangeHandler}
             requiredLabel={true}
             supportText="電話番号"
           />
@@ -42,7 +40,7 @@ export const ExampleCheckboxList = () => {
             list={list}
             selectKey={(x) => x}
             selectedItems={selectedItems}
-            onChange={(e) => update(e.target.value, e.target.checked)}
+            onChange={onChangeHandler}
             supportText="電話番号"
           />
         </Col>
@@ -57,7 +55,7 @@ export const ExampleCheckboxList = () => {
             list={list}
             selectKey={(x) => x}
             selectedItems={selectedItems}
-            onChange={(e) => update(e.target.value, e.target.checked)}
+            onChange={onChangeHandler}
             requiredLabel={true}
             supportText="電話番号"
             errorText="数字で入力してください。"
@@ -74,7 +72,7 @@ export const ExampleCheckboxList = () => {
             list={list}
             selectKey={(x) => x}
             selectedItems={selectedItems}
-            onChange={(e) => update(e.target.value, e.target.checked)}
+            onChange={onChangeHandler}
             requiredLabel={true}
             disabled
             supportText="電話番号"

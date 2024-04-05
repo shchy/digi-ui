@@ -1,16 +1,10 @@
 import { Row, Col, Text, Checkbox, Head } from '../../../src';
-import { useState } from 'react';
+import { useSelectedList } from '../../../src/utils';
 
 export const ExampleCheckbox = () => {
   type enums = 'A' | 'B';
-  const [selected, setSelected] = useState<enums[]>([]);
-  const update = (v: enums, checked: boolean) => {
-    if (checked && !selected.includes(v)) {
-      setSelected([...selected, v]);
-    } else if (selected.includes(v)) {
-      setSelected(selected.filter((x) => x !== v));
-    }
-  };
+
+  const [selected, updateSelected] = useSelectedList<enums>([]);
 
   return (
     <div>
@@ -24,7 +18,7 @@ export const ExampleCheckbox = () => {
             name="asdf"
             value={'A'}
             checked={selected.includes('A')}
-            onChange={(e) => update('A', e.target.checked)}
+            onChange={(e) => updateSelected('A', e.target.checked)}
           >
             選択肢1
           </Checkbox>
@@ -39,7 +33,7 @@ export const ExampleCheckbox = () => {
             name="asdf"
             value={'B'}
             checked={selected.includes('B')}
-            onChange={(e) => update('B', e.target.checked)}
+            onChange={(e) => updateSelected('B', e.target.checked)}
             disabled
           >
             選択肢1
