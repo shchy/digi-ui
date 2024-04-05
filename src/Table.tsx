@@ -81,7 +81,6 @@ export const Table = <T,>({
   };
 
   const sortedList = useMemo(() => {
-    console.log('list', list);
     if (!sortOrder || sortOrder.order === 'none' || !sortOrder.compare)
       return list;
     const ascOrdered = list.sort(sortOrder.compare);
@@ -96,7 +95,6 @@ export const Table = <T,>({
   const { pageSize, pageCount } = useMemo(() => {
     const pageSize = inPageSize ?? sortedList.length;
     const pageCount = Math.ceil(sortedList.length / pageSize);
-    console.log('pageCount', pageCount);
     return { pageSize, pageCount };
   }, [inPageSize, sortedList]);
 
