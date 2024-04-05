@@ -1,4 +1,5 @@
 export * from './styles';
+export * from './utils';
 export * from './Text';
 export * from './Head';
 export * from './Link';

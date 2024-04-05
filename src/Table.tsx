@@ -224,6 +224,7 @@ const Frame = styled.div<{
     *:first-child {
       flex: 1;
     }
+    white-space: nowrap;
   }
 
   table th {
