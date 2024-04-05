@@ -5,6 +5,7 @@ import { MenuItem, MenuList } from './MenuList';
 import { IconButton } from './IconButton';
 import { Drawer } from './Drawer';
 import { Divider } from './Divider';
+import { Text } from '.';
 
 export interface HeaderProps {
   logo: React.ReactNode;
@@ -60,10 +61,10 @@ export const Header: FC<HeaderProps> = ({
     label: 'グローバルメニュー',
     type: 'section-header',
   };
-  const toolMenuTitle: MenuItem = {
-    label: 'ユーティリティメニュー',
-    type: 'section-header',
-  };
+  // const toolMenuTitle: MenuItem = {
+  //   label: 'ユーティリティメニュー',
+  //   type: 'section-header',
+  // };
   const pageMenuTitle: MenuItem = {
     label: 'ページメニュー',
     type: 'section-header',
@@ -108,6 +109,13 @@ export const Header: FC<HeaderProps> = ({
               />
             </CloseContainerInDrawer>
             <Divider $type="dashed" />
+
+            <Text $type="Button">ユーティリティメニュー</Text>
+            {items.map((x, i) => (
+              <span key={i}>{x}</span>
+            ))}
+            <Divider $type="solid" />
+
             {pageMenus && (
               <>
                 <MenuList
@@ -127,6 +135,10 @@ export const Header: FC<HeaderProps> = ({
         )}
         {drawerPosition === 'full' && (
           <>
+            {items.map((x, i) => (
+              <span key={i}>{x}</span>
+            ))}
+            <Divider $type="solid" />
             {pageMenus && (
               <>
                 <MenuList
@@ -173,7 +185,7 @@ const ItemsFrame = styled.div<{ $isSlim?: boolean }>`
   gap: ${spaces.S};
 
   ${media.lessThan('small')`
-    grid-column: 2/3;
+  display: none;
   `}
 `;
 const GlobalMenuFrame = styled.div<{
