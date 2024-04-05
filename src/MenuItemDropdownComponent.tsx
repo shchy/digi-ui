@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import { css, styled } from 'styled-components';
-import { MenuItemDropdown, MenuItemBase, getColor, MenuList } from '.';
+import { MenuItemDropdown, MenuItemBase, getColor, MenuList, zIndex } from '.';
 import { Icons } from './icons';
 
 type Props = Omit<MenuItemDropdown, 'type'>;
@@ -79,6 +79,7 @@ const DropList = styled.div<{
   $direction?: 'top' | 'left' | 'bottom' | 'right';
   $align?: 'start' | 'end';
 }>`
+  z-index: ${zIndex.drawer};
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   position: absolute;
   border: 1px solid ${getColor('neutral-solid-grey-420')};
