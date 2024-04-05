@@ -98,7 +98,7 @@ export const Table = <T,>({
     const pageCount = Math.ceil(sortedList.length / pageSize);
     console.log('pageCount', pageCount);
     return { pageSize, pageCount };
-  }, [inPageSize]);
+  }, [inPageSize, sortedList]);
 
   const inPageList = useMemo(() => {
     return sortedList.slice(
