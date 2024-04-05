@@ -4,15 +4,36 @@ import { ByScreen, media, spaces } from './styles';
 
 interface ICol
   extends ByScreen<number | 'auto' | 'initial' | 'none' | undefined> {
+  justifyContent?: string;
+  alignItems?: string;
   children?: ReactNode;
 }
 
-export const Col: FC<ICol> = (props) => {
-  return <InnerCol $weight={props}>{props.children}</InnerCol>;
+export const Col: FC<ICol> = ({
+  justifyContent,
+  alignItems,
+  children,
+  ...rest
+}) => {
+  return (
+    <InnerCol
+      $weight={rest}
+      justifyContent={justifyContent}
+      alignItems={alignItems}
+    >
+      {children}
+    </InnerCol>
+  );
 };
 const InnerCol = styled.div<{
   $weight: ByScreen<number | 'auto' | 'initial' | 'none' | undefined>;
+  justifyContent?: string;
+  alignItems?: string;
 }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: ${({ justifyContent }) => justifyContent};
+  align-items: ${({ alignItems }) => alignItems};
   min-width: 0;
   min-height: 0;
   ${(props) => {
@@ -54,15 +75,16 @@ const InnerCol = styled.div<{
 `;
 
 export const Row: FC<{
+  isSlim?: boolean;
   children: ReactElement<ICol>[] | ReactElement<ICol>;
 }> = (props) => {
-  return <InnerRow>{props.children}</InnerRow>;
+  return <InnerRow isSlim={props.isSlim}>{props.children}</InnerRow>;
 };
-const InnerRow = styled.div`
+const InnerRow = styled.div<{ isSlim?: boolean }>`
   display: flex;
   flex-direction: row;
   gap: 32px;
-  margin: ${spaces.M} 0;
+  margin: ${({ isSlim }) => (isSlim ? spaces.XXS : spaces.M)} 0;
   ${media.lessThan('small')`
     flex-direction: column;
   `}
