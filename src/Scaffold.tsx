@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Container, Header, HeaderProps } from '.';
+import { Container, Header, HeaderProps, zIndex } from '.';
 import styled from 'styled-components';
 
 interface Props {
@@ -23,6 +23,7 @@ export const Scaffold: FC<React.PropsWithChildren<Props>> = (props) => {
 
 const StickyHeader = styled.header`
   position: sticky;
+  z-index: ${zIndex.drawer};
   top: 0;
   background-color: rgba(255, 255, 255, 0.88);
   &::before {

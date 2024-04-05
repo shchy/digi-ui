@@ -8,6 +8,7 @@ import {
   Text,
   spaces,
   useTypography,
+  zIndex,
 } from '.';
 import { Icon, IconProps, Icons } from './icons';
 import React from 'react';
@@ -129,6 +130,7 @@ const DropList = styled.div<{
   $direction?: 'top' | 'left' | 'bottom' | 'right';
   $align?: 'start' | 'end';
 }>`
+  z-index: ${zIndex.drawer};
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   position: absolute;
   border: 1px solid ${getColor('neutral-solid-grey-420')};
