@@ -18,8 +18,8 @@ export const Col: FC<ICol> = ({
   return (
     <InnerCol
       $weight={rest}
-      justifyContent={justifyContent}
-      alignItems={alignItems}
+      $justifyContent={justifyContent}
+      $alignItems={alignItems}
     >
       {children}
     </InnerCol>
@@ -27,13 +27,13 @@ export const Col: FC<ICol> = ({
 };
 const InnerCol = styled.div<{
   $weight: ByScreen<number | 'auto' | 'initial' | 'none' | undefined>;
-  justifyContent?: string;
-  alignItems?: string;
+  $justifyContent?: string;
+  $alignItems?: string;
 }>`
   display: flex;
   flex-direction: column;
-  justify-content: ${({ justifyContent }) => justifyContent};
-  align-items: ${({ alignItems }) => alignItems};
+  justify-content: ${({ $justifyContent }) => $justifyContent};
+  align-items: ${({ $alignItems }) => $alignItems};
   min-width: 0;
   min-height: 0;
   ${(props) => {
@@ -78,13 +78,13 @@ export const Row: FC<{
   isSlim?: boolean;
   children: ReactElement<ICol>[] | ReactElement<ICol>;
 }> = (props) => {
-  return <InnerRow isSlim={props.isSlim}>{props.children}</InnerRow>;
+  return <InnerRow $isSlim={props.isSlim}>{props.children}</InnerRow>;
 };
-const InnerRow = styled.div<{ isSlim?: boolean }>`
+const InnerRow = styled.div<{ $isSlim?: boolean }>`
   display: flex;
   flex-direction: row;
   gap: 32px;
-  margin: ${({ isSlim }) => (isSlim ? spaces.XXS : spaces.M)} 0;
+  margin: ${({ $isSlim }) => ($isSlim ? spaces.XXS : spaces.M)} 0;
   ${media.lessThan('small')`
     flex-direction: column;
   `}
