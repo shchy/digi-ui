@@ -156,7 +156,9 @@ export const Table = <T,>({
                   onClick={() => onSortHandler(c)}
                 >
                   <div>
-                    <Text style={{ textAlign: c.align }}>{c.header}</Text>
+                    <Text $noWrap style={{ textAlign: c.align }}>
+                      {c.header}
+                    </Text>
                     {sortIcon(c)}
                   </div>
                 </th>
